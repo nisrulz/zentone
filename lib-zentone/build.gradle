@@ -1,0 +1,71 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'zentone'
+
+    publishedGroupId = 'com.github.nisrulz'
+    libraryName = 'ZenTone'
+    artifact = 'zentone'
+
+    libraryDescription = 'Simplified Android Tone Generator'
+
+    siteUrl = 'https://github.com/nisrulz/zentone'
+    gitUrl = 'https://github.com/nisrulz/zentone.git'
+
+    libraryVersion = '0.1.0'
+
+    developerId = 'nisrulz'
+    developerName = 'Nishant Srivastava'
+    developerEmail = 'nisrulz@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+android {
+    signingConfigs {
+        release {
+            try {
+                keyAlias KEYSTORE_ALIAS
+                keyPassword KEY_PASSWORD
+                storeFile file(KEYSTORE_FILEPATH)
+                storePassword KEYSTORE_PASSWORD
+            }
+            catch (ex) {
+                throw new InvalidUserDataException("You should define KEYSTORE_ALIAS, KEYSTORE_FILEPATH, KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
+            }
+        }
+    }
+    compileSdkVersion 22
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        minSdkVersion 10
+        targetSdkVersion 22
+        versionCode 2
+        versionName "1.0.0"
+        archivesBaseName = "ZenTone"
+        version = android.defaultConfig.versionName
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.0.0'
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+

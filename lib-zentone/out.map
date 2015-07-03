@@ -1,0 +1,11 @@
+in.excogitation.zentone.library.BuildConfig -> in.excogitation.zentone.library.BuildConfig:
+    boolean DEBUG -> DEBUG
+    java.lang.String APPLICATION_ID -> APPLICATION_ID
+    java.lang.String BUILD_TYPE -> BUILD_TYPE
+    java.lang.String FLAVOR -> FLAVOR
+    int VERSION_CODE -> VERSION_CODE
+    java.lang.String VERSION_NAME -> VERSION_NAME
+in.excogitation.zentone.library.ZenTone -> in.excogitation.zentone.library.ZenTone:
+    boolean isPlaying -> a
+    17:84:void play(double,double) -> play
+    90:90:void stop() -> stop
