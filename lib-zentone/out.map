@@ -16,7 +16,10 @@ in.excogitation.zentone.library.PlayToneThread -> in.excogitation.zentone.librar
 in.excogitation.zentone.library.ZenTone -> in.excogitation.zentone.library.ZenTone:
     in.excogitation.zentone.library.PlayToneThread playToneThread -> a
     boolean isThreadRunning -> b
-    in.excogitation.zentone.library.ZenTone INSTANCE -> c
-    16:16:in.excogitation.zentone.library.ZenTone getInstance() -> getInstance
-    23:28:void generate(int,int) -> generate
-    31:37:void stop() -> stop
+    android.os.Handler stopThread -> c
+    in.excogitation.zentone.library.ZenTone INSTANCE -> d
+    20:20:in.excogitation.zentone.library.ZenTone getInstance() -> getInstance
+    28:39:void generate(int,int) -> generate
+    42:48:void stop() -> stop
+in.excogitation.zentone.library.ZenTone$1 -> in.excogitation.zentone.library.ZenTone$1:
+    35:36:void run() -> run

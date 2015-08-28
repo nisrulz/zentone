@@ -1,5 +1,8 @@
 package in.excogitation.zentone.library;
 
+
+import android.os.Handler;
+
 /**
  * @author Nishant Srivastava
  * @project Library-Zentone
@@ -9,6 +12,7 @@ package in.excogitation.zentone.library;
 public class ZenTone {
     static PlayToneThread playToneThread;
     static boolean isThreadRunning = false;
+    static Handler stopThread;
 
     private static ZenTone INSTANCE = new ZenTone();
 
@@ -17,6 +21,7 @@ public class ZenTone {
     }
 
     private ZenTone() {
+        stopThread=new Handler();
     }
 
     public static void generate(int freq, int duration) {
@@ -24,6 +29,12 @@ public class ZenTone {
             playToneThread = new PlayToneThread(freq, duration);
             playToneThread.start();
             isThreadRunning = true;
+            stopThread.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    stop();
+                }
+            },duration*1000);
         }
     }
 
