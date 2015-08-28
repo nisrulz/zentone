@@ -1,44 +1,79 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-				xmlns:tools="http://schemas.android.com/tools"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:paddingLeft="@dimen/activity_horizontal_margin"
-				android:paddingRight="@dimen/activity_horizontal_margin"
-				android:paddingTop="@dimen/activity_vertical_margin"
-				android:paddingBottom="@dimen/activity_vertical_margin"
-				tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    tools:context=".MainActivity">
 
-	<Button
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="Start"
-		android:id="@+id/button"
-		android:layout_below="@+id/editText"
-		android:layout_alignParentLeft="true"/>
+    <EditText
+        android:id="@+id/editTextFreq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="right|bottom"
+        android:background="@color/icons"
+        android:inputType="number"
+        android:text="100"
+        android:textColor="@color/primary_text"
+        android:textIsSelectable="false"
+        android:textSize="120sp"
+        android:layout_above="@+id/seekBar" />
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="5dp"
+        android:layout_above="@+id/editTextDuration"
+        android:layout_alignLeft="@+id/editTextDuration"
+        android:layout_alignStart="@+id/editTextDuration"
+        android:layout_marginBottom="124dp" />
 
-	<Button
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="Stop"
-		android:id="@+id/button2"
-		android:layout_below="@+id/button"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"
-		android:layout_marginTop="10dp"/>
+    <EditText
+        android:id="@+id/editTextDuration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right|bottom"
+        android:inputType="number"
+        android:text="1"
+        android:padding="10dp"
+        android:textColor="@color/icons"
+        android:textIsSelectable="false"
+        android:textSize="30sp"
+        android:layout_above="@+id/button"
+        android:layout_alignLeft="@+id/button"
+        android:layout_alignStart="@+id/button" />
 
-	<EditText
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:inputType="number"
-		android:gravity="center"
-		android:textSize="60sp"
-		android:hint="Frequency"
-		android:ems="10"
-		android:id="@+id/editText"
-		android:layout_alignParentTop="true"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentEnd="true"
-		android:layout_marginTop="58dp"
-		android:textIsSelectable="false"/>
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Start/Stop" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Duration"
+        android:textColor="@color/primary_text"
+        android:id="@+id/textView"
+        android:layout_above="@+id/editTextDuration"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Frequency"
+        android:id="@+id/textView2"
+        android:layout_marginTop="111dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/editTextFreq"
+        android:layout_alignEnd="@+id/editTextFreq" />
 
 </RelativeLayout>
