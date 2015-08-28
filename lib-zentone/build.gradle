@@ -1,29 +1,5 @@
 apply plugin: 'com.android.library'
 
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'zentone'
-
-    publishedGroupId = 'com.github.nisrulz'
-    libraryName = 'ZenTone'
-    artifact = 'zentone'
-
-    libraryDescription = 'Simplified Android Tone Generator'
-
-    siteUrl = 'https://github.com/nisrulz/zentone'
-    gitUrl = 'https://github.com/nisrulz/zentone.git'
-
-    libraryVersion = '0.1.0'
-
-    developerId = 'nisrulz'
-    developerName = 'Nishant Srivastava'
-    developerEmail = 'nisrulz@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
 android {
     signingConfigs {
         release {
@@ -65,7 +41,3 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
 }
-
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
-

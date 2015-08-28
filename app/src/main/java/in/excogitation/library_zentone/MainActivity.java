@@ -14,9 +14,6 @@ public class MainActivity extends ActionBarActivity {
 
 	EditText txt;
 	int freq = 5000;
-	ZenTone zenTone = new ZenTone();
-
-	Handler handler = new Handler();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,24 +30,15 @@ public class MainActivity extends ActionBarActivity {
 				freq = Integer.parseInt(txt.getText().toString());
 				txt.setText(Integer.toString(freq));
 
-				// Use a new tread as this can take a while
-				final Thread thread = new Thread(new Runnable() {
-					public void run() {
-						handler.post(new Runnable() {
-							public void run() {
-								zenTone.play(freq,5);
-							}
-						});
-					}
-				});
-				thread.start();
+				ZenTone.getInstance().generate(freq,1);
+
 			}
 		});
 
 		btn2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				zenTone.stop();
+				ZenTone.getInstance().stop();
 			}
 		});
 
