@@ -5,75 +5,115 @@
     android:background="@color/primary"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editTextFreq"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="right|bottom"
-        android:background="@color/icons"
-        android:inputType="number"
-        android:text="100"
-        android:textColor="@color/primary_text"
-        android:textIsSelectable="false"
-        android:textSize="120sp"
-        android:layout_above="@+id/seekBar" />
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:paddingTop="5dp"
-        android:layout_above="@+id/editTextDuration"
-        android:layout_alignLeft="@+id/editTextDuration"
-        android:layout_alignStart="@+id/editTextDuration"
-        android:layout_marginBottom="124dp" />
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        card_view:cardCornerRadius="4dp">
 
-    <EditText
-        android:id="@+id/editTextDuration"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewFreq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="10dp"
+                android:text="Frequency"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/primary_text" />
+
+            <EditText
+                android:id="@+id/editTextFreq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="right|bottom"
+                android:inputType="number"
+                android:text="100"
+                android:background="@android:color/transparent"
+                android:textColor="@color/primary_text"
+                android:textIsSelectable="false"
+                android:textSize="120sp" />
+
+            <SeekBar
+                android:id="@+id/seekBarFreq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/card_view1"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="right|bottom"
-        android:inputType="number"
-        android:text="1"
-        android:padding="10dp"
-        android:textColor="@color/icons"
-        android:textIsSelectable="false"
-        android:textSize="30sp"
-        android:layout_above="@+id/button"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button" />
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/card_view1"
+        card_view:cardCornerRadius="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="10dp"
+                android:text="Duration"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/primary_text" />
+
+            <EditText
+                android:id="@+id/editTextDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView"
+                android:layout_weight="1"
+                android:gravity="right|bottom"
+                android:inputType="number"
+                android:padding="10dp"
+                android:text="1"
+                android:background="@android:color/transparent"
+                android:textColor="@color/primary"
+                android:textIsSelectable="false"
+                android:textSize="30sp" />
+
+            <SeekBar
+                android:id="@+id/seekBarDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/card_view"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
 
     <Button
         android:id="@+id/button"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:text="Start/Stop" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Duration"
-        android:textColor="@color/primary_text"
-        android:id="@+id/textView"
-        android:layout_above="@+id/editTextDuration"
-        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Frequency"
-        android:id="@+id/textView2"
-        android:layout_marginTop="111dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/editTextFreq"
-        android:layout_alignEnd="@+id/editTextFreq" />
 
 </RelativeLayout>
