@@ -32,7 +32,7 @@ public class PlayToneThread extends Thread {
         if (!isPlaying) {
             isPlaying = true;
 
-            int sampleRate = 8000;              // a number
+            int sampleRate = 44100;              // a number
 
             double dnumSamples = duration * sampleRate;
             dnumSamples = Math.ceil(dnumSamples);
