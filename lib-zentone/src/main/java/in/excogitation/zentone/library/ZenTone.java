@@ -26,6 +26,7 @@ public class ZenTone {
 
     public static void generate(int freq, int duration) {
         if (!isThreadRunning) {
+            stop();
             playToneThread = new PlayToneThread(freq, duration);
             playToneThread.start();
             isThreadRunning = true;

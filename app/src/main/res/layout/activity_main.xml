@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:padding="10dp"
-                android:text="Frequency"
+                android:text="Frequency (Hz)"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/primary_text" />
 
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:padding="10dp"
-                android:text="Duration"
+                android:text="Duration (s)"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/primary_text" />
 

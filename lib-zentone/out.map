@@ -19,7 +19,7 @@ in.excogitation.zentone.library.ZenTone -> in.excogitation.zentone.library.ZenTo
     android.os.Handler stopThread -> c
     in.excogitation.zentone.library.ZenTone INSTANCE -> d
     20:20:in.excogitation.zentone.library.ZenTone getInstance() -> getInstance
-    28:39:void generate(int,int) -> generate
-    42:48:void stop() -> stop
+    28:40:void generate(int,int) -> generate
+    43:49:void stop() -> stop
 in.excogitation.zentone.library.ZenTone$1 -> in.excogitation.zentone.library.ZenTone$1:
-    35:36:void run() -> run
+    36:37:void run() -> run

@@ -2,9 +2,8 @@ package in.excogitation.library_zentone;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -12,7 +11,7 @@ import android.widget.Toast;
 import in.excogitation.zentone.library.ZenTone;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     EditText editTextFreq, editTextDuration;
     SeekBar seekBarFreq, seekBarDuration;
