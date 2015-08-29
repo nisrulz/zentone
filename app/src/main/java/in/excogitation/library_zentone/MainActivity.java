@@ -1,6 +1,7 @@
 package in.excogitation.library_zentone;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +25,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btn1 = (Button) findViewById(R.id.button);
         editTextFreq = (EditText) findViewById(R.id.editTextFreq);
         editTextDuration = (EditText) findViewById(R.id.editTextDuration);
         seekBarFreq = (SeekBar) findViewById(R.id.seekBarFreq);
@@ -33,9 +33,9 @@ public class MainActivity extends ActionBarActivity {
         seekBarDuration = (SeekBar) findViewById(R.id.seekBarDuration);
         seekBarDuration.setMax(60);
 
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 if (!editTextFreq.getText().toString().equals("")) {
                     if (!isPlaying) {
                         freq = Integer.parseInt(editTextFreq.getText().toString());
@@ -52,9 +52,9 @@ public class MainActivity extends ActionBarActivity {
                 } else {
                     Toast.makeText(MainActivity.this, "Please enter a frequency!", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
+
 
         seekBarFreq.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
