@@ -1,16 +1,17 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
 
 android {
     signingConfigs {
         release {
             try {
-                keyAlias KEYSTORE_ALIAS
-                keyPassword KEY_PASSWORD
-                storeFile file(KEYSTORE_FILEPATH)
-                storePassword KEYSTORE_PASSWORD
+                keyAlias exKEYSTORE_ALIAS
+                keyPassword exKEY_PASSWORD
+                storeFile file(exKEYSTORE_FILEPATH)
+                storePassword exKEYSTORE_PASSWORD
             }
             catch (ex) {
-                throw new InvalidUserDataException("You should define KEYSTORE_ALIAS, KEYSTORE_FILEPATH, KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
+                throw new InvalidUserDataException("You should define exKEYSTORE_ALIAS, exKEYSTORE_FILEPATH, exKEYSTORE_PASSWORD and exKEY_PASSWORD in gradle.properties.")
             }
         }
     }
@@ -40,4 +41,17 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
+}
+
+def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), LOCAL_GITHUB_MAVEN_REPO_PATH).absolutePath
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: localMavenRepo)
+
+            pom.version = '1.0.0'
+            pom.artifactId = 'zentone'
+            pom.groupId = 'com.github.nisrulz'
+        }
+    }
 }
