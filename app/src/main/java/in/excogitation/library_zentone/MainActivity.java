@@ -32,11 +32,12 @@ public class MainActivity extends AppCompatActivity {
         seekBarDuration = (SeekBar) findViewById(R.id.seekBarDuration);
         seekBarDuration.setMax(60);
 
-        FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
+        final FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (!editTextFreq.getText().toString().equals("")) {
                     if (!isPlaying) {
+                        myFab.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop_white_24dp));
                         freq = Integer.parseInt(editTextFreq.getText().toString());
                         duration = Integer.parseInt(editTextDuration.getText().toString());
                         // Play Tone
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                         // Stop Tone
                         ZenTone.getInstance().stop();
                         isPlaying = false;
+                        myFab.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_24dp));
                     }
                 } else {
                     Toast.makeText(MainActivity.this, "Please enter a frequency!", Toast.LENGTH_SHORT).show();
