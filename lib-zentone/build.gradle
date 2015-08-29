@@ -15,12 +15,12 @@ android {
             }
         }
     }
-    compileSdkVersion 22
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.0"
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 2
         versionName "1.0.0"
         archivesBaseName = "ZenTone"
@@ -40,7 +40,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:appcompat-v7:23.0.0'
 }
 
 def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), LOCAL_GITHUB_MAVEN_REPO_PATH).absolutePath

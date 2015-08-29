@@ -7,12 +7,12 @@ import android.media.AudioTrack;
 /**
  * Created by nishant on 8/27/15.
  */
-public class PlayToneThread extends Thread {
+class PlayToneThread extends Thread {
 
-    boolean isPlaying = false;
-    int freqOfTone;
-    int duration;
-    AudioTrack audioTrack = null;
+    private boolean isPlaying = false;
+    private  int freqOfTone;
+    private  int duration;
+    private AudioTrack audioTrack = null;
 
     public PlayToneThread(int freqOfTone, int duration) {
         this.freqOfTone = freqOfTone;
@@ -28,7 +28,7 @@ public class PlayToneThread extends Thread {
     }
 
 
-    public void playTone() {
+    private void playTone() {
         if (!isPlaying) {
             isPlaying = true;
 
@@ -50,7 +50,7 @@ public class PlayToneThread extends Thread {
             // convert to 16 bit pcm sound array
             // assumes the sample buffer is normalised.
             int idx = 0;
-            int i = 0;
+            int i;
 
             int ramp = numSamples / 20;                                    // Amplitude ramp as a percent of sample count
 

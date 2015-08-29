@@ -13,11 +13,13 @@ import in.excogitation.zentone.library.ZenTone;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText editTextFreq, editTextDuration;
-    SeekBar seekBarFreq, seekBarDuration;
-    int freq = 5000;
-    int duration = 1;
-    boolean isPlaying = false;
+    private EditText editTextFreq;
+    private EditText editTextDuration;
+    private SeekBar seekBarFreq;
+    private SeekBar seekBarDuration;
+    private int freq = 5000;
+    private int duration = 1;
+    private boolean isPlaying = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -35,7 +35,6 @@
                 android:id="@+id/editTextFreq"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:gravity="right|bottom"
                 android:inputType="number"
                 android:text="100"
@@ -48,7 +47,6 @@
                 android:id="@+id/seekBarFreq"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/card_view1"
                 android:paddingBottom="10dp"
                 android:paddingTop="5dp" />
         </LinearLayout>
@@ -84,8 +82,6 @@
                 android:id="@+id/editTextDuration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView"
                 android:layout_weight="1"
                 android:gravity="right|bottom"
                 android:inputType="number"
@@ -100,7 +96,6 @@
                 android:id="@+id/seekBarDuration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/card_view"
                 android:paddingBottom="10dp"
                 android:paddingTop="5dp" />
         </LinearLayout>

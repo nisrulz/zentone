@@ -5,21 +5,26 @@ in.excogitation.zentone.library.BuildConfig -> in.excogitation.zentone.library.B
     java.lang.String FLAVOR -> FLAVOR
     int VERSION_CODE -> VERSION_CODE
     java.lang.String VERSION_NAME -> VERSION_NAME
-in.excogitation.zentone.library.PlayToneThread -> in.excogitation.zentone.library.PlayToneThread:
+    6:6:void <init>() -> <init>
+in.excogitation.zentone.library.PlayToneThread -> in.excogitation.zentone.library.a:
     boolean isPlaying -> a
     int freqOfTone -> b
     int duration -> c
     android.media.AudioTrack audioTrack -> d
+    12:20:void <init>(int,int) -> <init>
     24:28:void run() -> run
-    32:96:void playTone() -> playTone
-    99:104:void stopTone() -> stopTone
+    32:96:void playTone() -> b
+    99:104:void stopTone() -> a
 in.excogitation.zentone.library.ZenTone -> in.excogitation.zentone.library.ZenTone:
     in.excogitation.zentone.library.PlayToneThread playToneThread -> a
     boolean isThreadRunning -> b
     android.os.Handler stopThread -> c
     in.excogitation.zentone.library.ZenTone INSTANCE -> d
     20:20:in.excogitation.zentone.library.ZenTone getInstance() -> getInstance
+    23:25:void <init>() -> <init>
     28:40:void generate(int,int) -> generate
     43:49:void stop() -> stop
+    14:17:void <clinit>() -> <clinit>
 in.excogitation.zentone.library.ZenTone$1 -> in.excogitation.zentone.library.ZenTone$1:
+    33:33:void <init>() -> <init>
     36:37:void run() -> run

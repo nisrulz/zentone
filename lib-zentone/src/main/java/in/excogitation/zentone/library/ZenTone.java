@@ -10,9 +10,9 @@ import android.os.Handler;
  * @date 19/04/15
  */
 public class ZenTone {
-    static PlayToneThread playToneThread;
-    static boolean isThreadRunning = false;
-    static Handler stopThread;
+    private static PlayToneThread playToneThread;
+    private static boolean isThreadRunning = false;
+    private static Handler stopThread;
 
     private static ZenTone INSTANCE = new ZenTone();
 
@@ -21,7 +21,7 @@ public class ZenTone {
     }
 
     private ZenTone() {
-        stopThread=new Handler();
+        stopThread = new Handler();
     }
 
     public static void generate(int freq, int duration) {
@@ -35,7 +35,7 @@ public class ZenTone {
                 public void run() {
                     stop();
                 }
-            },duration*1000);
+            }, duration * 1000);
         }
     }
 
