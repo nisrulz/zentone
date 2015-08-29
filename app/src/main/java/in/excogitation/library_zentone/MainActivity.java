@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         final FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (!editTextFreq.getText().toString().equals("")) {
+                if (!editTextFreq.getText().toString().equals("") && !editTextDuration.getText().toString().equals("")) {
                     if (!isPlaying) {
                         myFab.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop_white_24dp));
                         freq = Integer.parseInt(editTextFreq.getText().toString());
@@ -50,8 +50,10 @@ public class MainActivity extends AppCompatActivity {
                         isPlaying = false;
                         myFab.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_24dp));
                     }
-                } else {
+                } else if (editTextFreq.getText().toString().equals("")) {
                     Toast.makeText(MainActivity.this, "Please enter a frequency!", Toast.LENGTH_SHORT).show();
+                } else if (editTextDuration.getText().toString().equals("")) {
+                    Toast.makeText(MainActivity.this, "Please enter duration!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
