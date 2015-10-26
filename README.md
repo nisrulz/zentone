@@ -13,7 +13,7 @@ Checkout the app using the same in [Playstore](https://play.google.com/store/app
 ```gradle
 repositories {
     maven{
-        url 'https://github.com/nisrulz/mavenrepo/raw/master/releases'
+        url 'http://maven.excogitation.in/'
     }
 }
 ```
