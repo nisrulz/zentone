@@ -13,7 +13,8 @@ in.excogitation.zentone.library.PlayToneThread -> in.excogitation.zentone.librar
     android.media.AudioTrack audioTrack -> d
     12:20:void <init>(int,int) -> <init>
     24:28:void run() -> run
-    32:96:void playTone() -> b
+    1032:1096:void playTone():32:96 -> run
+    1032:1096:void run():27 -> run
     99:104:void stopTone() -> a
 in.excogitation.zentone.library.ZenTone -> in.excogitation.zentone.library.ZenTone:
     in.excogitation.zentone.library.PlayToneThread playToneThread -> a

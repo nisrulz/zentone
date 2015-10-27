@@ -1,4 +1,3 @@
-#
 # This ProGuard configuration file illustrates how to process a program
 # library, such that it remains usable as a library.
 # Usage:
@@ -68,3 +67,7 @@
 # -keep public class mypackage.MyClass
 # -keep public interface mypackage.MyInterface
 # -keep public class * implements mypackage.MyInterface
+
+-assumenosideeffects class android.util.Log {
+    public static *** d(...);
+}

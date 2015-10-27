@@ -1,28 +1,47 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            try {
+                keyAlias exKEYSTORE_ALIAS
+                keyPassword exKEY_PASSWORD
+                storeFile file(exKEYSTORE_FILEPATH)
+                storePassword exKEYSTORE_PASSWORD
+            }
+            catch (ex) {
+                throw new InvalidUserDataException("You should define exKEYSTORE_ALIAS, exKEYSTORE_FILEPATH, exKEYSTORE_PASSWORD and exKEY_PASSWORD in gradle.properties.")
+            }
+        }
+    }
+
     compileSdkVersion 23
-    buildToolsVersion "23.0.0"
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "in.excogitation.library_zentone"
-        minSdkVersion 10
+        minSdkVersion 9
         targetSdkVersion 23
-        versionCode 2
+        versionCode 3
         versionName "1.0"
     }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.0.0'
-    compile 'com.android.support:cardview-v7:23.0.0'
-    compile 'com.android.support:design:23.0.0'
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:cardview-v7:23.0.1'
+    compile 'com.android.support:design:23.0.1'
     compile project(':lib-zentone')
 }

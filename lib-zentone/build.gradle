@@ -1,6 +1,12 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 
+def libraryVersionCode = 3
+def libraryVersion = '1.0.1'
+def libraryArtifactId = 'zentone'
+def libraryGroupID = POM_GROUP_ID_GITHUB
+
+
 android {
     signingConfigs {
         release {
@@ -16,31 +22,30 @@ android {
         }
     }
     compileSdkVersion 23
-    buildToolsVersion "23.0.0"
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
-        minSdkVersion 10
+        minSdkVersion 9
         targetSdkVersion 23
-        versionCode 2
-        versionName "1.0.0"
-        archivesBaseName = "ZenTone"
-        version = android.defaultConfig.versionName
+        versionCode libraryVersionCode
+        versionName libraryVersion
     }
     buildTypes {
         debug {
             minifyEnabled false
+            debuggable true
         }
         release {
             signingConfig signingConfigs.release
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
 
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.0.0'
 }
 
 def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), LOCAL_GITHUB_MAVEN_REPO_PATH).absolutePath
@@ -49,9 +54,18 @@ uploadArchives {
         mavenDeployer {
             repository(url: localMavenRepo)
 
-            pom.version = '1.0.0'
-            pom.artifactId = 'zentone'
-            pom.groupId = 'com.github.nisrulz'
+            pom.version = libraryVersion
+            pom.artifactId = libraryArtifactId
+            pom.groupId = libraryGroupID
         }
     }
+}
+
+// Place this in the 'build.gradle' of the library module
+// Task : Generate a JAR
+// Usage : In the terminal, run './gradlew jar'
+// Output : Get the jar at 'build/libs'
+
+task jar(type: Jar, dependsOn: 'assembleRelease') {
+    from fileTree(dir: 'build/intermediates/classes/release')
 }
