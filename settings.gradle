@@ -1,1 +1,1 @@
-include ':app', ':lib-zentone'
+include ':app', ':library'
