@@ -9,17 +9,9 @@ ZenTone does all the heavy lifting for you.
 Checkout the app using the same in [Playstore](https://play.google.com/store/apps/details?id=in.excogitation.library_zentone)
 
 #Integration
-- Include the below into your app's ***build.gradle*** right at the very bottom.
+- Zentone is available in the MavenCentral, so getting it as simple as adding it as a dependency
 ```gradle
-repositories {
-    maven{
-        url 'http://maven.excogitation.in/'
-    }
-}
-```
-- Next add the dependency
-```gradle
-compile 'com.github.nisrulz:zentone:1.0.0'
+compile 'com.github.nisrulz:zentone:1.0.1'
 ```
 
 #Usage
@@ -39,6 +31,13 @@ ZenTone.getInstance().generate(freq, duration);
 ```java
 ZenTone.getInstance().stop();
 ```
+
+---
+> *NOTE : Some variables used in build.gradle correspond to*
+> **COMPILE_SDK_VERSION**=23
+> **BUILDTOOLS_VERSION**=23.0.1
+> **VERSION_NAME**=1.0.1
+> **VERSION_CODE**=3
 
 # License
 
