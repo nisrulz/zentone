@@ -32,11 +32,16 @@ ZenTone.getInstance().generate(freq, duration);
 ZenTone.getInstance().stop();
 ```
 
+
 ---
 > *NOTE : Some variables used in build.gradle correspond to*
+
 > **COMPILE_SDK_VERSION**=23
+
 > **BUILDTOOLS_VERSION**=23.0.1
+
 > **VERSION_NAME**=1.0.1
+
 > **VERSION_CODE**=3
 
 # License
