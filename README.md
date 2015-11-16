@@ -11,13 +11,18 @@ Checkout the app using the same in [Playstore](https://play.google.com/store/app
 #Integration
 - Zentone is available in the MavenCentral, so getting it as simple as adding it as a dependency
 ```gradle
-compile 'com.github.nisrulz:zentone:1.0.1'
+compile 'com.github.nisrulz:zentone:1.0.2'
 ```
 
 #Usage
 + To play a tone of certain frequency and duration
 ```java
-ZenTone.getInstance().generate(freq, duration);
+ZenTone.getInstance().generate(freq, duration, new ToneStoppedListener() {
+      @Override
+      public void onToneStopped() {
+          // Do something when the tone has stopped playing
+      }
+  });
 ```
 *where*
 
