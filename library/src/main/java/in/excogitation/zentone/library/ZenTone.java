@@ -5,9 +5,7 @@ import android.os.Handler;
 
 /**
  * @author Nishant Srivastava
- * @project Library-Zentone
- * @package in.excogitation.zentone.library
- * @date 19/04/15
+ * @project Zentone
  */
 public class ZenTone {
     private static PlayToneThread playToneThread;
@@ -24,10 +22,10 @@ public class ZenTone {
         stopThread = new Handler();
     }
 
-    public static void generate(int freq, int duration) {
+    public void generate(int freq, int duration, ToneStoppedListener toneStoppedListener) {
         if (!isThreadRunning) {
             stop();
-            playToneThread = new PlayToneThread(freq, duration);
+            playToneThread = new PlayToneThread(freq, duration, toneStoppedListener);
             playToneThread.start();
             isThreadRunning = true;
             stopThread.postDelayed(new Runnable() {
@@ -39,7 +37,7 @@ public class ZenTone {
         }
     }
 
-    public static void stop() {
+    public void stop() {
         if (playToneThread != null) {
             playToneThread.stopTone();
             playToneThread.interrupt();

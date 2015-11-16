@@ -5,18 +5,21 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 
 /**
- * Created by nishant on 8/27/15.
+ * @author Nishant Srivastava
+ * @project Zentone
  */
 class PlayToneThread extends Thread {
 
     private boolean isPlaying = false;
-    private  int freqOfTone;
-    private  int duration;
+    private final int freqOfTone;
+    private final int duration;
     private AudioTrack audioTrack = null;
+    private ToneStoppedListener toneStoppedListener;
 
-    public PlayToneThread(int freqOfTone, int duration) {
+    public PlayToneThread(int freqOfTone, int duration, ToneStoppedListener toneStoppedListener) {
         this.freqOfTone = freqOfTone;
         this.duration = duration;
+        this.toneStoppedListener = toneStoppedListener;
     }
 
     @Override
@@ -86,8 +89,24 @@ class PlayToneThread extends Thread {
                         sampleRate, AudioFormat.CHANNEL_OUT_MONO,
                         AudioFormat.ENCODING_PCM_16BIT, bufferSize,
                         AudioTrack.MODE_STREAM);
+
+                audioTrack.setNotificationMarkerPosition(numSamples);
+                audioTrack.setPlaybackPositionUpdateListener(new AudioTrack.OnPlaybackPositionUpdateListener() {
+                    @Override
+                    public void onPeriodicNotification(AudioTrack track) {
+                        // nothing to do
+                    }
+
+                    @Override
+                    public void onMarkerReached(AudioTrack track) {
+                        toneStoppedListener.onToneStopped();
+                    }
+                });
+
+
                 audioTrack.play();                                          // Play the track
-                audioTrack.write(generatedSnd, 0, generatedSnd.length);     // Load the track
+                audioTrack.write(generatedSnd, 0, generatedSnd.length);    // Load the track
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

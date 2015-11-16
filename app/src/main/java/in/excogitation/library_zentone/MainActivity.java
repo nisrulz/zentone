@@ -8,15 +8,18 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import in.excogitation.zentone.library.ToneStoppedListener;
 import in.excogitation.zentone.library.ZenTone;
 
 
+/**
+ * @author Nishant Srivastava
+ * @project Zentone
+ */
 public class MainActivity extends AppCompatActivity {
 
     private EditText editTextFreq;
     private EditText editTextDuration;
-    private SeekBar seekBarFreq;
-    private SeekBar seekBarDuration;
     private int freq = 5000;
     private int duration = 1;
     private boolean isPlaying = false;
@@ -28,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
         editTextFreq = (EditText) findViewById(R.id.editTextFreq);
         editTextDuration = (EditText) findViewById(R.id.editTextDuration);
-        seekBarFreq = (SeekBar) findViewById(R.id.seekBarFreq);
+        SeekBar seekBarFreq = (SeekBar) findViewById(R.id.seekBarFreq);
         seekBarFreq.setMax(22000);
 
-        seekBarDuration = (SeekBar) findViewById(R.id.seekBarDuration);
+        SeekBar seekBarDuration = (SeekBar) findViewById(R.id.seekBarDuration);
         seekBarDuration.setMax(60);
 
         final FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
@@ -39,18 +42,23 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!editTextFreq.getText().toString().equals("") && !editTextDuration.getText().toString().equals("")) {
                     if (!isPlaying) {
-                        myFab.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop_white_24dp));
+                        myFab.setImageResource(R.drawable.ic_stop_white_24dp);
                         freq = Integer.parseInt(editTextFreq.getText().toString());
                         duration = Integer.parseInt(editTextDuration.getText().toString());
                         // Play Tone
-                        ZenTone.getInstance().generate(freq, duration);
+                        ZenTone.getInstance().generate(freq, duration, new ToneStoppedListener() {
+                            @Override
+                            public void onToneStopped() {
+                                isPlaying = false;
+                                myFab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
+                            }
+                        });
                         isPlaying = true;
-
                     } else {
                         // Stop Tone
                         ZenTone.getInstance().stop();
                         isPlaying = false;
-                        myFab.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_24dp));
+                        myFab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
                     }
                 } else if (editTextFreq.getText().toString().equals("")) {
                     Toast.makeText(MainActivity.this, "Please enter a frequency!", Toast.LENGTH_SHORT).show();
