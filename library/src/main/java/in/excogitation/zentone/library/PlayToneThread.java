@@ -3,8 +3,11 @@ package in.excogitation.zentone.library;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
+import android.os.Build;
 
 /**
+ * The type Play tone thread.
+ *
  * @author Nishant Srivastava
  * @project Zentone
  */
@@ -15,11 +18,22 @@ class PlayToneThread extends Thread {
     private final int duration;
     private AudioTrack audioTrack = null;
     private ToneStoppedListener toneStoppedListener;
+    private float volume = 0f;
 
-    public PlayToneThread(int freqOfTone, int duration, ToneStoppedListener toneStoppedListener) {
+    /**
+     * Instantiates a new Play tone thread.
+     *
+     * @param freqOfTone          the freq of tone
+     * @param duration            the duration
+     * @param volume              the volume
+     * @param toneStoppedListener the tone stopped listener
+     */
+    public PlayToneThread(int freqOfTone, int duration, float volume, ToneStoppedListener
+            toneStoppedListener) {
         this.freqOfTone = freqOfTone;
         this.duration = duration;
         this.toneStoppedListener = toneStoppedListener;
+        this.volume = volume;
     }
 
     @Override
@@ -103,6 +117,23 @@ class PlayToneThread extends Thread {
                     }
                 });
 
+                // Sanity Check for max volume, set after write method to handle issue in android
+                // v 4.0.3
+                float maxVolume = audioTrack.getMaxVolume();
+                System.out.println("Max volume :" + maxVolume);
+                if (volume > maxVolume) {
+                    volume = maxVolume;
+                } else if (volume < 0) {
+                    volume = 0;
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    audioTrack.setVolume(volume);
+                } else {
+                    audioTrack.setStereoVolume(volume, volume);
+                }
+
+                System.out.println("volume :" + volume);
+
 
                 audioTrack.play();                                          // Play the track
                 audioTrack.write(generatedSnd, 0, generatedSnd.length);    // Load the track
@@ -114,7 +145,10 @@ class PlayToneThread extends Thread {
         }
     }
 
-    public void stopTone() {
+    /**
+     * Stop tone.
+     */
+    void stopTone() {
         if (audioTrack != null && audioTrack.getState() == AudioTrack.PLAYSTATE_PLAYING) {
             audioTrack.stop();
             audioTrack.release();

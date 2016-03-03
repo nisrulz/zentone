@@ -4,6 +4,8 @@ package in.excogitation.zentone.library;
 import android.os.Handler;
 
 /**
+ * The type Zen tone.
+ *
  * @author Nishant Srivastava
  * @project Zentone
  */
@@ -14,6 +16,11 @@ public class ZenTone {
 
     private static ZenTone INSTANCE = new ZenTone();
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static ZenTone getInstance() {
         return INSTANCE;
     }
@@ -22,10 +29,19 @@ public class ZenTone {
         stopThread = new Handler();
     }
 
-    public void generate(int freq, int duration, ToneStoppedListener toneStoppedListener) {
+    /**
+     * Generate pure tone
+     *
+     * @param freq                the freq
+     * @param duration            the duration
+     * @param volumne             the volumne
+     * @param toneStoppedListener the tone stopped listener
+     */
+    public void generate(int freq, int duration, float volumne, ToneStoppedListener
+            toneStoppedListener) {
         if (!isThreadRunning) {
             stop();
-            playToneThread = new PlayToneThread(freq, duration, toneStoppedListener);
+            playToneThread = new PlayToneThread(freq, duration, volumne, toneStoppedListener);
             playToneThread.start();
             isThreadRunning = true;
             stopThread.postDelayed(new Runnable() {
@@ -37,6 +53,9 @@ public class ZenTone {
         }
     }
 
+    /**
+     * Stop.
+     */
     public void stop() {
         if (playToneThread != null) {
             playToneThread.stopTone();

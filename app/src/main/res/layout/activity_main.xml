@@ -107,9 +107,9 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_play_arrow_white_24dp"
         app:elevation="4dp"
-        android:layout_marginTop="32dp"
-        android:layout_below="@+id/card_view2"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/textView"
+        android:layout_alignRight="@+id/card_view2"
+        android:layout_alignEnd="@+id/card_view2"/>
 
     <TextView
         android:layout_width="wrap_content"
