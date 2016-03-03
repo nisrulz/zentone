@@ -46,9 +46,7 @@ public class MainActivity extends AppCompatActivity {
                         freq = Integer.parseInt(editTextFreq.getText().toString());
                         duration = Integer.parseInt(editTextDuration.getText().toString());
                         // Play Tone
-                        ZenTone.getInstance().generate(freq, duration, 0.01f, new
-                                ToneStoppedListener
-                                () {
+                        ZenTone.getInstance().generate(freq, duration, 0.01f, new ToneStoppedListener() {
                             @Override
                             public void onToneStopped() {
                                 isPlaying = false;
