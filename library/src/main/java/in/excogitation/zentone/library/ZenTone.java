@@ -14,7 +14,7 @@ public class ZenTone {
     private static boolean isThreadRunning = false;
     private static Handler stopThread;
 
-    private static ZenTone INSTANCE = new ZenTone();
+    private static final ZenTone INSTANCE = new ZenTone();
 
     /**
      * Gets instance.

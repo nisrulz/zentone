@@ -17,7 +17,7 @@ class PlayToneThread extends Thread {
     private final int freqOfTone;
     private final int duration;
     private AudioTrack audioTrack = null;
-    private ToneStoppedListener toneStoppedListener;
+    private final ToneStoppedListener toneStoppedListener;
     private float volume = 0f;
 
     /**
@@ -119,7 +119,7 @@ class PlayToneThread extends Thread {
 
                 // Sanity Check for max volume, set after write method to handle issue in android
                 // v 4.0.3
-                float maxVolume = audioTrack.getMaxVolume();
+                float maxVolume = AudioTrack.getMaxVolume();
                 System.out.println("Max volume :" + maxVolume);
                 if (volume > maxVolume) {
                     volume = maxVolume;
