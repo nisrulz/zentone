@@ -8,6 +8,10 @@ ZenTone does all the heavy lifting for you.
 
 Checkout the app using the same in [Playstore](https://play.google.com/store/apps/details?id=in.excogitation.library_zentone)
 
+
+![screenshot](https://github.com/nisrulz/zentone/raw/master/screenshots/sc1.webp)
+
+
 #Integration
 - Zentone is available in the MavenCentral, so getting it as simple as adding it as a dependency
 ```gradle
