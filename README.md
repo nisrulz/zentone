@@ -6,10 +6,10 @@
 Generating pure tone of an specific frequency was never that easy.
 ZenTone does all the heavy lifting for you.
 
-Checkout the app using the same in [Playstore](https://play.google.com/store/apps/details?id=in.excogitation.library_zentone)
+Checkout the app using the same in [![playstore](https://github.com/nisrulz/zentone/raw/master/img/google-play-store.png)](https://play.google.com/store/apps/details?id=in.excogitation.library_zentone)
 
 
-![screenshot](https://github.com/nisrulz/zentone/raw/master/screenshots/sc1.webp)
+![screenshot](https://github.com/nisrulz/zentone/raw/master/img/sc1.webp)
 
 
 #Integration
