@@ -1,9 +1,9 @@
 
 ![logo](https://github.com/nisrulz/zentone/raw/master/app/src/main/res/mipmap-xhdpi/ic_launcher.png)
 
-#ZenTone    [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Zentone-green.svg?style=true)](https://android-arsenal.com/details/1/3470)
+#ZenTone
 
-[![Twitter](https://img.shields.io/badge/Twitter-@nisrulz-blue.svg?style=flat)](http://twitter.com/nisrulz)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Zentone-green.svg?style=true)](https://android-arsenal.com/details/1/3470) <a href="http://www.methodscount.com/?lib=com.github.nisrulz%3Azentone%3A1.0.3"><img src="https://img.shields.io/badge/Methods and size-42 | 6 KB-e91e63.svg"></img></a> [![Twitter](https://img.shields.io/badge/Twitter-@nisrulz-blue.svg?style=flat)](http://twitter.com/nisrulz)
 
 Generating pure tone of an specific frequency was never that easy.
 ZenTone does all the heavy lifting for you.
