@@ -1,64 +1,38 @@
+![Image](https://github.com/nisrulz/zentone/blob/master/img/github_banner.png)
 
-![logo](https://github.com/nisrulz/zentone/raw/master/app/src/main/res/mipmap-xhdpi/ic_launcher.png)
 
-#ZenTone
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Zentone-green.svg?style=true)](https://android-arsenal.com/details/1/3470) <a href="http://www.methodscount.com/?lib=com.github.nisrulz%3Azentone%3A1.0.3"><img src="https://img.shields.io/badge/Methods and size-42 | 6 KB-e91e63.svg"></img></a> [![Twitter](https://img.shields.io/badge/Twitter-@nisrulz-blue.svg?style=flat)](http://twitter.com/nisrulz)
 
-Generating pure tone of an specific frequency was never that easy.
-ZenTone does all the heavy lifting for you.
+Android library to easily generate audio tone in android.
 
-Checkout the app using the same
+Generating pure tone of an specific frequency was never that easy. ZenTone does all the heavy lifting for you.
 
-[![playstore](https://github.com/nisrulz/zentone/raw/master/img/google-play-store.png)](https://play.google.com/store/apps/details?id=in.excogitation.library_zentone)
+Go build awesome stuff with it!  :smile:
 
+>  [![playstore](https://github.com/nisrulz/zentone/raw/master/img/google-play-store.png)](https://play.google.com/store/apps/details?id=in.excogitation.library_zentone) - Checkout the app using it
 
-![screenshot](https://github.com/nisrulz/zentone/raw/master/img/sc1.webp)
+# Changelog
 
+Starting with `1.0.3`, Changes exist in the [releases tab](https://github.com/nisrulz/zentone/releases).
 
-#Integration
+# Usage Docs/Wiki
+For more detailed usage, check the [Wiki](https://github.com/nisrulz/zentone/wiki)
+
+# Including in your project
 - Zentone is available in the MavenCentral, so getting it as simple as adding it as a dependency
 ```gradle
 compile 'com.github.nisrulz:zentone:1.0.3'
 ```
 
-#Usage
-+ To play a tone of certain frequency and duration
-```java
-ZenTone.getInstance().generate(freq, duration, volume, new ToneStoppedListener() {
-      @Override
-      public void onToneStopped() {
-          // Do something when the tone has stopped playing
-      }
-  });
-```
-*where*
+# Pull Requests
+I welcome and encourage all pull requests. It usually will take me within 24-48 hours to respond to any issue or request. Here are some basic rules to follow to ensure timely addition of your request:
+  1. Match coding style (braces, spacing, etc.) This is best achieved using CMD+Option+L (Reformat code) on Mac (not sure for Windows) with Android Studio defaults.
+  2. If its a feature, bugfix, or anything please only change code to what you specify.
+  3. Please keep PR titles easy to read and descriptive of changes, this will make them easier to merge :)
+  4. Pull requests _must_ be made against `develop` branch. Any other branch (unless specified by the maintainers) will get rejected.
+  5. Check for existing [issues](https://github.com/nisrulz/zentone/issues) first, before filing an issue.  
+  6. Have fun!
 
-|argument|type|value in
-|---|---|---|
-|freq|`int`|Hz
-|duration|`int`|seconds
-|volume|`float`|ranging from `0.0f` to `1.0f`
-
-
-+ To stop the tone
-```java
-ZenTone.getInstance().stop();
-```
-
-License
-=======
-
-    Copyright 2016 Nishant Srivastava
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+### Created & Maintained By
+[Nishant Srivastava](https://github.com/nisrulz) ([@nisrulz](https://www.twitter.com/nisrulz))
