@@ -2,7 +2,11 @@
 
 
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Zentone-green.svg?style=true)](https://android-arsenal.com/details/1/3470) <a href="http://www.methodscount.com/?lib=com.github.nisrulz%3Azentone%3A1.0.3"><img src="https://img.shields.io/badge/Methods and size-42 | 6 KB-e91e63.svg"></img></a> [![Twitter](https://img.shields.io/badge/Twitter-@nisrulz-blue.svg?style=flat)](http://twitter.com/nisrulz)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone) [![API](https://img.shields.io/badge/API-9%2B-orange.svg?style=flat)](https://android-arsenal.com/api?level=9)  <a href="http://www.methodscount.com/?lib=com.github.nisrulz%3Azentone%3A1.0.3"><img src="https://img.shields.io/badge/Methods and size-42 | 6 KB-e91e63.svg"></img></a> 
+
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Zentone-green.svg?style=true)](https://android-arsenal.com/details/1/3470)
+
+[![Twitter Follow](https://img.shields.io/twitter/follow/nisrulz.svg?style=social)](https://twitter.com/nisrulz)
 
 Android library to easily generate audio tone in android.
 
