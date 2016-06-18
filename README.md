@@ -14,7 +14,9 @@ Generating pure tone of an specific frequency was never that easy. ZenTone does 
 
 Go build awesome stuff with it!  :smile:
 
->  [![playstore](https://github.com/nisrulz/zentone/raw/master/img/google-play-store.png)](https://play.google.com/store/apps/details?id=in.excogitation.library_zentone) - Checkout the app using it
+Checkout the app using it
+
+[![playstore](https://github.com/nisrulz/zentone/raw/master/img/google-play-store.png)](https://play.google.com/store/apps/details?id=in.excogitation.library_zentone)
 
 # Changelog
 
