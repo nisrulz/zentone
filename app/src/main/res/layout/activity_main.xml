@@ -21,7 +21,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewFreq"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
@@ -68,7 +67,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewDuration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"

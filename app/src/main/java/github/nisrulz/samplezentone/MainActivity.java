@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     editTextFreq = (EditText) findViewById(R.id.editTextFreq);
     editTextDuration = (EditText) findViewById(R.id.editTextDuration);
     SeekBar seekBarFreq = (SeekBar) findViewById(R.id.seekBarFreq);
+
     seekBarFreq.setMax(22000);
 
     SeekBar seekBarDuration = (SeekBar) findViewById(R.id.seekBarDuration);
