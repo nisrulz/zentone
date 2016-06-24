@@ -5,7 +5,7 @@ android {
     buildToolsVersion '23.0.3'
 
     defaultConfig {
-        applicationId "in.excogitation.library_zentone"
+        applicationId "github.nisrulz.samplezentone"
         minSdkVersion 9
         targetSdkVersion 23
         versionCode 5

@@ -1,4 +1,4 @@
-package in.excogitation.library_zentone;
+package github.nisrulz.samplezentone;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
