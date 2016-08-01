@@ -5,6 +5,9 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Build;
 
+/**
+ * The type Play tone thread.
+ */
 class PlayToneThread extends Thread {
 
   private boolean isPlaying = false;
@@ -41,13 +44,13 @@ class PlayToneThread extends Thread {
     if (!isPlaying) {
       isPlaying = true;
 
-      int sampleRate = 44100;              // a number
+      int sampleRate = 44100;// 44.1 KHz
 
-      double dnumSamples = duration * sampleRate;
+      double dnumSamples = (double) duration * sampleRate;
       dnumSamples = Math.ceil(dnumSamples);
       int numSamples = (int) dnumSamples;
-      double sample[] = new double[numSamples];
-      byte generatedSnd[] = new byte[2 * numSamples];
+      double[] sample = new double[numSamples];
+      byte[] generatedSnd = new byte[2 * numSamples];
 
       for (int i = 0; i < numSamples; ++i) {      // Fill the sample array
         sample[i] = Math.sin(freqOfTone * 2 * Math.PI * i / (sampleRate));
@@ -60,13 +63,11 @@ class PlayToneThread extends Thread {
       int idx = 0;
       int i;
 
-      int ramp = numSamples
-          / 20;                                    // Amplitude ramp as a percent of sample count
+      int ramp = numSamples / 20;  // Amplitude ramp as a percent of sample count
 
-      for (i = 0; i < ramp;
-          ++i) {                                     // Ramp amplitude up (to avoid clicks)
+      for (i = 0; i < ramp; ++i) {  // Ramp amplitude up (to avoid clicks)
         // Ramp up to maximum
-        final short val = (short) ((sample[i] * 32767 * i / ramp));
+        final short val = (short) (sample[i] * 32767 * i / ramp);
         // in 16 bit wav PCM, first byte is the low order byte
         generatedSnd[idx++] = (byte) (val & 0x00ff);
         generatedSnd[idx++] = (byte) ((val & 0xff00) >>> 8);
@@ -75,16 +76,15 @@ class PlayToneThread extends Thread {
       for (i = ramp; i < numSamples - ramp;
           ++i) {                        // Max amplitude for most of the samples
         // scale to maximum amplitude
-        final short val = (short) ((sample[i] * 32767));
+        final short val = (short) (sample[i] * 32767);
         // in 16 bit wav PCM, first byte is the low order byte
         generatedSnd[idx++] = (byte) (val & 0x00ff);
         generatedSnd[idx++] = (byte) ((val & 0xff00) >>> 8);
       }
 
-      for (i = (numSamples - ramp); i < numSamples;
-          ++i) {                               // Ramp amplitude down
+      for (i = numSamples - ramp; i < numSamples; ++i) { // Ramp amplitude down
         // Ramp down to zero
-        final short val = (short) ((sample[i] * 32767 * (numSamples - i) / ramp));
+        final short val = (short) (sample[i] * 32767 * (numSamples - i) / ramp);
         // in 16 bit wav PCM, first byte is the low order byte
         generatedSnd[idx++] = (byte) (val & 0x00ff);
         generatedSnd[idx++] = (byte) ((val & 0xff00) >>> 8);
@@ -112,7 +112,7 @@ class PlayToneThread extends Thread {
         // Sanity Check for max volume, set after write method to handle issue in android
         // v 4.0.3
         float maxVolume = AudioTrack.getMaxVolume();
-        System.out.println("Max volume :" + maxVolume);
+
         if (volume > maxVolume) {
           volume = maxVolume;
         } else if (volume < 0) {
@@ -124,9 +124,7 @@ class PlayToneThread extends Thread {
           audioTrack.setStereoVolume(volume, volume);
         }
 
-        System.out.println("volume :" + volume);
-
-        audioTrack.play();                                          // Play the track
+        audioTrack.play(); // Play the track
         audioTrack.write(generatedSnd, 0, generatedSnd.length);    // Load the track
       } catch (Exception e) {
         e.printStackTrace();

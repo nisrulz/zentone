@@ -10,6 +10,9 @@ import android.widget.Toast;
 import github.nisrulz.zentone.ToneStoppedListener;
 import github.nisrulz.zentone.ZenTone;
 
+/**
+ * The type Main activity.
+ */
 public class MainActivity extends AppCompatActivity {
 
   private EditText editTextFreq;
@@ -17,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
   private int freq = 5000;
   private int duration = 1;
   private boolean isPlaying = false;
+  private FloatingActionButton myFab;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -31,35 +35,10 @@ public class MainActivity extends AppCompatActivity {
     SeekBar seekBarDuration = (SeekBar) findViewById(R.id.seekBarDuration);
     seekBarDuration.setMax(60);
 
-    final FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
+    myFab = (FloatingActionButton) findViewById(R.id.myFAB);
     myFab.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
-        if (!editTextFreq.getText().toString().equals("") && !editTextDuration.getText()
-            .toString()
-            .equals("")) {
-          if (!isPlaying) {
-            myFab.setImageResource(R.drawable.ic_stop_white_24dp);
-            freq = Integer.parseInt(editTextFreq.getText().toString());
-            duration = Integer.parseInt(editTextDuration.getText().toString());
-            // Play Tone
-            ZenTone.getInstance().generate(freq, duration, 0.01f, new ToneStoppedListener() {
-              @Override public void onToneStopped() {
-                isPlaying = false;
-                myFab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
-              }
-            });
-            isPlaying = true;
-          } else {
-            // Stop Tone
-            ZenTone.getInstance().stop();
-            isPlaying = false;
-            myFab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
-          }
-        } else if (editTextFreq.getText().toString().equals("")) {
-          Toast.makeText(MainActivity.this, "Please enter a frequency!", Toast.LENGTH_SHORT).show();
-        } else if (editTextDuration.getText().toString().equals("")) {
-          Toast.makeText(MainActivity.this, "Please enter duration!", Toast.LENGTH_SHORT).show();
-        }
+        handleTonePlay();
       }
     });
 
@@ -74,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
       }
 
       @Override public void onStopTrackingTouch(SeekBar seekBar) {
-
+        //Do nothing
       }
     });
 
@@ -89,8 +68,37 @@ public class MainActivity extends AppCompatActivity {
       }
 
       @Override public void onStopTrackingTouch(SeekBar seekBar) {
-
+          // Do nothing
       }
     });
+  }
+
+  private void handleTonePlay() {
+    String freqString = editTextFreq.getText().toString();
+    String durationString = editTextDuration.getText().toString();
+    if (!"".equals(freqString) && !"".equals(durationString)) {
+      if (!isPlaying) {
+        myFab.setImageResource(R.drawable.ic_stop_white_24dp);
+        freq = Integer.parseInt(freqString);
+        duration = Integer.parseInt(durationString);
+        // Play Tone
+        ZenTone.getInstance().generate(freq, duration, 0.01f, new ToneStoppedListener() {
+          @Override public void onToneStopped() {
+            isPlaying = false;
+            myFab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
+          }
+        });
+        isPlaying = true;
+      } else {
+        // Stop Tone
+        ZenTone.getInstance().stop();
+        isPlaying = false;
+        myFab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
+      }
+    } else if ("".equals(freqString)) {
+      Toast.makeText(MainActivity.this, "Please enter a frequency!", Toast.LENGTH_SHORT).show();
+    } else if ("".equals(durationString)) {
+      Toast.makeText(MainActivity.this, "Please enter duration!", Toast.LENGTH_SHORT).show();
+    }
   }
 }

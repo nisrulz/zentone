@@ -2,13 +2,19 @@ package github.nisrulz.zentone;
 
 import android.os.Handler;
 
+/**
+ * The type Zen tone.
+ */
 public class ZenTone {
-  private static PlayToneThread playToneThread;
-  private static boolean isThreadRunning = false;
-  private static Handler stopThread;
+  private PlayToneThread playToneThread;
+  private boolean isThreadRunning = false;
+  private final Handler stopThread;
 
   private static final ZenTone INSTANCE = new ZenTone();
 
+  private ZenTone() {
+    stopThread = new Handler();
+  }
   /**
    * Gets instance.
    *
@@ -18,9 +24,7 @@ public class ZenTone {
     return INSTANCE;
   }
 
-  private ZenTone() {
-    stopThread = new Handler();
-  }
+
 
   /**
    * Generate pure tone
