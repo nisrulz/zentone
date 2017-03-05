@@ -119,4 +119,14 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Privacy Policy"
+        android:textColor="@color/icons"
+        android:id="@+id/textViewPrivacy"
+        android:layout_above="@+id/textView"
+        android:layout_centerHorizontal="true"
+        />
 </RelativeLayout>

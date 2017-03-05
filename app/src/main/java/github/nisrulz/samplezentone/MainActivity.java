@@ -1,11 +1,14 @@
 package github.nisrulz.samplezentone;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import static github.nisrulz.zentone.ZenTone.AudioToneListener;
 import static github.nisrulz.zentone.ZenTone.getInstance;
@@ -31,6 +34,15 @@ public class MainActivity extends AppCompatActivity {
     editTextDuration = (EditText) findViewById(R.id.editTextDuration);
     SeekBar seekBarFreq = (SeekBar) findViewById(R.id.seekBarFreq);
 
+    TextView textViewPrivacy = (TextView) findViewById(R.id.textViewPrivacy);
+    textViewPrivacy.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Uri uri= Uri.parse("https://cdn.rawgit.com/nisrulz/ae7263ef4f899f5d437f1ffc0b7d910d/raw/5a00042b89b6b730206b0330ad544131fc0d1694/ZentonePrivacyPolicy.html");
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(browserIntent);
+      }
+    });
     seekBarFreq.setMax(22000);
 
     SeekBar seekBarDuration = (SeekBar) findViewById(R.id.seekBarDuration);
@@ -90,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
       freq = Integer.parseInt(freqString);
       duration = Integer.parseInt(durationString);
       // Play Tone
-      getInstance().generate(freq, duration, 0.01f,audioToneListener);
+      getInstance().generate(freq, duration, 0.01f, audioToneListener);
     }
   }
 
