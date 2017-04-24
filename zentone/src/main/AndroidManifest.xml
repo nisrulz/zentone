@@ -14,11 +14,9 @@
   ~ limitations under the License.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="github.nisrulz.zentone">
+<manifest package="github.nisrulz.zentone">
 
-  <application android:allowBackup="true">
-
+  <application>
   </application>
 
 </manifest>

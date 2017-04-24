@@ -20,22 +20,24 @@ import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Build;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ZenTone {
   private static final ZenTone INSTANCE = new ZenTone();
   private AudioToneListener audioToneListener;
-  private Thread audioPlayingThread = null;
   private int freqOfTone;
   private int duration;
   private float volume = 0f;
   private boolean shouldContinueProcessingAudio;
+  private ExecutorService executorService;
   private final Runnable audioPlayRunnable = new Runnable() {
     @Override
     public void run() {
       // Setup thread priority
       android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
 
-      int sampleRate = 8000;
+      int sampleRate = 44100;
 
       double dnumSamples = (double) duration * sampleRate;
       dnumSamples = Math.ceil(dnumSamples);
@@ -96,7 +98,9 @@ public class ZenTone {
           new AudioTrack.OnPlaybackPositionUpdateListener() {
             @Override
             public void onMarkerReached(AudioTrack track) {
-              audioToneListener.onToneStopped();
+              if (audioToneListener != null) {
+                audioToneListener.onToneStopped();
+              }
             }
 
             @Override
@@ -116,15 +120,19 @@ public class ZenTone {
         volume = 0;
       }
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        // For API >= 21
         audioTrack.setVolume(volume);
       }
       else {
+        // For API < 21
         audioTrack.setStereoVolume(volume, volume);
       }
 
       // start playing
       audioTrack.play();
-      audioToneListener.onToneStarted();
+      if (audioToneListener != null) {
+        audioToneListener.onToneStarted();
+      }
       shouldContinueProcessingAudio = true;
 
       while (shouldContinueProcessingAudio) {
@@ -165,24 +173,22 @@ public class ZenTone {
   }
 
   void start() {
-    if (audioPlayingThread == null) {
-      audioPlayingThread = new Thread(audioPlayRunnable);
-      audioPlayingThread.start();
-    }
-    else if (audioPlayingThread.isAlive()) {
+    if (executorService != null && !executorService.isShutdown()) {
       stopThreadAndProcessing();
-      audioPlayingThread = new Thread(audioPlayRunnable);
-      audioPlayingThread.start();
     }
+
+    executorService = Executors.newSingleThreadExecutor();
+    executorService.submit(audioPlayRunnable);
   }
 
   private void stopThreadAndProcessing() {
     // Stop audio processing
     shouldContinueProcessingAudio = false;
     // interrupt the thread
-    if (audioPlayingThread != null) {
-      audioPlayingThread.interrupt();
-      audioPlayingThread = null;
+    if (executorService != null) {
+      executorService.shutdown();
+      //executorService.shutdownNow();
+      executorService=null;
     }
   }
 
