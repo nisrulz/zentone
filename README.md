@@ -1,4 +1,4 @@
-![Image](https://github.com/nisrulz/zentone/blob/master/img/github_banner.png)
+![Image](img/github_banner.png)
 
 ### Specs
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone) [![API](https://img.shields.io/badge/API-9%2B-orange.svg?style=flat)](https://android-arsenal.com/api?level=9)
@@ -7,8 +7,9 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Zentone-green.svg?style=true)](https://android-arsenal.com/details/1/3470)
 
 ### Show some :heart:
-[![GitHub stars](https://img.shields.io/github/stars/nisrulz/easydeviceinfo.svg?style=social&label=Star)](https://github.com/nisrulz/easydeviceinfo) [![GitHub forks](https://img.shields.io/github/forks/nisrulz/easydeviceinfo.svg?style=social&label=Fork)](https://github.com/nisrulz/easydeviceinfo/fork) [![GitHub watchers](https://img.shields.io/github/watchers/nisrulz/easydeviceinfo.svg?style=social&label=Watch)](https://github.com/nisrulz/easydeviceinfo) [![GitHub followers](https://img.shields.io/github/followers/nisrulz.svg?style=social&label=Follow)](https://github.com/nisrulz/easydeviceinfo)  
+[![GitHub stars](https://img.shields.io/github/stars/nisrulz/zentone.svg?style=social&label=Star)](https://github.com/nisrulz/zentone) [![GitHub forks](https://img.shields.io/github/forks/nisrulz/zentone.svg?style=social&label=Fork)](https://github.com/nisrulz/zentone/fork) [![GitHub watchers](https://img.shields.io/github/watchers/nisrulz/zentone.svg?style=social&label=Watch)](https://github.com/nisrulz/zentone) [![GitHub followers](https://img.shields.io/github/followers/nisrulz.svg?style=social&label=Follow)](https://github.com/nisrulz/zentone)  
 [![Twitter Follow](https://img.shields.io/twitter/follow/nisrulz.svg?style=social)](https://twitter.com/nisrulz) 
+
 Android library to easily generate audio tone in android.
 
 Generating pure tone of an specific frequency was never that easy. ZenTone does all the heavy lifting for you.
