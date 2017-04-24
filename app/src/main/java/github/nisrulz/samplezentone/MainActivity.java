@@ -39,6 +39,17 @@ public class MainActivity extends AppCompatActivity {
   private int freq = 5000;
   private int duration = 1;
   private boolean isPlaying = false;
+  AudioToneListener audioToneListener = new AudioToneListener() {
+    @Override
+    public void onToneStarted() {
+      isPlaying = true;
+    }
+
+    @Override
+    public void onToneStopped() {
+      isPlaying = false;
+    }
+  };
   private FloatingActionButton myFab;
 
   @Override
@@ -54,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
     textViewPrivacy.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Uri uri= Uri.parse("https://cdn.rawgit.com/nisrulz/ae7263ef4f899f5d437f1ffc0b7d910d/raw/5a00042b89b6b730206b0330ad544131fc0d1694/ZentonePrivacyPolicy.html");
+        Uri uri = Uri.parse(
+            "https://cdn.rawgit.com/nisrulz/ae7263ef4f899f5d437f1ffc0b7d910d/raw/5a00042b89b6b730206b0330ad544131fc0d1694/ZentonePrivacyPolicy.html");
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(browserIntent);
       }
@@ -121,18 +133,6 @@ public class MainActivity extends AppCompatActivity {
       getInstance().generate(freq, duration, 0.01f, audioToneListener);
     }
   }
-
-  AudioToneListener audioToneListener = new AudioToneListener() {
-    @Override
-    public void onToneStarted() {
-      isPlaying = true;
-    }
-
-    @Override
-    public void onToneStopped() {
-      isPlaying = false;
-    }
-  };
 
   //private void handleTonePlay() {
   //  String freqString = editTextFreq.getText().toString();

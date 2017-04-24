@@ -15,134 +15,147 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view1"
+  <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+      android:id="@+id/card_view1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_margin="10dp"
+      card_view:cardCornerRadius="4dp"
+      >
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        card_view:cardCornerRadius="4dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:padding="10dp"
-                android:text="Frequency (Hz)"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/secondary_text" />
-
-            <EditText
-                android:id="@+id/editTextFreq"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end|bottom"
-                android:inputType="number"
-                android:text="100"
-                android:background="@android:color/transparent"
-                android:textColor="@color/primary_text"
-                android:textIsSelectable="false"
-                android:textSize="120sp" />
-
-            <SeekBar
-                android:id="@+id/seekBarFreq"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:paddingTop="5dp" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/card_view1"
-        card_view:cardCornerRadius="4dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:padding="10dp"
-                android:text="Duration (s)"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/secondary_text" />
-
-            <EditText
-                android:id="@+id/editTextDuration"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="end|bottom"
-                android:inputType="number"
-                android:padding="10dp"
-                android:text="1"
-                android:background="@android:color/transparent"
-                android:textColor="@color/primary"
-                android:textIsSelectable="false"
-                android:textSize="30sp" />
-
-            <SeekBar
-                android:id="@+id/seekBarDuration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:paddingTop="5dp" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/myFAB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_play_arrow_white_24dp"
-        app:elevation="4dp"
-        android:layout_above="@+id/textView"
-        android:layout_alignRight="@+id/card_view2"
-        android:layout_alignEnd="@+id/card_view2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Zentone v1.0.3"
-        android:textColor="@color/icons"
-        android:id="@+id/textView"
-        android:layout_marginBottom="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Privacy Policy"
-        android:textColor="@color/icons"
-        android:id="@+id/textViewPrivacy"
-        android:layout_above="@+id/textView"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        />
+        android:orientation="vertical"
+        >
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="end"
+          android:padding="10dp"
+          android:text="Frequency (Hz)"
+          android:textAppearance="?android:attr/textAppearanceLarge"
+          android:textColor="@color/secondary_text"
+          />
+
+      <EditText
+          android:id="@+id/editTextFreq"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@android:color/transparent"
+          android:gravity="end|bottom"
+          android:inputType="number"
+          android:text="100"
+          android:textColor="@color/primary_text"
+          android:textIsSelectable="false"
+          android:textSize="120sp"
+          />
+
+      <SeekBar
+          android:id="@+id/seekBarFreq"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingBottom="10dp"
+          android:paddingTop="5dp"
+          />
+    </LinearLayout>
+  </android.support.v7.widget.CardView>
+
+  <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+      android:id="@+id/card_view2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/card_view1"
+      android:layout_gravity="center"
+      android:layout_margin="10dp"
+      card_view:cardCornerRadius="4dp"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        >
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="end"
+          android:padding="10dp"
+          android:text="Duration (s)"
+          android:textAppearance="?android:attr/textAppearanceLarge"
+          android:textColor="@color/secondary_text"
+          />
+
+      <EditText
+          android:id="@+id/editTextDuration"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:background="@android:color/transparent"
+          android:gravity="end|bottom"
+          android:inputType="number"
+          android:padding="10dp"
+          android:text="1"
+          android:textColor="@color/primary"
+          android:textIsSelectable="false"
+          android:textSize="30sp"
+          />
+
+      <SeekBar
+          android:id="@+id/seekBarDuration"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingBottom="10dp"
+          android:paddingTop="5dp"
+          />
+    </LinearLayout>
+  </android.support.v7.widget.CardView>
+
+  <android.support.design.widget.FloatingActionButton
+      android:id="@+id/myFAB"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/textView"
+      android:layout_alignEnd="@+id/card_view2"
+      android:layout_alignRight="@+id/card_view2"
+      android:src="@drawable/ic_play_arrow_white_24dp"
+      app:elevation="4dp"
+      />
+
+  <TextView
+      android:id="@+id/textView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:layout_marginBottom="1dp"
+      android:text="Zentone v1.0.3"
+      android:textAppearance="?android:attr/textAppearanceSmall"
+      android:textColor="@color/icons"
+      />
+
+  <TextView
+      android:id="@+id/textViewPrivacy"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/textView"
+      android:layout_centerHorizontal="true"
+      android:text="Privacy Policy"
+      android:textAppearance="?android:attr/textAppearanceSmall"
+      android:textColor="@color/icons"
+      />
 </RelativeLayout>

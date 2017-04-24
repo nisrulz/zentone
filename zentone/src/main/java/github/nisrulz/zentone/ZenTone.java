@@ -22,60 +22,13 @@ import android.media.AudioTrack;
 import android.os.Build;
 
 public class ZenTone {
+  private static final ZenTone INSTANCE = new ZenTone();
   private AudioToneListener audioToneListener;
   private Thread audioPlayingThread = null;
   private int freqOfTone;
   private int duration;
   private float volume = 0f;
-
   private boolean shouldContinueProcessingAudio;
-
-  private static final ZenTone INSTANCE = new ZenTone();
-
-  private ZenTone() {
-
-  }
-
-  public static ZenTone getInstance() {
-    return INSTANCE;
-  }
-
-  public void generate(int freqOfTone, int duration, float volume,
-      AudioToneListener audioToneListener) {
-    this.audioToneListener = audioToneListener;
-    this.freqOfTone = freqOfTone;
-    this.duration = duration;
-    this.volume = volume;
-    start();
-  }
-
-  void start() {
-    if (audioPlayingThread == null) {
-      audioPlayingThread = new Thread(audioPlayRunnable);
-      audioPlayingThread.start();
-    }
-    else if (audioPlayingThread.isAlive()) {
-      stopThreadAndProcessing();
-      audioPlayingThread = new Thread(audioPlayRunnable);
-      audioPlayingThread.start();
-    }
-  }
-
-  private void stopThreadAndProcessing() {
-    // Stop audio processing
-    shouldContinueProcessingAudio = false;
-    // interrupt the thread
-    if (audioPlayingThread != null) {
-      audioPlayingThread.interrupt();
-      audioPlayingThread = null;
-    }
-  }
-
-  public void stop() {
-    stopThreadAndProcessing();
-    audioToneListener = null;
-  }
-
   private final Runnable audioPlayRunnable = new Runnable() {
     @Override
     public void run() {
@@ -134,8 +87,7 @@ public class ZenTone {
           new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate, AudioFormat.CHANNEL_OUT_MONO,
               AudioFormat.ENCODING_PCM_16BIT, bufferSize, AudioTrack.MODE_STREAM);
 
-
-      if(audioTrack.getState()!=AudioTrack.STATE_INITIALIZED){
+      if (audioTrack.getState() != AudioTrack.STATE_INITIALIZED) {
         return;
       }
 
@@ -143,13 +95,13 @@ public class ZenTone {
       audioTrack.setPlaybackPositionUpdateListener(
           new AudioTrack.OnPlaybackPositionUpdateListener() {
             @Override
-            public void onPeriodicNotification(AudioTrack track) {
-              // nothing to do
+            public void onMarkerReached(AudioTrack track) {
+              audioToneListener.onToneStopped();
             }
 
             @Override
-            public void onMarkerReached(AudioTrack track) {
-              audioToneListener.onToneStopped();
+            public void onPeriodicNotification(AudioTrack track) {
+              // nothing to do
             }
           });
 
@@ -194,6 +146,50 @@ public class ZenTone {
       }
     }
   };
+
+  private ZenTone() {
+
+  }
+
+  public static ZenTone getInstance() {
+    return INSTANCE;
+  }
+
+  public void generate(int freqOfTone, int duration, float volume,
+      AudioToneListener audioToneListener) {
+    this.audioToneListener = audioToneListener;
+    this.freqOfTone = freqOfTone;
+    this.duration = duration;
+    this.volume = volume;
+    start();
+  }
+
+  void start() {
+    if (audioPlayingThread == null) {
+      audioPlayingThread = new Thread(audioPlayRunnable);
+      audioPlayingThread.start();
+    }
+    else if (audioPlayingThread.isAlive()) {
+      stopThreadAndProcessing();
+      audioPlayingThread = new Thread(audioPlayRunnable);
+      audioPlayingThread.start();
+    }
+  }
+
+  private void stopThreadAndProcessing() {
+    // Stop audio processing
+    shouldContinueProcessingAudio = false;
+    // interrupt the thread
+    if (audioPlayingThread != null) {
+      audioPlayingThread.interrupt();
+      audioPlayingThread = null;
+    }
+  }
+
+  public void stop() {
+    stopThreadAndProcessing();
+    audioToneListener = null;
+  }
 
   public interface AudioToneListener {
 
