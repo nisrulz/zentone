@@ -17,13 +17,13 @@
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion 26
-  buildToolsVersion '25.0.2'
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
 
   defaultConfig {
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
     applicationId "github.nisrulz.samplezentone"
-    minSdkVersion 9
-    targetSdkVersion 26
     versionCode 6
     versionName '1.0.1'
     jackOptions {
