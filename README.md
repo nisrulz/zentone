@@ -30,7 +30,7 @@ For more detailed usage, check the [Wiki](https://github.com/nisrulz/zentone/wik
 # Including in your project
 - Zentone is available in the MavenCentral, so getting it as simple as adding it as a dependency
 ```gradle
-compile 'com.github.nisrulz:zentone:1.0.3'
+implementation 'com.github.nisrulz:zentone:1.0.3'
 ```
 
 # Pull Requests
