@@ -26,9 +26,6 @@ android {
     applicationId "github.nisrulz.samplezentone"
     versionCode 6
     versionName '1.0.1'
-    jackOptions {
-      enabled false
-    }
   }
   buildTypes {
     debug {
