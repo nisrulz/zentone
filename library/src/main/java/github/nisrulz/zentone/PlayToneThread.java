@@ -4,6 +4,7 @@ import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Build;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The type Play tone thread.
@@ -12,7 +13,7 @@ class PlayToneThread extends Thread {
 
   private boolean isPlaying = false;
   private final int freqOfTone;
-  private final int duration;
+  private final long duration;
   private AudioTrack audioTrack = null;
   private final ToneStoppedListener toneStoppedListener;
   private float volume = 0f;
@@ -28,7 +29,24 @@ class PlayToneThread extends Thread {
   public PlayToneThread(int freqOfTone, int duration, float volume,
       ToneStoppedListener toneStoppedListener) {
     this.freqOfTone = freqOfTone;
-    this.duration = duration;
+    this.duration = duration * 1000;
+    this.toneStoppedListener = toneStoppedListener;
+    this.volume = volume;
+  }
+
+  /**
+   * Instantiates a new Play tone thread.
+   *
+   * @param freqOfTone the freq of tone
+   * @param duration the duration
+   * @param volume the volume
+   * @param timeUnit the time unit
+   * @param toneStoppedListener the tone stopped listener
+   */
+  public PlayToneThread(int freqOfTone, int duration, float volume, TimeUnit timeUnit,
+                        ToneStoppedListener toneStoppedListener) {
+    this.freqOfTone = freqOfTone;
+    this.duration = timeUnit.toMillis(duration);
     this.toneStoppedListener = toneStoppedListener;
     this.volume = volume;
   }
@@ -46,7 +64,7 @@ class PlayToneThread extends Thread {
 
       int sampleRate = 44100;// 44.1 KHz
 
-      double dnumSamples = (double) duration * sampleRate;
+      double dnumSamples = (double) duration / 1000 * sampleRate;
       dnumSamples = Math.ceil(dnumSamples);
       int numSamples = (int) dnumSamples;
       double[] sample = new double[numSamples];

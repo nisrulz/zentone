@@ -1,6 +1,7 @@
 package github.nisrulz.zentone;
 
 import android.os.Handler;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The type Zen tone.
@@ -46,6 +47,31 @@ public class ZenTone {
           stop();
         }
       }, duration * 1000);
+    }
+  }
+
+  /**
+   * Generate pure tone
+   *
+   * @param freq the freq
+   * @param duration the duration
+   * @param volumne the volumne
+   * @param timeUnit the time unit
+   * @param toneStoppedListener the tone stopped listener
+   */
+  public void generate(int freq, int duration, float volumne, TimeUnit timeUnit,
+                       ToneStoppedListener toneStoppedListener) {
+    if (!isThreadRunning) {
+      stop();
+      playToneThread = new PlayToneThread(freq, duration, volumne, toneStoppedListener);
+      playToneThread.start();
+      isThreadRunning = true;
+      long durationMillis = timeUnit.toMillis(duration);
+      stopThread.postDelayed(new Runnable() {
+        @Override public void run() {
+          stop();
+        }
+      }, durationMillis);
     }
   }
 
