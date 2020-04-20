@@ -137,7 +137,7 @@ class PlayToneThread extends Thread {
    * Stop tone.
    */
   void stopTone() {
-    if (audioTrack != null && audioTrack.getState() == AudioTrack.PLAYSTATE_PLAYING) {
+    if (audioTrack != null && audioTrack.getPlayState() == AudioTrack.PLAYSTATE_PLAYING) {
       audioTrack.stop();
       audioTrack.release();
       isPlaying = false;
