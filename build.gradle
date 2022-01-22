@@ -19,41 +19,34 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0-beta02'
+        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-
-        // Required plugins added to classpath to facilitate pushing to Jcenter/Bintray
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
 ext {
+    // Deps
+    appCompat = "1.4.1"
+    cardView = "1.0.0"
+    material = "1.5.0"
+
     //Other
-    targetSdkVersion = 28
-    minSdkVersion = 14
+    targetSdkVersion = 32
+    minSdkVersion = 18
     compileSdkVersion = targetSdkVersion
-    supportLibVersion = '28.0.0'
 
     // Library Info
-    libVersionCode = 5
-    libVersionName = '1.0.3'
+    libVersionCode = 6
+    libVersionName = '1.1.0'
     libPomUrl = 'https://github.com/nisrulz/zentone'
     libGithubRepo = 'nisrulz/zentone'
 

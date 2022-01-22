@@ -15,33 +15,27 @@
  */
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
-  compileSdkVersion rootProject.ext.compileSdkVersion
-  
+    compileSdk rootProject.ext.compileSdkVersion
 
-  defaultConfig {
-    minSdkVersion rootProject.ext.minSdkVersion
-    targetSdkVersion rootProject.ext.targetSdkVersion
-    versionCode rootProject.ext.libVersionCode
-    versionName rootProject.ext.libVersionName
-    consumerProguardFiles 'consumer-proguard-rules.pro'
-  }
-  buildTypes {
-    debug {
-      minifyEnabled false
-      debuggable true
+    defaultConfig {
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
+
+        versionCode rootProject.ext.libVersionCode
+        versionName rootProject.ext.libVersionName
+        consumerProguardFiles 'consumer-proguard-rules.pro'
     }
-    release {
-      minifyEnabled true
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
-  }
 }
-
-
-dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
-}
-
-apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/nishant-config.gradle'

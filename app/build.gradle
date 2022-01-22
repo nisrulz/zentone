@@ -15,35 +15,38 @@
  */
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
-  compileSdkVersion rootProject.ext.compileSdkVersion
-  
+    compileSdk rootProject.ext.compileSdkVersion
 
-  defaultConfig {
-    minSdkVersion rootProject.ext.minSdkVersion
-    targetSdkVersion rootProject.ext.targetSdkVersion
-    applicationId "github.nisrulz.samplezentone"
-    versionCode 6
-    versionName '1.0.1'
-  }
-  buildTypes {
-    debug {
-      minifyEnabled false
-      debuggable true
+    defaultConfig {
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
+        applicationId "github.nisrulz.samplezentone"
+        versionCode 7
+        versionName '1.1.0'
     }
-    release {
-      minifyEnabled true
-      shrinkResources true
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
-  }
+
+    buildFeatures { viewBinding true }
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibVersion"
-  implementation "com.android.support:cardview-v7:$rootProject.ext.supportLibVersion"
-  implementation "com.android.support:design:$rootProject.ext.supportLibVersion"
-  implementation project(':zentone')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "androidx.cardview:cardview:$cardView"
+    implementation "androidx.appcompat:appcompat:$appCompat"
+    implementation "com.google.android.material:material:$material"
+
+    implementation project(':zentone')
 }
