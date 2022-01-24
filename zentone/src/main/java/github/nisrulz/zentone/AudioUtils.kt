@@ -6,6 +6,7 @@ import android.media.AudioManager
 import android.media.AudioTrack
 import android.os.Build
 import android.os.Process
+import github.nisrulz.zentone.internal.convertIntRangeToFloatRange
 import github.nisrulz.zentone.internal.minBufferSize
 
 
@@ -52,10 +53,10 @@ fun AudioTrack.stopAndRelease() {
     }
 }
 
-fun AudioTrack.setVolumeLevel(level: Float) {
+fun AudioTrack.setVolumeLevel(level: Int) {
     /* Sanity Check for max volume, set after write method
     to handle issue in Android 4.0.3 */
-    var tempVolume = level
+    var tempVolume = level.convertIntRangeToFloatRange()
     val maxVolume = AudioTrack.getMaxVolume()
     if (tempVolume > maxVolume) {
         tempVolume = maxVolume

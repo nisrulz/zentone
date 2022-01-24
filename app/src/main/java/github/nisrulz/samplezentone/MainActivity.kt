@@ -28,7 +28,7 @@ import github.nisrulz.zentone.ZenTone
  */
 class MainActivity : AppCompatActivity() {
 
-    private var freq = 5000
+    private var freq = 5000.0f
     private var duration = 1
     private var isPlaying = false
 
@@ -86,10 +86,9 @@ class MainActivity : AppCompatActivity() {
             if (isPlaying) {
                 ZenTone.stop()
             } else {
-                freq = editTextFreq.text.toString().toInt()
-                duration = editTextDuration.text.toString().toInt()
+                freq = editTextFreq.text.toString().toFloat()
                 // Play Tone
-                ZenTone.generate(freq, duration, 0.02f)
+                ZenTone.generate(freq, 2)
             }
         }
     }

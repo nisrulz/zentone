@@ -25,4 +25,4 @@ internal fun validateFrequency(frequency: Float, sampleRate: Int = DEFAULT_SAMPL
     }
 }
 
-internal fun Float.convertIntRangeToFloatRange() = this / 100f
+internal fun Int.convertIntRangeToFloatRange() = this / 100f
