@@ -66,64 +66,14 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/card_view1"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        card_view:cardCornerRadius="4dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:padding="10dp"
-                android:text="Duration (s)"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/secondary_text" />
-
-            <EditText
-                android:id="@+id/editTextDuration"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:gravity="end|bottom"
-                android:inputType="number"
-                android:padding="10dp"
-                android:text="1"
-                android:textColor="@color/primary"
-                android:textIsSelectable="false"
-                android:textSize="30sp" />
-
-            <SeekBar
-                android:id="@+id/seekBarDuration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="10dp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/myFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/card_view2"
-        android:layout_alignRight="@+id/card_view2"
+        android:layout_alignEnd="@+id/card_view1"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_play_arrow_white_24dp"
-        app:elevation="4dp" />
+        app:elevation="4dp"
+        app:srcCompat="@drawable/play" />
 </RelativeLayout>
