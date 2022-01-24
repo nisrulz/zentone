@@ -14,9 +14,4 @@
   ~ limitations under the License.
   -->
 
-<manifest package="github.nisrulz.zentone">
-
-  <application>
-  </application>
-
-</manifest>
+<manifest package="github.nisrulz.zentone" />

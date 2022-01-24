@@ -118,30 +118,12 @@
         android:id="@+id/myFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView"
         android:layout_alignEnd="@+id/card_view2"
         android:layout_alignRight="@+id/card_view2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
         android:src="@drawable/ic_play_arrow_white_24dp"
         app:elevation="4dp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="1dp"
-        android:text="Zentone v1.0.3"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/icons" />
-
-    <TextView
-        android:id="@+id/textViewPrivacy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:text="Privacy Policy"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/icons" />
 </RelativeLayout>

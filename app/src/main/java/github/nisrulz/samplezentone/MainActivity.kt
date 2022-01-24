@@ -15,16 +15,13 @@
  */
 package github.nisrulz.samplezentone
 
-import android.content.Intent
-import android.net.Uri
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
 import github.nisrulz.samplezentone.databinding.ActivityMainBinding
 import github.nisrulz.zentone.ZenTone
-import github.nisrulz.zentone.ZenTone.AudioToneListener
 
 /**
  * The type Main activity.
@@ -35,34 +32,24 @@ class MainActivity : AppCompatActivity() {
     private var duration = 1
     private var isPlaying = false
 
-    private var audioToneListener: AudioToneListener = object : AudioToneListener {
-        override fun onToneStarted() {
-            isPlaying = true
-        }
-
-        override fun onToneStopped() {
-            isPlaying = false
-        }
-    }
     private lateinit var binding: ActivityMainBinding
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.apply {
             setContentView(root)
 
-            textViewPrivacy.setOnClickListener {
-                val uri = Uri.parse(
-                    "https://cdn.rawgit.com/nisrulz/ae7263ef4f899f5d437f1ffc0b7d910d/raw/5a00042b89b6b730206b0330ad544131fc0d1694/ZentonePrivacyPolicy.html"
-                )
-                val browserIntent = Intent(Intent.ACTION_VIEW, uri)
-                startActivity(browserIntent)
-            }
             seekBarFreq.max = 22000
-            val seekBarDuration = findViewById<View>(R.id.seekBarDuration) as SeekBar
             seekBarDuration.max = 60
-            myFAB.setOnClickListener { handleTonePlay(this) }
+
+            myFAB.setOnClickListener {
+                isPlaying = !isPlaying
+                handleTonePlay(this)
+            }
+
+
             seekBarFreq.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                     editTextFreq.setText(progress.toString())
@@ -70,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onStartTrackingTouch(seekBar: SeekBar) {
                     // Stop Tone
-                    ZenTone.getInstance().stop()
+                    ZenTone.stop()
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar) {
@@ -84,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onStartTrackingTouch(seekBar: SeekBar) {
                     // Stop Tone
-                    ZenTone.getInstance().stop()
+                    ZenTone.stop()
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar) {
@@ -97,14 +84,12 @@ class MainActivity : AppCompatActivity() {
     private fun handleTonePlay(binding: ActivityMainBinding) {
         binding.apply {
             if (isPlaying) {
-                ZenTone.getInstance().stop()
+                ZenTone.stop()
             } else {
-                val freqString = editTextFreq.text.toString()
-                val durationString = editTextDuration.text.toString()
-                freq = freqString.toInt()
-                duration = durationString.toInt()
+                freq = editTextFreq.text.toString().toInt()
+                duration = editTextDuration.text.toString().toInt()
                 // Play Tone
-                ZenTone.getInstance().generate(freq, duration, 0.01f, audioToneListener)
+                ZenTone.generate(freq, duration, 0.02f)
             }
         }
     }
