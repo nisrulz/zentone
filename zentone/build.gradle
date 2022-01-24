@@ -28,6 +28,7 @@ android {
         versionName rootProject.ext.libVersionName
         consumerProguardFiles 'consumer-proguard-rules.pro'
     }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -38,4 +39,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+dependencies {
+    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
 }
