@@ -12,7 +12,7 @@ import github.nisrulz.zentone.internal.minBufferSize
 
 fun setThreadPriority() = Process.setThreadPriority(Process.THREAD_PRIORITY_AUDIO)
 
-fun initAudioTrack(sampleRate: Int = DEFAULT_SAMPLE_RATE): AudioTrack {
+fun initAudioTrack(sampleRate: Int, encoding: Int, channelMask: Int): AudioTrack {
     val bufferSize = minBufferSize(sampleRate)
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         AudioTrack.Builder()
@@ -24,9 +24,9 @@ fun initAudioTrack(sampleRate: Int = DEFAULT_SAMPLE_RATE): AudioTrack {
             )
             .setAudioFormat(
                 AudioFormat.Builder()
-                    .setEncoding(DEFAULT_ENCODING)
+                    .setEncoding(encoding)
                     .setSampleRate(sampleRate)
-                    .setChannelMask(DEFAULT_CHANNEL_MASK)
+                    .setChannelMask(channelMask)
                     .build()
             )
             .setBufferSizeInBytes(bufferSize)
@@ -35,8 +35,8 @@ fun initAudioTrack(sampleRate: Int = DEFAULT_SAMPLE_RATE): AudioTrack {
         AudioTrack(
             AudioManager.STREAM_MUSIC,
             sampleRate,
-            DEFAULT_CHANNEL_MASK,
-            DEFAULT_ENCODING,
+            channelMask,
+            encoding,
             bufferSize,
             AudioTrack.MODE_STREAM
         )
