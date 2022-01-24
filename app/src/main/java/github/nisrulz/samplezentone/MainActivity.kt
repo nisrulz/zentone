@@ -52,8 +52,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar) {
-                    zenTone.stop()
-                    myFAB.setImageResource(R.drawable.play)
+                    stopPlayingAudio(binding)
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar) {
@@ -68,12 +67,18 @@ class MainActivity : AppCompatActivity() {
         zenTone.release()
     }
 
+    private fun stopPlayingAudio(binding: ActivityMainBinding) {
+        binding.apply {
+            zenTone.stop()
+            myFAB.setImageResource(R.drawable.play)
+        }
+    }
+
     private fun handlePlayPauseState(binding: ActivityMainBinding) {
         binding.apply {
             when {
                 zenTone.isPlaying -> {
-                    zenTone.stop()
-                    myFAB.setImageResource(R.drawable.play)
+                    stopPlayingAudio(this)
                 }
                 else -> {
                     val freq = editTextFreq.text.toString().toFloat()
