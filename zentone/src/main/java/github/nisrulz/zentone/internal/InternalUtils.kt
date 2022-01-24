@@ -15,13 +15,21 @@ internal fun minBufferSize(sampleRate: Int = DEFAULT_SAMPLE_RATE): Int {
     )
 }
 
-internal fun getMaxFrequency(sampleRate: Int) = sampleRate / 2
+internal fun getMaxFrequency(sampleRate: Int) = sampleRate / 2.0f
 
-@Throws(IllegalArgumentException::class)
-internal fun validateFrequency(frequency: Float, sampleRate: Int = DEFAULT_SAMPLE_RATE) {
+internal fun sanitizeFrequencyValue(
+    frequency: Float,
+    sampleRate: Int = DEFAULT_SAMPLE_RATE
+): Float {
     val maxFrequency = getMaxFrequency(sampleRate)
-    if (frequency < MIN_FREQUENCY || frequency > maxFrequency) {
-        throw IllegalArgumentException("Frequency is out of range (1 ...$maxFrequency)")
+    return when {
+        frequency < MIN_FREQUENCY -> {
+            MIN_FREQUENCY
+        }
+        frequency > maxFrequency -> {
+            maxFrequency
+        }
+        else -> frequency
     }
 }
 

@@ -15,26 +15,21 @@
  */
 package github.nisrulz.samplezentone
 
-import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
 import github.nisrulz.samplezentone.databinding.ActivityMainBinding
+import github.nisrulz.zentone.MIN_FREQUENCY
 import github.nisrulz.zentone.ZenTone
 
-/**
- * The type Main activity.
- */
 class MainActivity : AppCompatActivity() {
 
-    private var freq = 5000.0f
-    private var duration = 1
-    private var isPlaying = false
+    private val zenTone = ZenTone()
 
     private lateinit var binding: ActivityMainBinding
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -42,13 +37,14 @@ class MainActivity : AppCompatActivity() {
             setContentView(root)
 
             seekBarFreq.max = 22000
-            seekBarDuration.max = 60
 
-            myFAB.setOnClickListener {
-                isPlaying = !isPlaying
-                handleTonePlay(this)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                seekBarFreq.min = MIN_FREQUENCY.toInt()
             }
 
+            myFAB.setOnClickListener {
+                handlePlayPauseState(binding)
+            }
 
             seekBarFreq.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -56,39 +52,34 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar) {
-                    // Stop Tone
-                    ZenTone.stop()
+                    zenTone.stop()
+                    myFAB.setImageResource(R.drawable.play)
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    //Do nothing
-                }
-            })
-            seekBarDuration.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    editTextDuration.setText(progress.toString())
-                }
-
-                override fun onStartTrackingTouch(seekBar: SeekBar) {
-                    // Stop Tone
-                    ZenTone.stop()
-                }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    // Do nothing
+                    handlePlayPauseState(binding)
                 }
             })
         }
     }
 
-    private fun handleTonePlay(binding: ActivityMainBinding) {
+    override fun onDestroy() {
+        super.onDestroy()
+        zenTone.release()
+    }
+
+    private fun handlePlayPauseState(binding: ActivityMainBinding) {
         binding.apply {
-            if (isPlaying) {
-                ZenTone.stop()
-            } else {
-                freq = editTextFreq.text.toString().toFloat()
-                // Play Tone
-                ZenTone.generate(freq, 2)
+            when {
+                zenTone.isPlaying -> {
+                    zenTone.stop()
+                    myFAB.setImageResource(R.drawable.play)
+                }
+                else -> {
+                    val freq = editTextFreq.text.toString().toFloat()
+                    zenTone.play(freq, 2)
+                    myFAB.setImageResource(R.drawable.stop)
+                }
             }
         }
     }

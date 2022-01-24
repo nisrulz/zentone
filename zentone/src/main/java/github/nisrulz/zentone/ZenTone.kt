@@ -17,73 +17,61 @@ package github.nisrulz.zentone
 
 import android.media.AudioTrack
 import github.nisrulz.zentone.internal.SineWaveGenerator
-import github.nisrulz.zentone.internal.validateFrequency
-import java.lang.Runnable
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
+import github.nisrulz.zentone.internal.sanitizeFrequencyValue
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
-object ZenTone {
-    private var freqOfTone = 0f
-    private var volume = 0
+class ZenTone(
+    sampleRate: Int = DEFAULT_SAMPLE_RATE,
+    encoding: Int = DEFAULT_ENCODING,
+    channelMask: Int = DEFAULT_CHANNEL_MASK
+) : CoroutineScope {
 
-    private var shouldContinueProcessingAudio = false
-    private var executorService: ExecutorService? = null
+    private val job = SupervisorJob()
+    override val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.Default
 
-    private val audioPlayRunnable = Runnable {
+    init {
         setThreadPriority()
-
-        val audioTrack = initAudioTrack()
-
-        if (audioTrack.state != AudioTrack.STATE_INITIALIZED) {
-            return@Runnable
-        }
-
-        //Generating sinusoidal waves
-        validateFrequency(freqOfTone)
-        val sineWave = SineWaveGenerator.generate(freqOfTone)
-
-        audioTrack.setVolumeLevel(volume)
-
-        // start playing
-        audioTrack.play()
-
-        shouldContinueProcessingAudio = true
-        while (shouldContinueProcessingAudio) {
-            audioTrack.write(sineWave, 0, sineWave.size)
-        }
-
-        audioTrack.stopAndRelease()
     }
 
-    fun generate(
-        freqOfTone: Float,
-        volume: Int
-    ) {
-        this.freqOfTone = freqOfTone
-        this.volume = volume
-        start()
-    }
+    private val audioTrack by lazy { initAudioTrack(sampleRate, encoding, channelMask) }
+    var isPlaying = false
 
-    private fun start() {
-        if (executorService?.isShutdown?.not() == true) {
-            stopThreadAndProcessing()
+    fun play(frequency: Float, volume: Int) {
+        if (!isPlaying) {
+            val freqOfTone = sanitizeFrequencyValue(frequency)
+            val sineWave = SineWaveGenerator.generate(freqOfTone)
+
+            audioTrack.apply {
+                if (state != AudioTrack.STATE_INITIALIZED) cancel()
+
+                setVolumeLevel(volume)
+
+                play()
+                isPlaying = true
+
+                launch {
+                    while (isPlaying) {
+                        write(sineWave, 0, sineWave.size)
+                    }
+
+                    stop()
+                    // cancel all jobs
+                    cancel()
+                }
+            }
         }
-        executorService = Executors.newSingleThreadExecutor()
-        executorService?.submit(audioPlayRunnable)
-    }
-
-    private fun stopThreadAndProcessing() {
-        // Stop audio processing
-        shouldContinueProcessingAudio = false
-        // interrupt the thread
-        executorService?.shutdown()
-        //executorService.shutdownNow();
-        executorService = null
-
     }
 
     fun stop() {
-        stopThreadAndProcessing()
+        if (isPlaying) {
+            isPlaying = false
+        }
     }
 
+    fun release() {
+        stop()
+        audioTrack.stopAndRelease()
+    }
 }
