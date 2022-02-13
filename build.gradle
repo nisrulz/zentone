@@ -25,6 +25,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:7.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
 
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.18.0'
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -41,17 +43,11 @@ ext {
     material = "1.5.0"
 
     //Other
-    targetSdkVersion = 31
+    targetSdkVersion = 32
     minSdkVersion = 18
     compileSdkVersion = targetSdkVersion
 
     // Library Info
     libVersionCode = 6
     libVersionName = '1.1.0'
-    libPomUrl = 'https://github.com/nisrulz/zentone'
-    libGithubRepo = 'nisrulz/zentone'
-
-    libModuleName = 'zentone'
-    libModuleDesc = 'Android library that makes generating audio tone github android easy'
-    libBintrayName = 'com.github.nisrulz:zentone'
 }
