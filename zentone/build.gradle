@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
@@ -23,12 +23,12 @@ android {
     defaultConfig {
         minSdk rootProject.ext.minSdkVersion
         targetSdk rootProject.ext.targetSdkVersion
-        applicationId "github.nisrulz.samplezentone"
-        versionCode 7
-        versionName '1.1.0'
 
-        vectorDrawables.useSupportLibrary = true
+        versionCode rootProject.ext.libVersionCode
+        versionName rootProject.ext.libVersionName
+        consumerProguardFiles 'consumer-proguard-rules.pro'
     }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -36,21 +36,11 @@ android {
         }
         release {
             minifyEnabled true
-            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    buildFeatures { viewBinding true }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.cardview:cardview:$cardView"
-    implementation "androidx.appcompat:appcompat:$appCompat"
-    implementation "com.google.android.material:material:$material"
-
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
-
-    implementation project(':zentone')
+    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
 }
