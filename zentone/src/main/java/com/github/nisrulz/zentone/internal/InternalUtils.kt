@@ -1,10 +1,10 @@
-package github.nisrulz.zentone.internal
+package com.github.nisrulz.zentone.internal
 
 import android.media.AudioTrack
-import github.nisrulz.zentone.DEFAULT_CHANNEL_MASK
-import github.nisrulz.zentone.DEFAULT_ENCODING
-import github.nisrulz.zentone.DEFAULT_SAMPLE_RATE
-import github.nisrulz.zentone.MIN_FREQUENCY
+import com.github.nisrulz.zentone.DEFAULT_CHANNEL_MASK
+import com.github.nisrulz.zentone.DEFAULT_ENCODING
+import com.github.nisrulz.zentone.DEFAULT_SAMPLE_RATE
+import com.github.nisrulz.zentone.MIN_FREQUENCY
 
 
 internal fun minBufferSize(sampleRate: Int = DEFAULT_SAMPLE_RATE): Int {

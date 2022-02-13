@@ -1,4 +1,4 @@
-package github.nisrulz.zentone.internal
+package com.github.nisrulz.zentone.internal
 
 import kotlin.math.sin
 

@@ -1,8 +1,8 @@
-package github.nisrulz.zentone.internal
+package com.github.nisrulz.zentone.internal
 
-import github.nisrulz.zentone.DEFAULT_AMPLITUDE
-import github.nisrulz.zentone.DEFAULT_FREQUENCY_HZ
-import github.nisrulz.zentone.DEFAULT_SAMPLE_RATE
+import com.github.nisrulz.zentone.DEFAULT_AMPLITUDE
+import com.github.nisrulz.zentone.DEFAULT_FREQUENCY_HZ
+import com.github.nisrulz.zentone.DEFAULT_SAMPLE_RATE
 
 interface WaveByteArrayGenerator {
     fun generate(

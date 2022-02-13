@@ -1,4 +1,4 @@
-package github.nisrulz.zentone
+package com.github.nisrulz.zentone
 
 import android.media.AudioAttributes
 import android.media.AudioFormat
@@ -6,8 +6,8 @@ import android.media.AudioManager
 import android.media.AudioTrack
 import android.os.Build
 import android.os.Process
-import github.nisrulz.zentone.internal.convertIntRangeToFloatRange
-import github.nisrulz.zentone.internal.minBufferSize
+import com.github.nisrulz.zentone.internal.convertIntRangeToFloatRange
+import com.github.nisrulz.zentone.internal.minBufferSize
 
 
 fun setThreadPriority() = Process.setThreadPriority(Process.THREAD_PRIORITY_AUDIO)

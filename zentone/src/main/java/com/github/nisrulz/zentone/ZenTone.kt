@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package github.nisrulz.zentone
+package com.github.nisrulz.zentone
 
 import android.media.AudioTrack
-import github.nisrulz.zentone.internal.SineWaveGenerator
-import github.nisrulz.zentone.internal.sanitizeFrequencyValue
+import com.github.nisrulz.zentone.internal.SineWaveGenerator
+import com.github.nisrulz.zentone.internal.sanitizeFrequencyValue
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 

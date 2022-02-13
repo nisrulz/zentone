@@ -21,8 +21,8 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
 import github.nisrulz.samplezentone.databinding.ActivityMainBinding
-import github.nisrulz.zentone.MIN_FREQUENCY
-import github.nisrulz.zentone.ZenTone
+import com.github.nisrulz.zentone.MIN_FREQUENCY
+import com.github.nisrulz.zentone.ZenTone
 
 class MainActivity : AppCompatActivity() {
 

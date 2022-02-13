@@ -1,4 +1,4 @@
-package github.nisrulz.zentone
+package com.github.nisrulz.zentone
 
 import android.media.AudioFormat
 
