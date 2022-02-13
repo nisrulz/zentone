@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package github.nisrulz.samplezentone
+package com.github.nisrulz.samplezentone
 
 import android.os.Build
 import android.os.Bundle
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
-import github.nisrulz.samplezentone.databinding.ActivityMainBinding
+import com.github.nisrulz.samplezentone.databinding.ActivityMainBinding
 import com.github.nisrulz.zentone.MIN_FREQUENCY
 import com.github.nisrulz.zentone.ZenTone
 

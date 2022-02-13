@@ -2,7 +2,7 @@
 
 ## Specs
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone) [![API](https://img.shields.io/badge/API-9%2B-orange.svg?style=flat)](https://android-arsenal.com/api?level=9)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone)
 
 ## Featured in
 
@@ -18,10 +18,6 @@ Android library to easily generate audio tone in android.
 Generating pure tone of an specific frequency was never that easy. ZenTone does all the heavy lifting for you.
 
 Go build awesome stuff with it!  :smile:
-
-Checkout the app using it
-
-[![playstore](https://github.com/nisrulz/zentone/raw/master/img/google-play-store.png)](https://play.google.com/store/apps/details?id=in.excogitation.library_zentone)
 
 ## Changelog
 
@@ -39,11 +35,6 @@ I welcome and encourage all pull requests. It usually will take me within 24-48 
   4. Pull requests _must_ be made against `develop` branch. Any other branch (unless specified by the maintainers) will get rejected.
   5. Check for existing [issues](https://github.com/nisrulz/zentone/issues) first, before filing an issue.  
   6. Have fun!
-
-## Created & Maintained By
-[Nishant Srivastava](https://github.com/nisrulz) ([@nisrulz](https://www.twitter.com/nisrulz))
-
-> If you found this library helpful or you learned something from the source code and want to thank me, consider [buying me a cup of](https://www.paypal.me/nisrulz/5usd) :coffee:
 
 ## Logo
 
