@@ -39,7 +39,7 @@ class ZenTone(
     var isPlaying = false
 
     fun play(frequency: Float, volume: Int) {
-        if (!isPlaying) {
+        if (!isPlaying && volume > 0) {
             val freqOfTone = sanitizeFrequencyValue(frequency)
             val sineWave = SineWaveGenerator.generate(freqOfTone)
 
