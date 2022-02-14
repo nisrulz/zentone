@@ -14,10 +14,22 @@ MavenCentral: [![Maven Central](https://maven-badges.herokuapp.com/maven-central
 
 ## Usage
 
-Create an instance of ZenTone:
+Create an instance of `ZenTone`:
 
 ```kt
 val zenTone = ZenTone()
+```
+
+`ZenTone` accepts 3 arguments, each having a sensible default:
+
+1. sampleRate: Int = 44100,
+2. encoding: Int = AudioFormat.ENCODING_PCM_16BIT,
+3. channelMask: Int = AudioFormat.CHANNEL_OUT_MONO
+
+based on your requirement, you can pass a different value when instantiating `ZenTone` i.e
+
+```kt
+val zenTone = ZenTone(channelMask = AudioFormat.CHANNEL_OUT_STEREO)
 ```
 
 To start playing audio with a frequency and volume:
@@ -37,7 +49,9 @@ To stop playing audio:
 zenTone.stop()
 ```
 
-To release resources held by ZenTone i.e release mic, you can call `release()` function. Usually you'll need to call this in `onDestroy()`:
+To release resources held by `ZenTone` i.e release mic, you can call `release()` function.
+
+Usually you'll need to call this in `onDestroy()`:
 
 ```kt
 override fun onDestroy() {
@@ -46,10 +60,8 @@ override fun onDestroy() {
 }
 ```
 
-Check if ZenTone is playing audio by querying the `isPlaying` flag:
+Check if `ZenTone` is playing audio by querying the `isPlaying` flag:
 
 ```kt
 val isPlaying = zenTone.isPlaying
 ```
-
-

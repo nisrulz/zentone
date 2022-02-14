@@ -16,7 +16,7 @@ Starting with `1.0.3`, Changes exist in the [releases tab](https://github.com/ni
 
 ## Usage Docs
 
-Check the [docs](docs/Readme.md).
+Check the [docs](docs/Readme.md)
 
 <img src=img/sc_1.png height=480 />
 
