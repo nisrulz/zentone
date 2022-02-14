@@ -55,10 +55,10 @@ dependencies {
 
     // Include as module
     // Uncomment when developing
-    // implementation project(':zentone')
+    implementation project(':zentone')
 
     // Include as maven artifact
     // Use with mavenLocal to test publication
     // Or use with MavenCentral after publication
-    implementation "com.github.nisrulz:zentone:$libVersionName"
+    // implementation "com.github.nisrulz:zentone:$libVersionName"
 }
