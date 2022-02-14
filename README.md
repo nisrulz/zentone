@@ -10,31 +10,28 @@ Easily generate audio tone of a specific frequency and volume in Android.
 
 </center>
 
-## Changelog
+- 📕 Usage Docs (at) https://nisrulz.com/zentone/
 
-Starting with `1.0.3`, Changes exist in the [releases tab](https://github.com/nisrulz/zentone/releases).
+- [Changelog](Changelog.md)
+- Screenshot of Sample App
 
-## Usage Docs
+    <img src=img/sc_1.png height=480 />
 
-Check the [docs](docs/Readme.md)
+- Pull Requests
 
-<img src=img/sc_1.png height=480 />
+    Here are some basic rules to follow to ensure timely addition of your request:
 
-## Pull Requests
+    - If its a feature, bugfix, or anything please only change code to what you specify.
+    - Please keep PR titles easy to read and descriptive of changes, this will make them easier to merge :smile:
+    - Pull requests _must_ be made against `develop` branch. Any other branch (unless specified by the maintainers) will get rejected.
+    - Check for existing [issues](https://github.com/nisrulz/zentone/issues) first, before filing an issue.
 
-Here are some basic rules to follow to ensure timely addition of your request:
+- License
 
-- If its a feature, bugfix, or anything please only change code to what you specify.
-- Please keep PR titles easy to read and descriptive of changes, this will make them easier to merge :smile:
-- Pull requests _must_ be made against `develop` branch. Any other branch (unless specified by the maintainers) will get rejected.
-- Check for existing [issues](https://github.com/nisrulz/zentone/issues) first, before filing an issue.
+    Copyright 2016 Nishant Srivastava
 
-## License
+    Licensed under the Apache License, Version 2.0, [click here for the full license](/LICENSE).
 
-Copyright 2016 Nishant Srivastava
+- Logo
 
-Licensed under the Apache License, Version 2.0, [click here for the full license](/LICENSE).
-
-## Logo
-
-Credit: <a href="https://www.flaticon.com/free-icons/audio" title="audio icons">Audio icons created by Freepik - Flaticon</a>
+    Credit: <a href="https://www.flaticon.com/free-icons/audio" title="audio icons">Audio icons created by Freepik - Flaticon</a>
