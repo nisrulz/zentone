@@ -14,6 +14,4 @@
   ~ limitations under the License.
   -->
 
-<resources>
-  <!-- Default screen margins, per the Android Design guidelines. -->
-</resources>
+<manifest package="com.github.nisrulz.zentone" />
