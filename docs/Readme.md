@@ -23,9 +23,9 @@ val zenTone = ZenTone()
 
 `ZenTone` accepts 3 arguments, each having a sensible default:
 
-1. sampleRate: Int = 44100,
-2. encoding: Int = AudioFormat.ENCODING_PCM_16BIT,
-3. channelMask: Int = AudioFormat.CHANNEL_OUT_MONO
+1. `sampleRate`: Int = 44100
+2. `encoding`: Int = AudioFormat.ENCODING_PCM_16BIT
+3. `channelMask`: Int = AudioFormat.CHANNEL_OUT_MONO
 
 based on your requirement, you can pass a different value when instantiating `ZenTone` i.e
 
@@ -39,10 +39,19 @@ To start playing audio with a frequency and volume:
 zenTone.play(frequency = 400f, volume = 2)
 ```
 
-here
+`play()` accepts 3 arguments:
 
-- `400f` is frequency of type `Float`
-- `2` is volume of type `Int`. It ranges from 0 to 100, where 0 is no audio and 100 is full volume.
+1. `frequency`: Float
+2. `volume`: Int. It ranges from 0 to 100, where 0 is no audio and 100 is full volume.
+3. `waveByteArrayGenerator`: WaveByteArrayGenerator = SineWaveGenerator, here `SineWaveGenerator` is a sensible default.
+
+based on your requirement, you can pass a different value when instantiating `ZenTone` i.e
+
+```kt
+zenTone.play(frequency = 440f,
+            volume = 10,
+            waveByteArrayGenerator = SquareWaveGenerator)
+```
 
 To stop playing audio:
 

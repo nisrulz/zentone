@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.0 [14 Feb 2022]
+
+- 🧹  Reworked API to allow providing custom Wave Generator
+- ➕  Added `SquareWaveGenerator`
+
 ## 2.0.0 [14 Feb 2022]
 
 - ✅  Switched to Kotlin
