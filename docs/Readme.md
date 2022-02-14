@@ -1,3 +1,6 @@
+![Image](../img/github_banner.png)
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Zentone-green.svg?style=true)](https://android-arsenal.com/details/1/3470) [![GitHub stars](https://img.shields.io/github/stars/nisrulz/zentone.svg?style=social&label=Star)](https://github.com/nisrulz/zentone) [![GitHub forks](https://img.shields.io/github/forks/nisrulz/zentone.svg?style=social&label=Fork)](https://github.com/nisrulz/zentone/fork) [![GitHub watchers](https://img.shields.io/github/watchers/nisrulz/zentone.svg?style=social&label=Watch)](https://github.com/nisrulz/zentone)
 # Docs
 
 ## Including in your project
