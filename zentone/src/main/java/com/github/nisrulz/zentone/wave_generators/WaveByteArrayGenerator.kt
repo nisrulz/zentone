@@ -6,6 +6,7 @@ import com.github.nisrulz.zentone.DEFAULT_SAMPLE_RATE
 import com.github.nisrulz.zentone.internal.minBufferSize
 
 interface WaveByteArrayGenerator {
+
     fun generate(
         freqOfTone: Float = DEFAULT_FREQUENCY_HZ,
         sampleRate: Int = DEFAULT_SAMPLE_RATE
@@ -22,10 +23,5 @@ interface WaveByteArrayGenerator {
         return generatedSnd
     }
 
-    fun calculateData(index: Int, samplingInterval: Float, amplitude: Int): Byte {
-        val angle: Double = (Math.PI * index) / samplingInterval
-        return (amplitude * waveFunction(angle) * Byte.MAX_VALUE).toInt().toByte()
-    }
-
-    fun waveFunction(angle: Double): Double
+    fun calculateData(index: Int, samplingInterval: Float, amplitude: Int): Byte
 }
