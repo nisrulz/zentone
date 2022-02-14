@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.github.nisrulz.samplezentone.databinding.ActivityMainBinding
 import com.github.nisrulz.zentone.MIN_FREQUENCY
 import com.github.nisrulz.zentone.ZenTone
+import com.github.nisrulz.zentone.wave_generators.SquareWaveGenerator
 
 class MainActivity : AppCompatActivity() {
 
@@ -82,7 +83,11 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> {
                     val freq = editTextFreq.text.toString().toFloat()
-                    zenTone.play(freq, 2)
+                    zenTone.play(
+                        frequency = freq,
+                        volume = 25,
+                        waveByteArrayGenerator = SquareWaveGenerator
+                    )
                     myFAB.setImageResource(R.drawable.stop)
                 }
             }
