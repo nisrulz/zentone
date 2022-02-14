@@ -2,7 +2,7 @@ package com.github.nisrulz.zentone.internal
 
 import kotlin.math.sin
 
-object SineWaveGenerator : WaveByteArrayGenerator {
+internal object SineWaveGenerator : WaveByteArrayGenerator {
 
     override fun calculateData(index: Int, samplingInterval: Float, amplitude: Int): Byte {
         val angle = (Math.PI * index) / samplingInterval

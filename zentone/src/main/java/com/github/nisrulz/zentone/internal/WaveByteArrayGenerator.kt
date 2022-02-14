@@ -4,7 +4,7 @@ import com.github.nisrulz.zentone.DEFAULT_AMPLITUDE
 import com.github.nisrulz.zentone.DEFAULT_FREQUENCY_HZ
 import com.github.nisrulz.zentone.DEFAULT_SAMPLE_RATE
 
-interface WaveByteArrayGenerator {
+internal interface WaveByteArrayGenerator {
     fun generate(
         freqOfTone: Float = DEFAULT_FREQUENCY_HZ,
         sampleRate: Int = DEFAULT_SAMPLE_RATE
