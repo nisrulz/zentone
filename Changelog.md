@@ -7,6 +7,7 @@
 - 🧹  Reworked API
 
 - ⚠️  `ZenTone`is no more a singleton thus allowing running multiple instances of it.
+- ⚠️  `minSdk` = 18
 - ❌  Time duration cannot be set anymore. This is now dependent on when one calls `stop` on `ZenTone` instance.
 
 ## 1.0.3 [01 Aug 2016]
