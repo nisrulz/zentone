@@ -18,9 +18,10 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
+        mavenLocal()
         mavenCentral()
     }
 }
-rootProject.name = "Zentone"
+rootProject.name = "ZenTone"
 
 include ':app', ':zentone'
