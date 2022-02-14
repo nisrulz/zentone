@@ -1,7 +1,6 @@
 ![Banner](https://github.com/nisrulz/zentone/raw/master/img/github_banner.png)
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Zentone-green.svg?style=true)](https://android-arsenal.com/details/1/3470) [![GitHub stars](https://img.shields.io/github/stars/nisrulz/zentone.svg?style=social&label=Star)](https://github.com/nisrulz/zentone) [![GitHub forks](https://img.shields.io/github/forks/nisrulz/zentone.svg?style=social&label=Fork)](https://github.com/nisrulz/zentone/fork) [![GitHub watchers](https://img.shields.io/github/watchers/nisrulz/zentone.svg?style=social&label=Watch)](https://github.com/nisrulz/zentone)
-# Docs
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.nisrulz/zentone)](https://search.maven.org/artifact/com.github.nisrulz/zentone)  [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Zentone-green.svg?style=true)](https://android-arsenal.com/details/1/3470) [![GitHub stars](https://img.shields.io/github/stars/nisrulz/zentone.svg?style=social&label=Star)](https://github.com/nisrulz/zentone) [![GitHub forks](https://img.shields.io/github/forks/nisrulz/zentone.svg?style=social&label=Fork)](https://github.com/nisrulz/zentone/fork) [![GitHub watchers](https://img.shields.io/github/watchers/nisrulz/zentone.svg?style=social&label=Watch)](https://github.com/nisrulz/zentone)
 
 ## Including in your project
 
@@ -12,8 +11,7 @@ inside your build.gradle file
 implementation "com.github.nisrulz:zentone:$version"
 ```
 
-where `$version` corresponds to latest version published in
-MavenCentral: [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.nisrulz/zentone)
+where `$version` corresponds to latest version published in [![Maven Central](https://img.shields.io/maven-central/v/com.github.nisrulz/zentone)](https://search.maven.org/artifact/com.github.nisrulz/zentone)
 
 ## Usage
 
