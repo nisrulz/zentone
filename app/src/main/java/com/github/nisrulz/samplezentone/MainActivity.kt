@@ -37,14 +37,25 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             setContentView(root)
 
+            myFAB.setOnClickListener {
+                handlePlayPauseState(binding)
+            }
+            setupFreqSeekbar(this)
+            setupVolumeSeekbar(this)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        zenTone.release()
+    }
+
+    private fun setupFreqSeekbar(binding: ActivityMainBinding) {
+        binding.apply {
             seekBarFreq.max = 22000
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 seekBarFreq.min = MIN_FREQUENCY.toInt()
-            }
-
-            myFAB.setOnClickListener {
-                handlePlayPauseState(binding)
             }
 
             seekBarFreq.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
@@ -63,9 +74,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        zenTone.release()
+    private fun setupVolumeSeekbar(binding: ActivityMainBinding) {
+        binding.apply {
+            seekBarVolume.max = 100
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                seekBarVolume.min = 0
+            }
+
+            seekBarVolume.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                    editTextVolume.setText(progress.toString())
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar) {
+                    stopPlayingAudio(binding)
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar) {
+                    handlePlayPauseState(binding)
+                }
+            })
+        }
     }
 
     private fun stopPlayingAudio(binding: ActivityMainBinding) {
@@ -83,9 +113,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> {
                     val freq = editTextFreq.text.toString().toFloat()
+                    val volume = editTextVolume.text.toString().toInt()
                     zenTone.play(
                         frequency = freq,
-                        volume = 25,
+                        volume = volume,
                         waveByteArrayGenerator = SquareWaveGenerator
                     )
                     myFAB.setImageResource(R.drawable.stop)
