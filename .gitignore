@@ -84,3 +84,6 @@ hs_err_pid*
 /captures
 **/*.iml
 out.map
+
+docs/api
+site

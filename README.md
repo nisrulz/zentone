@@ -1,4 +1,4 @@
-![Image](img/github_banner.png)
+![Image](docs/img/github_banner.png)
 
 <center>
 
@@ -10,9 +10,8 @@ Easily generate audio tone of a specific frequency and volume in Android.
 
 </center>
 
-- 📕 Usage Docs (at) https://nisrulz.com/zentone/
-
-- [Changelog](Changelog.md)
+- 📕 [Documentation](https://nisrulz.com/zentone/)
+- [Changelog](docs/changelog.md)
 - Screenshot of Sample App
 
     <img src=img/sc_1.png height=480 />

@@ -3,9 +3,6 @@
 # Build the Dokka docs.
 ./assemble_docs.sh
 
-# Copy outside files into the docs folder.
-cp Changelog.md docs/changelog.md
-
 # Build the main website
 mkdocs build
 
