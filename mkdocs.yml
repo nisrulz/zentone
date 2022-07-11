@@ -6,6 +6,10 @@ site_url: 'https://nisrulz.com/zentone/'
 remote_branch: gh-pages
 edit_uri: ""
 
+# Github Info
+repo_name: 'nisrulz/zentone'
+repo_url: 'https://github.com/nisrulz/zentone'
+
 # Copyright
 copyright: 'Copyright &copy; 2022 Nishant Srivastava'
 
@@ -15,6 +19,8 @@ theme:
   language: 'en'
   favicon: 'img/favicon.ico'
   logo: 'img/logo.png'
+  icon:
+    repo: 'fontawesome/brands/github'
   palette:
     primary: 'deep purple'
     accent: 'white'
@@ -45,5 +51,13 @@ markdown_extensions:
 # Plugins
 plugins:
   - search
+
+# Extras
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/nisrulz
+    - icon: fontawesome/brands/github
+      link: https://github.com/nisrulz
 
 # Built with https://github.com/squidfunk/mkdocs-material
