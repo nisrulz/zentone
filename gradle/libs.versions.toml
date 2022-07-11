@@ -1,0 +1,11 @@
+[versions]
+appCompat = "1.4.2"
+cardView  = "1.0.0"
+material = "1.6.1"
+coroutinesCore = "1.6.3"
+
+[libraries]
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
+cardview = { module = "androidx.cardview:cardview", version.ref = "cardView" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutinesCore" }

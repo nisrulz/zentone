@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
 
 android {
     compileSdk rootProject.ext.compileSdkVersion
@@ -47,11 +49,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "androidx.cardview:cardview:$cardView"
-    implementation "androidx.appcompat:appcompat:$appCompat"
-    implementation "com.google.android.material:material:$material"
+    implementation(deps.appcompat)
+    implementation(deps.appcompat)
+    implementation(deps.material)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesCore")
+    implementation(deps.coroutines.core)
 
     // Include as module
     // Uncomment when developing
