@@ -1,0 +1,49 @@
+# Project information
+site_name: 'ZenTone'
+site_description: 'Easily generate audio tone of a specific frequency and volume in Android.'
+site_author: '2022 Nishant Srivastava'
+site_url: 'https://nisrulz.com/zentone/'
+remote_branch: gh-pages
+edit_uri: ""
+
+# Copyright
+copyright: 'Copyright &copy; 2022 Nishant Srivastava'
+
+# Configuration
+theme:
+  name: 'material'
+  language: 'en'
+  favicon: 'img/favicon.ico'
+  logo: 'img/logo.png'
+  palette:
+    primary: 'deep purple'
+    accent: 'white'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+
+# Navigation
+nav:
+  - 'Overview': index.md
+  - 'Integration': integration.md
+  - 'Usage': usage.md
+  - 'API ⏏': api/index.html
+  - 'Change Log': changelog.md
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+# Plugins
+plugins:
+  - search
+
+# Built with https://github.com/squidfunk/mkdocs-material

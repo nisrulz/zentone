@@ -20,6 +20,8 @@ plugins {
     id 'com.vanniktech.maven.publish'
 }
 
+apply from: "${rootDir}/jvm_compat.gradle"
+
 android {
     compileSdk rootProject.ext.compileSdkVersion
 
