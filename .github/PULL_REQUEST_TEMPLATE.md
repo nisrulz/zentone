@@ -1,26 +1,13 @@
-<!-- * Please fill out the blanks below describing your pull request * -->
+<!-- * Please fill out information below describing your pull request * -->
 
-**What does this implement/fix? Explain your changes**
+## Summary
 
-**Does this close any currently open issues?**
+* Provide a summary of this Pull Request.
 
-**Any relevant logs, error output, bugreport etc?**
-<!-- * If it’s long, please paste to https://ghostbin.com/ and insert the link here.) * -->
+## How It Was Tested
 
-**Any other comments?**
+* Explain how you tested this change before merging.
 
-+ **Where has this been tested?**
+## Screenshot/Gif
 
-+ **Device Information:**
-
-+ **Android Version:**
-
-+ **Target Platform:**
-
-+ **SDK Version:**
-
-+ **Configuration Information:**
-
-+ **Misc:** 
-
-<!-- * More related information if you have can provide * -->
+* If applicable, show off the user facing changes. 
