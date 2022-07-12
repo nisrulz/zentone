@@ -20,6 +20,7 @@ plugins {
     id 'com.vanniktech.maven.publish'
 }
 
+apply from: "${rootDir}/docs.gradle"
 apply from: "${rootDir}/jvm_compat.gradle"
 
 android {
