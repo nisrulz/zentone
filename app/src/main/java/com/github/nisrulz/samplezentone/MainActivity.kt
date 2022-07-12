@@ -23,7 +23,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.github.nisrulz.samplezentone.databinding.ActivityMainBinding
 import com.github.nisrulz.zentone.MIN_FREQUENCY
 import com.github.nisrulz.zentone.ZenTone
-import com.github.nisrulz.zentone.wave_generators.SineWaveGenerator
+import com.github.nisrulz.zentone.wave_generators.TriangleWaveGenerator
 
 class MainActivity : AppCompatActivity() {
 
@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                     zenTone.play(
                         frequency = freq,
                         volume = volume,
-                        waveByteArrayGenerator = SineWaveGenerator
+                        waveByteArrayGenerator = TriangleWaveGenerator
                     )
                     myFAB.setImageResource(R.drawable.stop)
                 }
