@@ -7,6 +7,13 @@ import com.github.nisrulz.zentone.internal.minBufferSize
 
 interface WaveByteArrayGenerator {
 
+    /**
+     * Generate byte data for tone
+     *
+     * @param freqOfTone
+     * @param sampleRate
+     * @return ByteArray of generated tone
+     */
     fun generate(
         freqOfTone: Float = DEFAULT_FREQUENCY_HZ,
         sampleRate: Int = DEFAULT_SAMPLE_RATE

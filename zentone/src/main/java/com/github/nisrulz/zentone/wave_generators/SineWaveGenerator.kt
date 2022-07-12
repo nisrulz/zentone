@@ -2,7 +2,14 @@ package com.github.nisrulz.zentone.wave_generators
 
 import kotlin.math.sin
 
-// https://en.wikipedia.org/wiki/Sine_wave
+
+/**
+ * Sine wave generator
+ *
+ * Sine Wave: Defined as the sign function
+ *
+ * @see <a href="https://en.wikipedia.org/wiki/Sine_wave">Wikipedia</a>
+ */
 object SineWaveGenerator : WaveByteArrayGenerator {
 
     override fun calculateData(index: Int, samplingInterval: Float, amplitude: Int): Byte {

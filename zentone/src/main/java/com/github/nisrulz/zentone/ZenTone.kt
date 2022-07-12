@@ -39,6 +39,13 @@ class ZenTone(
     private val audioTrack by lazy { initAudioTrack(sampleRate, encoding, channelMask) }
     var isPlaying = false
 
+    /**
+     * Start playing the tone as per passed config
+     *
+     * @param frequency
+     * @param volume
+     * @param waveByteArrayGenerator
+     */
     fun play(
         frequency: Float,
         volume: Int,
@@ -69,12 +76,14 @@ class ZenTone(
         }
     }
 
+    /** Stop playing the tone */
     fun stop() {
         if (isPlaying) {
             isPlaying = false
         }
     }
 
+    /** Release and free up resources held by ZenTone */
     fun release() {
         stop()
         audioTrack.stopAndRelease()
