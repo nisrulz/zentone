@@ -1,0 +1,33 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.github.nisrulz.zentone.wave_generators////PointingToDeclaration/zentone/com.github.nisrulz.zentone.wave_generators/index.html
+$dokka.location:com.github.nisrulz.zentone.wave_generators/SineWaveGenerator///PointingToDeclaration/zentone/com.github.nisrulz.zentone.wave_generators/-sine-wave-generator/index.html
+$dokka.location:com.github.nisrulz.zentone.wave_generators/SineWaveGenerator/calculateData/#kotlin.Int#kotlin.Float#kotlin.Int/PointingToDeclaration/zentone/com.github.nisrulz.zentone.wave_generators/-sine-wave-generator/calculate-data.html
+$dokka.location:com.github.nisrulz.zentone.wave_generators/SquareWaveGenerator///PointingToDeclaration/zentone/com.github.nisrulz.zentone.wave_generators/-square-wave-generator/index.html
+$dokka.location:com.github.nisrulz.zentone.wave_generators/SquareWaveGenerator/calculateData/#kotlin.Int#kotlin.Float#kotlin.Int/PointingToDeclaration/zentone/com.github.nisrulz.zentone.wave_generators/-square-wave-generator/calculate-data.html
+$dokka.location:com.github.nisrulz.zentone.wave_generators/TriangleWaveGenerator///PointingToDeclaration/zentone/com.github.nisrulz.zentone.wave_generators/-triangle-wave-generator/index.html
+$dokka.location:com.github.nisrulz.zentone.wave_generators/TriangleWaveGenerator/calculateData/#kotlin.Int#kotlin.Float#kotlin.Int/PointingToDeclaration/zentone/com.github.nisrulz.zentone.wave_generators/-triangle-wave-generator/calculate-data.html
+$dokka.location:com.github.nisrulz.zentone.wave_generators/WaveByteArrayGenerator///PointingToDeclaration/zentone/com.github.nisrulz.zentone.wave_generators/-wave-byte-array-generator/index.html
+$dokka.location:com.github.nisrulz.zentone.wave_generators/WaveByteArrayGenerator/calculateData/#kotlin.Int#kotlin.Float#kotlin.Int/PointingToDeclaration/zentone/com.github.nisrulz.zentone.wave_generators/-wave-byte-array-generator/calculate-data.html
+$dokka.location:com.github.nisrulz.zentone.wave_generators/WaveByteArrayGenerator/generate/#kotlin.Float#kotlin.Int/PointingToDeclaration/zentone/com.github.nisrulz.zentone.wave_generators/-wave-byte-array-generator/generate.html
+$dokka.location:com.github.nisrulz.zentone////PointingToDeclaration/zentone/com.github.nisrulz.zentone/index.html
+$dokka.location:com.github.nisrulz.zentone//DEFAULT_AMPLITUDE/#/PointingToDeclaration/zentone/com.github.nisrulz.zentone/-d-e-f-a-u-l-t_-a-m-p-l-i-t-u-d-e.html
+$dokka.location:com.github.nisrulz.zentone//DEFAULT_CHANNEL_MASK/#/PointingToDeclaration/zentone/com.github.nisrulz.zentone/-d-e-f-a-u-l-t_-c-h-a-n-n-e-l_-m-a-s-k.html
+$dokka.location:com.github.nisrulz.zentone//DEFAULT_ENCODING/#/PointingToDeclaration/zentone/com.github.nisrulz.zentone/-d-e-f-a-u-l-t_-e-n-c-o-d-i-n-g.html
+$dokka.location:com.github.nisrulz.zentone//DEFAULT_FREQUENCY_HZ/#/PointingToDeclaration/zentone/com.github.nisrulz.zentone/-d-e-f-a-u-l-t_-f-r-e-q-u-e-n-c-y_-h-z.html
+$dokka.location:com.github.nisrulz.zentone//DEFAULT_SAMPLE_RATE/#/PointingToDeclaration/zentone/com.github.nisrulz.zentone/-d-e-f-a-u-l-t_-s-a-m-p-l-e_-r-a-t-e.html
+$dokka.location:com.github.nisrulz.zentone//MIN_FREQUENCY/#/PointingToDeclaration/zentone/com.github.nisrulz.zentone/-m-i-n_-f-r-e-q-u-e-n-c-y.html
+$dokka.location:com.github.nisrulz.zentone//initAudioTrack/#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/zentone/com.github.nisrulz.zentone/init-audio-track.html
+$dokka.location:com.github.nisrulz.zentone//setThreadPriority/#/PointingToDeclaration/zentone/com.github.nisrulz.zentone/set-thread-priority.html
+$dokka.location:com.github.nisrulz.zentone//setVolumeLevel/android.media.AudioTrack#kotlin.Int/PointingToDeclaration/zentone/com.github.nisrulz.zentone/set-volume-level.html
+$dokka.location:com.github.nisrulz.zentone//stopAndRelease/android.media.AudioTrack#/PointingToDeclaration/zentone/com.github.nisrulz.zentone/stop-and-release.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone///PointingToDeclaration/zentone/com.github.nisrulz.zentone/-zen-tone/index.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone/ZenTone/#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/zentone/com.github.nisrulz.zentone/-zen-tone/-zen-tone.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone/coroutineContext/#/PointingToDeclaration/zentone/com.github.nisrulz.zentone/-zen-tone/coroutine-context.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone/isPlaying/#/PointingToDeclaration/zentone/com.github.nisrulz.zentone/-zen-tone/is-playing.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone/play/#kotlin.Float#kotlin.Int#com.github.nisrulz.zentone.wave_generators.WaveByteArrayGenerator/PointingToDeclaration/zentone/com.github.nisrulz.zentone/-zen-tone/play.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone/release/#/PointingToDeclaration/zentone/com.github.nisrulz.zentone/-zen-tone/release.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone/stop/#/PointingToDeclaration/zentone/com.github.nisrulz.zentone/-zen-tone/stop.html
+com.github.nisrulz.zentone
+com.github.nisrulz.zentone.wave_generators
+
