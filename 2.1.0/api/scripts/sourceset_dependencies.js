@@ -1,0 +1,1 @@
+sourceset_dependencies='{":zentone:dokkaHtml/androidTestRelease":[],":zentone:dokkaHtml/debug":[],":zentone:dokkaHtml/main":[],":zentone:dokkaHtml/release":[],":zentone:dokkaHtml/testFixtures":[],":zentone:dokkaHtml/testFixturesDebug":[],":zentone:dokkaHtml/testFixturesRelease":[]}'
