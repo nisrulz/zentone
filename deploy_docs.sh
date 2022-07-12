@@ -3,8 +3,11 @@
 # Build the Dokka docs.
 ./assemble_docs.sh
 
+read -p "  ❓  Specify version name: " version
+echo "  🚀 Publishing documentation for Zentone $version"
+
 # Deploy to Github pages.
-mkdocs gh-deploy
+mike deploy --push --update-aliases $version latest
 
 # Clean up.
 rm -r docs/api
