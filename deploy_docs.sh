@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Build the Dokka docs.
-./assemble_docs.sh
-
 read -p "  ❓  Specify version name: " version
 echo "  🚀 Publishing documentation for Zentone $version"
+
+# Build the Dokka docs.
+./assemble_docs.sh
 
 # Deploy to Github pages.
 mike deploy --push --update-aliases $version latest
