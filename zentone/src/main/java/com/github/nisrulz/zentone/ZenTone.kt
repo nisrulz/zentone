@@ -37,6 +37,8 @@ class ZenTone(
     }
 
     private val audioTrack by lazy { initAudioTrack(sampleRate, encoding, channelMask) }
+
+    /** Boolean flag to check if ZenTone is playing tone */
     var isPlaying = false
 
     /**
