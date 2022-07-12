@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.0 [13 Jul 2022]
+
+- 🧹  Improved versioned docs
+- ➕  Added `TriangleWaveGenerator`
+
 ## 2.1.0 [14 Feb 2022]
 
 - 🧹  Reworked API to allow providing custom Wave Generator
