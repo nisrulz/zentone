@@ -14,18 +14,28 @@
  * limitations under the License.
  */
 
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-
-    // Change default libraries extension name
-    defaultLibrariesExtensionName.set("deps")
-
-    repositories {
-        google()
-        mavenLocal()
-        mavenCentral()
-    }
+pluginManagement {
+  repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+  }
 }
-rootProject.name = "ZenTone"
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
+  // Change default libraries extension name
+  defaultLibrariesExtensionName.set("deps")
+
+  repositories {
+    google()
+    mavenLocal()
+    mavenCentral()
+  }
+}
+
+
+
+rootProject.name = "ZenToneProject"
 
 include ':app', ':zentone'

@@ -15,52 +15,53 @@
  */
 
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
+  id 'com.android.application'
+  id 'kotlin-android'
 }
 
+apply from: "${rootDir}/jvm_compat.gradle"
+
 android {
-    compileSdk rootProject.ext.compileSdkVersion
+  namespace "com.github.nisrulz.samplezentone"
+  compileSdk rootProject.ext.compileSdkVersion
 
-    defaultConfig {
-        minSdk rootProject.ext.minSdkVersion
-        targetSdk rootProject.ext.targetSdkVersion
-        applicationId "com.github.nisrulz.samplezentone"
-        versionCode 7
-        versionName '1.1.0'
+  defaultConfig {
+    minSdk rootProject.ext.minSdkVersion
+    targetSdk rootProject.ext.targetSdkVersion
+    applicationId "com.github.nisrulz.samplezentone"
+    versionCode 7
+    versionName '1.1.0'
 
-        vectorDrawables.useSupportLibrary = true
+    vectorDrawables.useSupportLibrary = true
+  }
+  buildTypes {
+    debug {
+      minifyEnabled false
+      debuggable true
     }
-    buildTypes {
-        debug {
-            minifyEnabled false
-            debuggable true
-        }
-        release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+    release {
+      minifyEnabled true
+      shrinkResources true
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
+  }
 
-    buildFeatures { viewBinding true }
+  buildFeatures { viewBinding true }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation(deps.appcompat)
+  implementation(deps.appcompat)
+  implementation(deps.material)
 
-    implementation(deps.appcompat)
-    implementation(deps.appcompat)
-    implementation(deps.material)
+  implementation(deps.coroutines.core)
 
-    implementation(deps.coroutines.core)
+  // Include as module
+  // Uncomment when developing
+  implementation project(':zentone')
 
-    // Include as module
-    // Uncomment when developing
-    implementation project(':zentone')
-
-    // Include as maven artifact
-    // Use with mavenLocal to test publication
-    // Or use with MavenCentral after publication
-    // implementation "com.github.nisrulz:zentone:$libVersionName"
+  // Include as maven artifact
+  // Use with mavenLocal to test publication
+  // Or use with MavenCentral after publication
+  // implementation "com.github.nisrulz:zentone:$libVersionName"
 }

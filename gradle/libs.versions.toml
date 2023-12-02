@@ -1,11 +1,19 @@
 [versions]
-appCompat = "1.4.2"
+appCompat = "1.6.1"
 cardView  = "1.0.0"
-material = "1.6.1"
-coroutinesCore = "1.6.3"
+dokkaGradlePlugin = "1.7.0"
+agpVer = "8.2.0"
+gradleMavenPublishPlugin = "0.25.3"
+kotlinGradlePlugin = "1.7.10"
+material = "1.10.0"
+coroutinesCore = "1.6.4"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
 cardview = { module = "androidx.cardview:cardview", version.ref = "cardView" }
+dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokkaGradlePlugin" }
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agpVer" }
+gradle-maven-publish-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradleMavenPublishPlugin" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutinesCore" }
