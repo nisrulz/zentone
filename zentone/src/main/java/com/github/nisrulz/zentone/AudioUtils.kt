@@ -12,6 +12,7 @@ import com.github.nisrulz.zentone.internal.minBufferSize
 
 fun setThreadPriority() = Process.setThreadPriority(Process.THREAD_PRIORITY_AUDIO)
 
+@Suppress("DEPRECATION")
 fun initAudioTrack(sampleRate: Int, encoding: Int, channelMask: Int): AudioTrack {
     val bufferSize = minBufferSize(sampleRate)
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -53,6 +54,7 @@ fun AudioTrack.stopAndRelease() {
     }
 }
 
+@Suppress("DEPRECATION")
 fun AudioTrack.setVolumeLevel(level: Int) {
     /* Sanity Check for max volume, set after write method
     to handle issue in Android 4.0.3 */
