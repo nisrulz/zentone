@@ -6,7 +6,7 @@
 # Build the main website
 mkdocs build
 
-cd site
+cd site || return
 
 echo "==========================================="
 echo "Open http://localhost:8000/ in your browser"
