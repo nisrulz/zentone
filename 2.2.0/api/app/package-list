@@ -1,7 +1,0 @@
-$dokka.format:html-v1
-$dokka.linkExtension:html
-$dokka.location:com.github.nisrulz.samplezentone////PointingToDeclaration/app/com.github.nisrulz.samplezentone/index.html
-$dokka.location:com.github.nisrulz.samplezentone/MainActivity///PointingToDeclaration/app/com.github.nisrulz.samplezentone/-main-activity/index.html
-$dokka.location:com.github.nisrulz.samplezentone/MainActivity/MainActivity/#/PointingToDeclaration/app/com.github.nisrulz.samplezentone/-main-activity/-main-activity.html
-com.github.nisrulz.samplezentone
-
