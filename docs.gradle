@@ -8,8 +8,10 @@ tasks.named("dokkaHtml").configure {
 
 if (JavaVersion.current().isJava8Compatible()) {
     allprojects {
-        tasks.withType(Javadoc) {
+        tasks.withType(Javadoc).tap {
+          configureEach {
             options.addStringOption('Xdoclint:none', '-quiet')
+          }
         }
     }
 }

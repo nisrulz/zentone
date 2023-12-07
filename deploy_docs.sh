@@ -1,7 +1,7 @@
 #!/bin/bash
 
 read -p "  ❓  Specify version name: " version
-echo "  🚀 Publishing documentation for ZenTone $version"
+echo "  🚀 Publishing documentation for version $version"
 
 # Build the Dokka docs.
 ./assemble_docs.sh
