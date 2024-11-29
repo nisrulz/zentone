@@ -63,12 +63,12 @@ class MainActivity : AppCompatActivity() {
                     editTextFreq.setText(progress.toString())
                 }
 
-                override fun onStartTrackingTouch(seekBar: SeekBar) {
-                    stopPlayingAudio(binding)
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                    // Nothing to do here.
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    handlePlayPauseState(binding)
+                    zenTone.setFrequency(editTextFreq.text.toString().toFloat())
                 }
             })
         }

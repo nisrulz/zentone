@@ -40,6 +40,8 @@ class ZenTone(
 
     /** Boolean flag to check if ZenTone is playing tone */
     var isPlaying = false
+    /** Current frequency in use by ZenTone.*/
+    private var frequency:Float = 0.0F
 
     /**
      * Start playing the tone as per passed config
@@ -54,8 +56,7 @@ class ZenTone(
         waveByteArrayGenerator: WaveByteArrayGenerator = SineWaveGenerator
     ) {
         if (!isPlaying && volume > 0) {
-            val freqOfTone = sanitizeFrequencyValue(frequency)
-            val audioData = waveByteArrayGenerator.generate(freqOfTone)
+            this.setFrequency(frequency)
 
             audioTrack.apply {
                 if (state != AudioTrack.STATE_INITIALIZED) cancel() // cancel all jobs
@@ -67,6 +68,7 @@ class ZenTone(
 
                 launch {
                     while (isPlaying) {
+                        val audioData = waveByteArrayGenerator.generate(this@ZenTone.frequency)
                         write(audioData, 0, audioData.size)
                     }
 
@@ -83,6 +85,10 @@ class ZenTone(
         if (isPlaying) {
             isPlaying = false
         }
+    }
+
+    fun setFrequency(frequency: Float) {
+        this.frequency = sanitizeFrequencyValue(frequency)
     }
 
     /** Release and free up resources held by ZenTone */

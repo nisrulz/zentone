@@ -11,12 +11,6 @@ import kotlin.math.sin
  * @see <a
  *     href="https://en.wikipedia.org/wiki/Triangle_wave">Wikipedia</a>
  */
-object TriangleWaveGenerator : WaveByteArrayGenerator {
-
-    override fun calculateData(index: Int, samplingInterval: Float, amplitude: Int): Byte {
-        val angle: Double = (Math.PI * index) / samplingInterval
-        return (amplitude * waveFunction(angle) * Byte.MAX_VALUE).toInt().toByte()
-    }
-
-    private fun waveFunction(angle: Double): Double = asin(sin(angle))
+object TriangleWaveGenerator : WaveByteArrayGenerator(){
+    override fun waveFunction(angle: Double): Double = asin(sin(angle))
 }
