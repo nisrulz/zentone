@@ -1,0 +1,51 @@
+name: "Pre Merge Checks"
+
+on:
+  # Allows to run this workflow when a commit it pushed to the branch
+  push:
+    paths-ignore:
+      - "**/*.md"
+    branches:
+      - main
+      - develop
+  # Allows to run this workflow when a Pull Request is made with the set target branch
+  pull_request:
+    paths-ignore:
+      - "**/*.md"
+    branches:
+      - main
+      - develop
+  # Allows to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: 17
+          cache: "gradle"
+
+      - name: Setup Gradle # Will automatically perform wrapper validation on each execution.
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2
+
+      - name: Run lint checks
+        run: ./gradlew lintRelease
+
+      - name: Run unit tests
+        run: ./gradlew testReleaseUnitTest
