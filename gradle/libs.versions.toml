@@ -1,19 +1,80 @@
 [versions]
-appCompat = "1.6.1"
-cardView  = "1.0.0"
-dokkaGradlePlugin = "1.7.0"
-agpVer = "8.2.0"
-gradleMavenPublishPlugin = "0.25.3"
-kotlinGradlePlugin = "1.7.10"
-material = "1.10.0"
-coroutinesCore = "1.6.4"
+
+#region ---- Kotlin version dependent
+# https://github.com/JetBrains/kotlin/releases
+kotlin = "2.1.0"
+# https://github.com/google/ksp/releases
+ksp = "2.1.0-1.0.29"
+coroutinesCore = "1.9.0"
+#endregion
+
+#region ---- Android Core
+agp = "8.7.3"
+androidTools = "31.7.3"
+coreKtx = "1.15.0"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.9.3"
+composeBom = "2024.11.00"
+appcompat = "1.7.0"
+material = "1.12.0"
+cardview = "1.0.0"
+#endregion
+
+#region ---- Library/API
+mavenPublish = "0.30.0"
+dokka = "1.9.20"
+binaryCompatValidator = "0.16.3"
+#endregion
 
 [libraries]
-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
-cardview = { module = "androidx.cardview:cardview", version.ref = "cardView" }
-dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokkaGradlePlugin" }
-android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agpVer" }
-gradle-maven-publish-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradleMavenPublishPlugin" }
-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
-material = { module = "com.google.android.material:material", version.ref = "material" }
-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutinesCore" }
+
+# build-logic
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+android-tools-common = { module = "com.android.tools:common", version.ref = "androidTools" }
+compose-gradle-plugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+symbol-processing-gradle-plugin = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
+dokka-plugin = { module = "org.jetbrains.dokka:dokka-android-gradle-plugin", version.ref = "dokka" }
+#----- end
+
+
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
+
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutinesCore"}
+# Dokka Plugins
+dokka-android = { group = "org.jetbrains.dokka", name = "android-documentation-plugin", version.ref = "dokka" }
+dokka-versioning = { group = "org.jetbrains.dokka", name = "versioning-plugin", version.ref = "dokka" }
+
+[plugins]
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+
+binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatValidator" }
+
+# Plugins defined by this project
+zentoneproject-android-application = { id = "zentoneproject.android.application", version = "unspecified" }
+zentoneproject-android-library = { id = "zentoneproject.android.library", version = "unspecified" }
