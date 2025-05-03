@@ -17,51 +17,59 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme =
-  darkColorScheme(
+    darkColorScheme(
         primary = PrimaryDark,
         secondary = SecondaryDark,
         onPrimary = Color.White,
         onSecondary = Color.White,
-  )
+    )
 
 private val LightColorScheme =
-  lightColorScheme(
+    lightColorScheme(
         primary = Primary,
         secondary = Secondary,
-		onPrimary = Color.White,
-		onSecondary = Color.White,
-  )
+        onPrimary = Color.White,
+        onSecondary = Color.White,
+    )
 
 @Composable
 fun ZenToneProjectTheme(
-  darkTheme: Boolean = isSystemInDarkTheme(),
-  // Dynamic color is available on Android 12+
-  dynamicColor: Boolean = true,
-  content: @Composable () -> Unit,
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    // Dynamic color is available on Android 12+
+    dynamicColor: Boolean = true,
+    content: @Composable () -> Unit,
 ) {
-  val colorScheme =
-    when {
-      dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-        val context = LocalContext.current
-        if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-      }
+    val colorScheme =
+        when {
+            dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+                val context = LocalContext.current
+                if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            }
 
-      darkTheme -> DarkColorScheme
-      else -> LightColorScheme
+            darkTheme -> DarkColorScheme
+            else -> LightColorScheme
+        }
+    val view = LocalView.current
+
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as Activity).window
+            val controller = WindowCompat.getInsetsController(window, view)
+
+            // Use window insets for status bar management
+            controller.isAppearanceLightStatusBars = darkTheme
+
+            // Set status bar background color using window decor view
+            window.decorView.setOnApplyWindowInsetsListener { v, insets ->
+                v.setBackgroundColor(colorScheme.primary.toArgb())
+                insets
+            }
+        }
     }
-  val view = LocalView.current
 
-  if (!view.isInEditMode) {
-    SideEffect {
-      val window = (view.context as Activity).window
-      window.statusBarColor = colorScheme.primary.toArgb()
-      WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
-    }
-  }
-
-  MaterialTheme(
-    colorScheme = colorScheme,
-    typography = Typography,
-    content = content,
-  )
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = Typography,
+        content = content,
+    )
 }
