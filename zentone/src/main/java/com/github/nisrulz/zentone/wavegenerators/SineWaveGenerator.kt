@@ -10,7 +10,9 @@ import kotlin.math.sin
  *
  * @see <a href="https://en.wikipedia.org/wiki/Sine_wave">Wikipedia</a>
  */
-object SineWaveGenerator : AngleBaseWaveGenerator() {
+object SineWaveGenerator : WaveByteArrayGenerator {
+    override var angle: Double = 0.0
+    override var angleStep: Double = 0.0
 
     override fun calculateData(angle: Double, amplitude: Int): Byte {
         return (amplitude * waveFunction(angle) * Byte.MAX_VALUE).toInt().toByte()

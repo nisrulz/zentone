@@ -68,7 +68,7 @@ class ZenTone(
             setFrequency(frequency)
 
             audioTrack.apply {
-                if (state != AudioTrack.STATE_INITIALIZED) cancel() // cancel all jobs
+                if (state != AudioTrack.STATE_INITIALIZED) cancel()
 
                 setVolumeLevel(volume)
 
@@ -83,7 +83,6 @@ class ZenTone(
                         }
 
                         stop()
-                        // cancel all jobs
                         cancel()
                     }
                 }
@@ -94,7 +93,6 @@ class ZenTone(
     private fun setFrequency(frequency: Float) {
         this.frequency = sanitizeFrequencyValue(frequency)
     }
-
 
     /** Stop playing the tone */
     fun stop() {
