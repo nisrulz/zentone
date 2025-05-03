@@ -19,75 +19,85 @@ import android.media.AudioTrack
 import com.github.nisrulz.zentone.internal.sanitizeFrequencyValue
 import com.github.nisrulz.zentone.wave_generators.SineWaveGenerator
 import com.github.nisrulz.zentone.wave_generators.WaveByteArrayGenerator
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlin.coroutines.CoroutineContext
 
 class ZenTone(
-    sampleRate: Int = DEFAULT_SAMPLE_RATE,
-    encoding: Int = DEFAULT_ENCODING,
-    channelMask: Int = DEFAULT_CHANNEL_MASK
+  sampleRate: Int = DEFAULT_SAMPLE_RATE,
+  encoding: Int = DEFAULT_ENCODING,
+  channelMask: Int = DEFAULT_CHANNEL_MASK
 ) : CoroutineScope {
 
-    private val job = SupervisorJob()
-    override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Default
+  private val mutex = Mutex()
 
-    init {
-        setThreadPriority()
-    }
+  private val job = SupervisorJob()
+  override val coroutineContext: CoroutineContext
+    get() = job + Dispatchers.Default
 
-    private val audioTrack by lazy { initAudioTrack(sampleRate, encoding, channelMask) }
+  init {
+    setThreadPriority()
+  }
 
-    /** Boolean flag to check if ZenTone is playing tone */
-    var isPlaying = false
+  private val audioTrack by lazy { initAudioTrack(sampleRate, encoding, channelMask) }
 
-    /**
-     * Start playing the tone as per passed config
-     *
-     * @param frequency
-     * @param volume
-     * @param waveByteArrayGenerator
-     */
-    fun play(
-        frequency: Float,
-        volume: Int,
-        waveByteArrayGenerator: WaveByteArrayGenerator = SineWaveGenerator
-    ) {
-        if (!isPlaying && volume > 0) {
-            val freqOfTone = sanitizeFrequencyValue(frequency)
-            val audioData = waveByteArrayGenerator.generate(freqOfTone)
+  /** Boolean flag to check if ZenTone is playing tone */
+  var isPlaying = false
 
-            audioTrack.apply {
-                if (state != AudioTrack.STATE_INITIALIZED) cancel() // cancel all jobs
+  /**
+   * Start playing the tone as per passed config
+   *
+   * @param frequency
+   * @param volume
+   * @param waveByteArrayGenerator
+   */
+  fun play(
+    frequency: Float,
+    volume: Int,
+    waveByteArrayGenerator: WaveByteArrayGenerator = SineWaveGenerator
+  ) {
+    if (!isPlaying && volume > 0 && frequency > 0.0f) {
+      val freqOfTone = sanitizeFrequencyValue(frequency)
+      val audioData = waveByteArrayGenerator.generate(freqOfTone)
 
-                setVolumeLevel(volume)
+      audioTrack.apply {
+        if (state != AudioTrack.STATE_INITIALIZED) cancel() // cancel all jobs
 
-                play()
-                isPlaying = true
+        setVolumeLevel(volume)
 
-                launch {
-                    while (isPlaying) {
-                        write(audioData, 0, audioData.size)
-                    }
+        play()
+        isPlaying = true
 
-                    stop()
-                    // cancel all jobs
-                    cancel()
-                }
+        launch {
+          mutex.withLock {
+            while (isPlaying) {
+              write(audioData, 0, audioData.size)
             }
-        }
-    }
 
-    /** Stop playing the tone */
-    fun stop() {
-        if (isPlaying) {
-            isPlaying = false
+            stop()
+            // cancel all jobs
+            cancel()
+          }
         }
+      }
     }
+  }
 
-    /** Release and free up resources held by ZenTone */
-    fun release() {
-        stop()
-        audioTrack.stopAndRelease()
+  /** Stop playing the tone */
+  fun stop() {
+    if (isPlaying) {
+      isPlaying = false
     }
+  }
+
+  /** Release and free up resources held by ZenTone */
+  fun release() {
+    stop()
+    audioTrack.stopAndRelease()
+  }
 }
