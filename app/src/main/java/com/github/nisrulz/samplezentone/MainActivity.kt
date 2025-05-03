@@ -15,113 +15,60 @@
  */
 package com.github.nisrulz.samplezentone
 
-import android.os.Build
 import android.os.Bundle
-import android.widget.SeekBar
-import android.widget.SeekBar.OnSeekBarChangeListener
-import androidx.appcompat.app.AppCompatActivity
-import com.github.nisrulz.samplezentone.databinding.ActivityMainBinding
-import com.github.nisrulz.zentone.MIN_FREQUENCY
-import com.github.nisrulz.zentone.ZenTone
-import com.github.nisrulz.zentone.wave_generators.SineWaveGenerator
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.github.nisrulz.samplezentone.ui.screen.main.MainScreen
+import com.github.nisrulz.samplezentone.ui.screen.main.MainScreenViewModel
+import com.github.nisrulz.samplezentone.ui.theme.AppTheme
 
-class MainActivity : AppCompatActivity() {
-
-    private val zenTone = ZenTone()
-
-    private lateinit var binding: ActivityMainBinding
+class MainActivity : ComponentActivity() {
+    val viewModel by viewModels<MainScreenViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        binding.apply {
-            setContentView(root)
 
-            myFAB.setOnClickListener {
-                handlePlayPauseState(binding)
-            }
-            setupFreqSeekbar(this)
-            setupVolumeSeekbar(this)
-        }
-    }
+        enableEdgeToEdge()
 
-    override fun onDestroy() {
-        super.onDestroy()
-        zenTone.release()
-    }
 
-    private fun setupFreqSeekbar(binding: ActivityMainBinding) {
-        binding.apply {
-            seekBarFreq.max = 22000
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                seekBarFreq.min = MIN_FREQUENCY.toInt()
-            }
 
-            seekBarFreq.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    editTextFreq.setText(progress.toString())
-                }
+        setContent {
+            AppTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background,
+                ) {
+                    val viewState by viewModel.viewState.collectAsStateWithLifecycle()
 
-                override fun onStartTrackingTouch(seekBar: SeekBar) {
-                    stopPlayingAudio(binding)
-                }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    handlePlayPauseState(binding)
-                }
-            })
-        }
-    }
-
-    private fun setupVolumeSeekbar(binding: ActivityMainBinding) {
-        binding.apply {
-            seekBarVolume.max = 100
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                seekBarVolume.min = 0
-            }
-
-            seekBarVolume.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    editTextVolume.setText(progress.toString())
-                }
-
-                override fun onStartTrackingTouch(seekBar: SeekBar) {
-                    stopPlayingAudio(binding)
-                }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    handlePlayPauseState(binding)
-                }
-            })
-        }
-    }
-
-    private fun stopPlayingAudio(binding: ActivityMainBinding) {
-        binding.apply {
-            zenTone.stop()
-            myFAB.setImageResource(R.drawable.play)
-        }
-    }
-
-    private fun handlePlayPauseState(binding: ActivityMainBinding) {
-        binding.apply {
-            when {
-                zenTone.isPlaying -> {
-                    stopPlayingAudio(this)
-                }
-                else -> {
-                    val freq = editTextFreq.text.toString().toFloat()
-                    val volume = editTextVolume.text.toString().toInt()
-                    zenTone.play(
-                        frequency = freq,
-                        volume = volume,
-                        waveByteArrayGenerator = SineWaveGenerator
-                    )
-                    myFAB.setImageResource(R.drawable.stop)
+                    MainScreen(
+                        viewState = viewState,
+                        onFabClick = {
+                            viewModel.onPlayStop()
+                        }, onVolumeChange = {
+                            viewModel.setVolume(it)
+                        }, onFreqChange = {
+                            viewModel.setFreq(it)
+                        }, onValueChangeFinished = {
+                            viewModel.rePlayWithChangedValues()
+                        })
                 }
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.release()
     }
 }
+
+

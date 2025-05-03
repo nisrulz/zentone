@@ -1,0 +1,57 @@
+public final class com/github/nisrulz/zentone/AudioUtilsKt {
+	public static final fun initAudioTrack (III)Landroid/media/AudioTrack;
+	public static final fun setThreadPriority ()V
+	public static final fun setVolumeLevel (Landroid/media/AudioTrack;I)V
+	public static final fun stopAndRelease (Landroid/media/AudioTrack;)V
+}
+
+public final class com/github/nisrulz/zentone/ConstantsKt {
+	public static final field DEFAULT_AMPLITUDE I
+	public static final field DEFAULT_CHANNEL_MASK I
+	public static final field DEFAULT_ENCODING I
+	public static final field DEFAULT_FREQUENCY_HZ F
+	public static final field DEFAULT_SAMPLE_RATE I
+	public static final field MIN_FREQUENCY F
+}
+
+public final class com/github/nisrulz/zentone/ZenTone : kotlinx/coroutines/CoroutineScope {
+	public fun <init> ()V
+	public fun <init> (III)V
+	public synthetic fun <init> (IIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getCoroutineContext ()Lkotlin/coroutines/CoroutineContext;
+	public final fun isPlaying ()Z
+	public final fun play (FILcom/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator;)V
+	public static synthetic fun play$default (Lcom/github/nisrulz/zentone/ZenTone;FILcom/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator;ILjava/lang/Object;)V
+	public final fun release ()V
+	public final fun setPlaying (Z)V
+	public final fun stop ()V
+}
+
+public final class com/github/nisrulz/zentone/wave_generators/SineWaveGenerator : com/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator {
+	public static final field INSTANCE Lcom/github/nisrulz/zentone/wave_generators/SineWaveGenerator;
+	public fun calculateData (IFI)B
+	public fun generate (FI)[B
+}
+
+public final class com/github/nisrulz/zentone/wave_generators/SquareWaveGenerator : com/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator {
+	public static final field INSTANCE Lcom/github/nisrulz/zentone/wave_generators/SquareWaveGenerator;
+	public fun calculateData (IFI)B
+	public fun generate (FI)[B
+}
+
+public final class com/github/nisrulz/zentone/wave_generators/TriangleWaveGenerator : com/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator {
+	public static final field INSTANCE Lcom/github/nisrulz/zentone/wave_generators/TriangleWaveGenerator;
+	public fun calculateData (IFI)B
+	public fun generate (FI)[B
+}
+
+public abstract interface class com/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator {
+	public abstract fun calculateData (IFI)B
+	public abstract fun generate (FI)[B
+}
+
+public final class com/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator$DefaultImpls {
+	public static fun generate (Lcom/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator;FI)[B
+	public static synthetic fun generate$default (Lcom/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator;FIILjava/lang/Object;)[B
+}
+
