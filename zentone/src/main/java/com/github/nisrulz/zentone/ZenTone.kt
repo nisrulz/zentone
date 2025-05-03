@@ -91,7 +91,7 @@ class ZenTone(
         }
     }
 
-    fun setFrequency(frequency: Float) {
+    private fun setFrequency(frequency: Float) {
         this.frequency = sanitizeFrequencyValue(frequency)
     }
 

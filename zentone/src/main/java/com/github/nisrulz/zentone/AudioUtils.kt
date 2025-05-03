@@ -54,10 +54,8 @@ fun AudioTrack.stopAndRelease() {
     }
 }
 
-@Suppress("DEPRECATION")
 fun AudioTrack.setVolumeLevel(level: Int) {
-    /* Sanity Check for max volume, set after write method
-    to handle issue in Android 4.0.3 */
+    // Sanity Check for max volume, set after write method to handle issue in Android 4.0.3
     var tempVolume = level.convertIntRangeToFloatRange()
     val maxVolume = AudioTrack.getMaxVolume()
     if (tempVolume > maxVolume) {
@@ -65,11 +63,5 @@ fun AudioTrack.setVolumeLevel(level: Int) {
     } else if (tempVolume < 0) {
         tempVolume = 0f
     }
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        // For API >= 21
-        setVolume(tempVolume)
-    } else {
-        // For API < 21
-        setStereoVolume(tempVolume, tempVolume)
-    }
+    setVolume(tempVolume)
 }

@@ -3,7 +3,7 @@ package com.github.nisrulz.zentone.wave_generators
 import kotlin.math.PI
 
 /**
- * Base class for angle based wave generators. Generates a continuesly changing angle for the
+ * Base class for angle based wave generators. Generates a continuously changing angle for the
  * the wave generators to use. The angle wraps around 2*Pi.
  */
 abstract class AngleBaseWaveGenerator : WaveByteArrayGenerator {

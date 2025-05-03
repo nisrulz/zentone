@@ -31,6 +31,9 @@ interface WaveByteArrayGenerator {
     }
 
     fun calculateData(index: Int, amplitude: Int): Byte
-    fun reset()
+
     fun setup(freqOfTone: Float, sampleRate: Int)
+
+    fun reset()
+
 }
