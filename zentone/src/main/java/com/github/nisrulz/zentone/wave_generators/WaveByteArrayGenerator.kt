@@ -18,17 +18,22 @@ interface WaveByteArrayGenerator {
         freqOfTone: Float = DEFAULT_FREQUENCY_HZ,
         sampleRate: Int = DEFAULT_SAMPLE_RATE
     ): ByteArray {
+        setup(freqOfTone, sampleRate)
         val bufferSize = minBufferSize(sampleRate)
-        val samplingInterval = sampleRate / freqOfTone
 
         val generatedSnd = ByteArray(bufferSize)
 
         generatedSnd.indices.forEach { i ->
-            generatedSnd[i] = calculateData(i, samplingInterval, DEFAULT_AMPLITUDE)
+            generatedSnd[i] = calculateData(i, DEFAULT_AMPLITUDE)
         }
 
         return generatedSnd
     }
 
-    fun calculateData(index: Int, samplingInterval: Float, amplitude: Int): Byte
+    fun calculateData(index: Int, amplitude: Int): Byte
+
+    fun setup(freqOfTone: Float, sampleRate: Int)
+
+    fun reset()
+
 }

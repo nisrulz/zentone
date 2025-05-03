@@ -29,75 +29,83 @@ import kotlinx.coroutines.sync.withLock
 import kotlin.coroutines.CoroutineContext
 
 class ZenTone(
-  sampleRate: Int = DEFAULT_SAMPLE_RATE,
-  encoding: Int = DEFAULT_ENCODING,
-  channelMask: Int = DEFAULT_CHANNEL_MASK
+    sampleRate: Int = DEFAULT_SAMPLE_RATE,
+    encoding: Int = DEFAULT_ENCODING,
+    channelMask: Int = DEFAULT_CHANNEL_MASK
 ) : CoroutineScope {
 
-  private val mutex = Mutex()
+    private val mutex = Mutex()
 
-  private val job = SupervisorJob()
-  override val coroutineContext: CoroutineContext
-    get() = job + Dispatchers.Default
+    private val job = SupervisorJob()
+    override val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.Default
 
-  init {
-    setThreadPriority()
-  }
+    init {
+        setThreadPriority()
+    }
 
-  private val audioTrack by lazy { initAudioTrack(sampleRate, encoding, channelMask) }
+    private val audioTrack by lazy { initAudioTrack(sampleRate, encoding, channelMask) }
 
-  /** Boolean flag to check if ZenTone is playing tone */
-  var isPlaying = false
+    /** Boolean flag to check if ZenTone is playing tone */
+    var isPlaying = false
 
-  /**
-   * Start playing the tone as per passed config
-   *
-   * @param frequency
-   * @param volume
-   * @param waveByteArrayGenerator
-   */
-  fun play(
-    frequency: Float,
-    volume: Int,
-    waveByteArrayGenerator: WaveByteArrayGenerator = SineWaveGenerator
-  ) {
-    if (!isPlaying && volume > 0 && frequency > 0.0f) {
-      val freqOfTone = sanitizeFrequencyValue(frequency)
-      val audioData = waveByteArrayGenerator.generate(freqOfTone)
+    /** Current frequency in use by ZenTone.*/
+    private var frequency: Float = 0.0F
 
-      audioTrack.apply {
-        if (state != AudioTrack.STATE_INITIALIZED) cancel() // cancel all jobs
+    /**
+     * Start playing the tone as per passed config
+     *
+     * @param frequency
+     * @param volume
+     * @param waveByteArrayGenerator
+     */
+    fun play(
+        frequency: Float,
+        volume: Int,
+        waveByteArrayGenerator: WaveByteArrayGenerator = SineWaveGenerator
+    ) {
+        if (!isPlaying && volume > 0 && frequency > 0.0f) {
+            setFrequency(frequency)
 
-        setVolumeLevel(volume)
+            audioTrack.apply {
+                if (state != AudioTrack.STATE_INITIALIZED) cancel() // cancel all jobs
 
-        play()
-        isPlaying = true
+                setVolumeLevel(volume)
 
-        launch {
-          mutex.withLock {
-            while (isPlaying) {
-              write(audioData, 0, audioData.size)
+                play()
+                isPlaying = true
+
+                launch {
+                    mutex.withLock {
+                        while (isPlaying) {
+                            val audioData = waveByteArrayGenerator.generate(this@ZenTone.frequency)
+                            write(audioData, 0, audioData.size)
+                        }
+
+                        stop()
+                        // cancel all jobs
+                        cancel()
+                    }
+                }
             }
-
-            stop()
-            // cancel all jobs
-            cancel()
-          }
         }
-      }
     }
-  }
 
-  /** Stop playing the tone */
-  fun stop() {
-    if (isPlaying) {
-      isPlaying = false
+    private fun setFrequency(frequency: Float) {
+        this.frequency = sanitizeFrequencyValue(frequency)
     }
-  }
 
-  /** Release and free up resources held by ZenTone */
-  fun release() {
-    stop()
-    audioTrack.stopAndRelease()
-  }
+
+    /** Stop playing the tone */
+    fun stop() {
+        if (isPlaying) {
+            isPlaying = false
+        }
+    }
+
+    /** Release and free up resources held by ZenTone */
+    fun release() {
+        stop()
+        audioTrack.stopAndRelease()
+    }
 }

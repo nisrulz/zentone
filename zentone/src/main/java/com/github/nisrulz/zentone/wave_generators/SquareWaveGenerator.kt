@@ -11,10 +11,9 @@ import kotlin.math.sin
  * @see <a
  *     href="https://en.wikipedia.org/wiki/Square_wave">Wikipedia</a>
  */
-object SquareWaveGenerator : WaveByteArrayGenerator {
+object SquareWaveGenerator : AngleBaseWaveGenerator() {
 
-    override fun calculateData(index: Int, samplingInterval: Float, amplitude: Int): Byte {
-        val angle: Double = (Math.PI * index) / samplingInterval
+    override fun calculateData(angle: Double, amplitude: Int): Byte {
         return (amplitude * waveFunction(angle) * Byte.MAX_VALUE).toInt().toByte()
     }
 
