@@ -1,4 +1,4 @@
-package com.github.nisrulz.zentone.wave_generators
+package com.github.nisrulz.zentone.wavegenerators
 
 import kotlin.math.sin
 

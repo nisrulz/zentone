@@ -17,8 +17,8 @@ package com.github.nisrulz.zentone
 
 import android.media.AudioTrack
 import com.github.nisrulz.zentone.internal.sanitizeFrequencyValue
-import com.github.nisrulz.zentone.wave_generators.SineWaveGenerator
-import com.github.nisrulz.zentone.wave_generators.WaveByteArrayGenerator
+import com.github.nisrulz.zentone.wavegenerators.SineWaveGenerator
+import com.github.nisrulz.zentone.wavegenerators.WaveByteArrayGenerator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
