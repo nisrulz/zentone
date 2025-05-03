@@ -17,8 +17,8 @@ package com.github.nisrulz.zentone
 
 import android.media.AudioTrack
 import com.github.nisrulz.zentone.internal.sanitizeFrequencyValue
-import com.github.nisrulz.zentone.wave_generators.SineWaveGenerator
-import com.github.nisrulz.zentone.wave_generators.WaveByteArrayGenerator
+import com.github.nisrulz.zentone.wavegenerators.SineWaveGenerator
+import com.github.nisrulz.zentone.wavegenerators.WaveByteArrayGenerator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -68,7 +68,7 @@ class ZenTone(
             setFrequency(frequency)
 
             audioTrack.apply {
-                if (state != AudioTrack.STATE_INITIALIZED) cancel() // cancel all jobs
+                if (state != AudioTrack.STATE_INITIALIZED) cancel()
 
                 setVolumeLevel(volume)
 
@@ -83,8 +83,8 @@ class ZenTone(
                         }
 
                         stop()
-                        // cancel all jobs
                         cancel()
+                        waveByteArrayGenerator.reset()
                     }
                 }
             }
@@ -94,7 +94,6 @@ class ZenTone(
     private fun setFrequency(frequency: Float) {
         this.frequency = sanitizeFrequencyValue(frequency)
     }
-
 
     /** Stop playing the tone */
     fun stop() {

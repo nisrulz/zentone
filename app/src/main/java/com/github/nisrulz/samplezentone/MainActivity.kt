@@ -31,15 +31,12 @@ import com.github.nisrulz.samplezentone.ui.screen.main.MainScreenViewModel
 import com.github.nisrulz.samplezentone.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
-    val viewModel by viewModels<MainScreenViewModel>()
+    private val viewModel by viewModels<MainScreenViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
-
-
-
 
         setContent {
             AppTheme {
@@ -65,8 +62,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
+        super.onDestroy()
         viewModel.release()
     }
 }
