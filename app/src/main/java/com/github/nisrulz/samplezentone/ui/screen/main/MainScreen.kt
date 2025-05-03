@@ -20,9 +20,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.github.nisrulz.samplezentone.ui.theme.ZenToneProjectTheme
+import com.github.nisrulz.samplezentone.ui.theme.AppTheme
 
 
 @Composable
@@ -46,7 +45,7 @@ fun MainScreen(modifier: Modifier = Modifier, onFabClick: () -> Unit = {}) {
 @PreviewLightDark
 @Composable
 private fun Preview() {
-    ZenToneProjectTheme {
+    AppTheme {
         MainScreen()
     }
 }
