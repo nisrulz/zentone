@@ -26,7 +26,6 @@ class MainScreenViewModel : ViewModel() {
         if (zenTone.isPlaying) {
             zenTone.stop()
         } else {
-            if (volume == 0f || freq == 0f) return
             zenTone.play(freq, volume.toInt())
         }
 
@@ -36,7 +35,6 @@ class MainScreenViewModel : ViewModel() {
     fun rePlayWithChangedValues() {
         if (zenTone.isPlaying) {
             zenTone.stop()
-            if (volume == 0f || freq == 0f) return
             zenTone.play(freq, volume.toInt())
         }
         setSuccess(freq, volume)
