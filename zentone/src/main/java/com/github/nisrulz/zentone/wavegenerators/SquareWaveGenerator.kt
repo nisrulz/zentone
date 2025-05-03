@@ -9,8 +9,7 @@ import kotlin.math.sin
  * Square Wave: The square wave has only odd harmonics. This harmonic structure gives the square
  * wave a little more bite to the sound.
  *
- * @see <a
- *     href="https://en.wikipedia.org/wiki/Square_wave">Wikipedia</a>
+ * @see <a href="https://en.wikipedia.org/wiki/Square_wave">Wikipedia</a>
  */
 object SquareWaveGenerator : WaveByteArrayGenerator {
 

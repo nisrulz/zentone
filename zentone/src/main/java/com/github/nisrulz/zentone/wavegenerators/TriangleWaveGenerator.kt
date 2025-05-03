@@ -8,9 +8,8 @@ import kotlin.math.sin
  *
  * Triangle Wave: A triangle wave increases and decreases linearly, creating a wave that looks
  * like a series of triangles.
- * 
- * @see <a
- *     href="https://en.wikipedia.org/wiki/Triangle_wave">Wikipedia</a>
+ *
+ * @see <a href="https://en.wikipedia.org/wiki/Triangle_wave">Wikipedia</a>
  */
 object TriangleWaveGenerator : WaveByteArrayGenerator {
 
