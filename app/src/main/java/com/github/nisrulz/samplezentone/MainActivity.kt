@@ -19,18 +19,27 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.nisrulz.samplezentone.ui.screen.main.MainScreen
+import com.github.nisrulz.samplezentone.ui.screen.main.MainScreenViewModel
 import com.github.nisrulz.samplezentone.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
+    val viewModel by viewModels<MainScreenViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
+
+
+
 
         setContent {
             AppTheme {
@@ -38,11 +47,27 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    // ViewModel
-                    MainScreen()
+                    val viewState by viewModel.viewState.collectAsStateWithLifecycle()
+
+                    MainScreen(
+                        viewState = viewState,
+                        onFabClick = {
+                            viewModel.onPlayStop()
+                        }, onVolumeChange = {
+                            viewModel.setVolume(it)
+                        }, onFreqChange = {
+                            viewModel.setFreq(it)
+                        }, onValueChangeFinished = {
+                            viewModel.rePlayWithChangedValues()
+                        })
                 }
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.release()
     }
 }
 
