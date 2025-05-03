@@ -84,6 +84,7 @@ class ZenTone(
 
                         stop()
                         cancel()
+                        waveByteArrayGenerator.reset()
                     }
                 }
             }
