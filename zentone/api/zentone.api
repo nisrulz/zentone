@@ -27,27 +27,32 @@ public final class com/github/nisrulz/zentone/ZenTone : kotlinx/coroutines/Corou
 	public final fun stop ()V
 }
 
-public final class com/github/nisrulz/zentone/wave_generators/SineWaveGenerator : com/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator {
+public abstract class com/github/nisrulz/zentone/wave_generators/AngleBaseWaveGenerator : com/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator {
+	public fun <init> ()V
+	protected abstract fun calculateData (DI)B
+	public fun calculateData (II)B
+	public fun generate (FI)[B
+	public fun reset ()V
+	public fun setup (FI)V
+}
+
+public final class com/github/nisrulz/zentone/wave_generators/SineWaveGenerator : com/github/nisrulz/zentone/wave_generators/AngleBaseWaveGenerator {
 	public static final field INSTANCE Lcom/github/nisrulz/zentone/wave_generators/SineWaveGenerator;
-	public fun calculateData (IFI)B
-	public fun generate (FI)[B
 }
 
-public final class com/github/nisrulz/zentone/wave_generators/SquareWaveGenerator : com/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator {
+public final class com/github/nisrulz/zentone/wave_generators/SquareWaveGenerator : com/github/nisrulz/zentone/wave_generators/AngleBaseWaveGenerator {
 	public static final field INSTANCE Lcom/github/nisrulz/zentone/wave_generators/SquareWaveGenerator;
-	public fun calculateData (IFI)B
-	public fun generate (FI)[B
 }
 
-public final class com/github/nisrulz/zentone/wave_generators/TriangleWaveGenerator : com/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator {
+public final class com/github/nisrulz/zentone/wave_generators/TriangleWaveGenerator : com/github/nisrulz/zentone/wave_generators/AngleBaseWaveGenerator {
 	public static final field INSTANCE Lcom/github/nisrulz/zentone/wave_generators/TriangleWaveGenerator;
-	public fun calculateData (IFI)B
-	public fun generate (FI)[B
 }
 
 public abstract interface class com/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator {
-	public abstract fun calculateData (IFI)B
+	public abstract fun calculateData (II)B
 	public abstract fun generate (FI)[B
+	public abstract fun reset ()V
+	public abstract fun setup (FI)V
 }
 
 public final class com/github/nisrulz/zentone/wave_generators/WaveByteArrayGenerator$DefaultImpls {
