@@ -6,7 +6,7 @@ import kotlin.math.sin
 /**
  * Sine wave generator
  *
- * Sine Wave: Defined as the sign function
+ * Sine Wave: The most basic and simple waveform, a sine wave has a simple hollow sound.
  *
  * @see <a href="https://en.wikipedia.org/wiki/Sine_wave">Wikipedia</a>
  */

@@ -14,8 +14,8 @@ interface WaveByteArrayGenerator {
     /**
      * Generate byte data for tone
      *
-     * @param freqOfTone
-     * @param sampleRate
+     * @param freqOfTone Frequency of the tone you want to generate, in Hz.
+     * @param sampleRate Number of samples per second, in Hz
      * @return ByteArray of generated tone
      */
     fun generate(
@@ -38,7 +38,8 @@ interface WaveByteArrayGenerator {
 
 
     /**
-     * Setup required before generating a frame. Must be called at least once before calculateData.
+     * Setup required before generating a frame.
+     * Must be called at least once before calculateData.
      */
     fun setup(freqOfTone: Float, sampleRate: Int) {
         val samplingInterval = sampleRate / freqOfTone

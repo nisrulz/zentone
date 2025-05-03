@@ -6,8 +6,9 @@ import kotlin.math.sin
 /**
  * Triangle wave generator
  *
- * Triangle Wave: Defined as the arc sine function of a sinusoid
- *
+ * Triangle Wave: A triangle wave increases and decreases linearly, creating a wave that looks
+ * like a series of triangles.
+ * 
  * @see <a
  *     href="https://en.wikipedia.org/wiki/Triangle_wave">Wikipedia</a>
  */

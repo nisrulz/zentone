@@ -6,7 +6,8 @@ import kotlin.math.sin
 /**
  * Square wave generator
  *
- * Square Wave: Defined as the sign function of a sinusoid
+ * Square Wave: The square wave has only odd harmonics. This harmonic structure gives the square
+ * wave a little more bite to the sound.
  *
  * @see <a
  *     href="https://en.wikipedia.org/wiki/Square_wave">Wikipedia</a>
