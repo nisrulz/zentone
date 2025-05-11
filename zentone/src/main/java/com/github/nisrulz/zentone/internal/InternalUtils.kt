@@ -57,8 +57,11 @@ internal fun limitedParallelism(n: Int = 1): CoroutineContext =
 
 
 internal fun AudioTrack.writeOptimizedAudioData(audioData: ByteArray) {
-    val chunkSize = audioData.size / 4
-    for (i in audioData.indices step chunkSize) {
-        write(audioData, i, chunkSize)
+    val chunkSize = maxOf(4096, audioData.size / 4)
+    var index = 0
+    while (index < audioData.size) {
+        val size = minOf(chunkSize, audioData.size - index)
+        write(audioData, index, size)
+        index += size
     }
 }

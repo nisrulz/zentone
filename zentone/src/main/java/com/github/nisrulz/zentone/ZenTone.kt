@@ -65,12 +65,10 @@ class ZenTone(
             setFrequency(frequency)
 
             audioTrack.apply {
-                if (state != AudioTrack.STATE_INITIALIZED) cancel()
+                if (state != AudioTrack.STATE_INITIALIZED) return
 
                 setVolumeLevel(volume)
-
                 play()
-                isPlayingAtomic.compareAndSet(false, true)
 
                 launch {
                     while (isPlaying) {
@@ -98,7 +96,7 @@ class ZenTone(
     fun release() {
         stop()
         audioTrack.stopAndRelease()
-        cancel()
+        coroutineContext.cancel()
     }
 
     private fun setFrequency(frequency: Float) {
