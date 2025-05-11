@@ -21,14 +21,22 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.nisrulz.samplezentone.ui.screen.main.MainScreen
-import com.github.nisrulz.samplezentone.ui.screen.main.MainScreenViewModel
+import com.github.nisrulz.samplezentone.screen.main.Event
+import com.github.nisrulz.samplezentone.screen.main.MainScreen
+import com.github.nisrulz.samplezentone.screen.main.MainScreenViewModel
 import com.github.nisrulz.samplezentone.ui.theme.AppTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     private val viewModel by viewModels<MainScreenViewModel>()
@@ -42,21 +50,37 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
+                    color = darkColorScheme().background,
                 ) {
                     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
+                    val snackBarHostState: SnackbarHostState = remember { SnackbarHostState() }
+                    val scope = rememberCoroutineScope()
+
+                    LaunchedEffect(Unit) {
+                        viewModel.event.collectLatest {
+                            when (it) {
+                                is Event.Error -> scope.showSnackBar(snackBarHostState, it.message)
+                            }
+
+                        }
+                    }
 
                     MainScreen(
                         viewState = viewState,
                         onFabClick = {
                             viewModel.onPlayStop()
-                        }, onVolumeChange = {
+                        },
+                        onVolumeChange = {
                             viewModel.setVolume(it)
-                        }, onFreqChange = {
+                        },
+                        onFreqChange = {
                             viewModel.setFreq(it)
-                        }, onValueChangeFinished = {
+                        },
+                        onValueChangeFinished = {
                             viewModel.rePlayWithChangedValues()
-                        })
+                        },
+                        snackBarHostState = snackBarHostState,
+                    )
                 }
             }
         }
@@ -66,6 +90,14 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
         viewModel.release()
     }
+
+    private fun CoroutineScope.showSnackBar(snackBarHostState: SnackbarHostState, text: String) {
+        this.launch {
+            snackBarHostState.showSnackbar(text)
+        }
+    }
 }
+
+
 
 

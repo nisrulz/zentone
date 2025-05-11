@@ -1,4 +1,4 @@
-package com.github.nisrulz.samplezentone.ui.screen.main
+package com.github.nisrulz.samplezentone.screen.main.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

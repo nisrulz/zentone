@@ -1,15 +1,14 @@
-package com.github.nisrulz.samplezentone.ui.screen.main
+package com.github.nisrulz.samplezentone.screen.main.ui
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,18 +28,17 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.github.nisrulz.samplezentone.R
+import com.github.nisrulz.samplezentone.screen.main.ViewState
 
 @Composable
-internal fun SuccessScreen(
+internal fun FreqAndVolumeComponent(
     viewState: ViewState,
     onFreqChange: (Float) -> Unit,
     onVolumeChange: (Float) -> Unit,
     onValueChangeFinished: () -> Unit
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Top
+        modifier = Modifier.fillMaxWidth(),
     ) {
         Image(
             modifier = Modifier
@@ -50,7 +48,7 @@ internal fun SuccessScreen(
             painter = painterResource(id = R.drawable.logo),
             contentDescription = "Logo",
             colorFilter = ColorFilter.tint(
-                Color.White
+                MaterialTheme.colorScheme.primary
             )
         )
         Spacer(
@@ -139,10 +137,12 @@ private fun ValueText(value: String) {
 @Composable
 private fun WaveAnimation(isPlaying: Boolean) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.waveform_anim))
+
     LottieAnimation(
         isPlaying = isPlaying,
-        modifier = Modifier.fillMaxWidth(),
         composition = composition,
+        modifier = Modifier
+            .fillMaxWidth(),
         iterations = LottieConstants.IterateForever
     )
 }

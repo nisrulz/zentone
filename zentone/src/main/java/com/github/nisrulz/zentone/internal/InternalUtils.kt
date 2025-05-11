@@ -5,6 +5,8 @@ import com.github.nisrulz.zentone.DEFAULT_CHANNEL_MASK
 import com.github.nisrulz.zentone.DEFAULT_ENCODING
 import com.github.nisrulz.zentone.DEFAULT_SAMPLE_RATE
 import com.github.nisrulz.zentone.MIN_FREQUENCY
+import kotlinx.coroutines.Dispatchers
+import kotlin.coroutines.CoroutineContext
 
 
 /**
@@ -48,3 +50,18 @@ internal fun sanitizeFrequencyValue(
 }
 
 internal fun Int.convertIntRangeToFloatRange() = this / 100f
+
+
+internal fun limitedParallelism(n: Int = 1): CoroutineContext =
+    Dispatchers.Default.limitedParallelism(n)
+
+
+internal fun AudioTrack.writeOptimizedAudioData(audioData: ByteArray) {
+    val chunkSize = maxOf(4096, audioData.size / 4)
+    var index = 0
+    while (index < audioData.size) {
+        val size = minOf(chunkSize, audioData.size - index)
+        write(audioData, index, size)
+        index += size
+    }
+}
