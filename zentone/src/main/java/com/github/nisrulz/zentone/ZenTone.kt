@@ -16,11 +16,12 @@
 package com.github.nisrulz.zentone
 
 import android.media.AudioTrack
+import com.github.nisrulz.zentone.internal.limitedParallelism
 import com.github.nisrulz.zentone.internal.sanitizeFrequencyValue
+import com.github.nisrulz.zentone.internal.writeOptimizedAudioData
 import com.github.nisrulz.zentone.wavegenerators.SineWaveGenerator
 import com.github.nisrulz.zentone.wavegenerators.WaveByteArrayGenerator
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
@@ -32,7 +33,7 @@ class ZenTone(
     channelMask: Int = DEFAULT_CHANNEL_MASK
 ) : CoroutineScope {
 
-    override val coroutineContext = Dispatchers.Default.limitedParallelism(1) + SupervisorJob()
+    override val coroutineContext = limitedParallelism() + SupervisorJob()
 
     init {
         setThreadPriority()
@@ -60,7 +61,7 @@ class ZenTone(
         volume: Int,
         waveByteArrayGenerator: WaveByteArrayGenerator = SineWaveGenerator
     ) {
-        if (!isPlaying && volume > 0 && frequency > 0.0f) {
+        if (isPlayingAtomic.compareAndSet(false, true) && volume > 0 && frequency > 0.0f) {
             setFrequency(frequency)
 
             audioTrack.apply {
@@ -74,12 +75,11 @@ class ZenTone(
                 launch {
                     while (isPlaying) {
                         val audioData = waveByteArrayGenerator.generate(this@ZenTone.frequency)
-                        write(audioData, 0, audioData.size)
+                        writeOptimizedAudioData(audioData)
                     }
-
-                    stop()
-                    cancel()
                     waveByteArrayGenerator.reset()
+                    stop()
+
                 }
 
             }
@@ -88,16 +88,21 @@ class ZenTone(
 
     /** Stop playing */
     fun stop() {
-        isPlayingAtomic.compareAndSet(true, false)
+        if (isPlayingAtomic.compareAndSet(true, false)) {
+            audioTrack.pause()  // Pause instantly instead of stopping abruptly
+            audioTrack.flush()  // Clear remaining audio data
+        }
     }
 
     /** Release and free up held resources */
     fun release() {
         stop()
         audioTrack.stopAndRelease()
+        cancel()
     }
 
     private fun setFrequency(frequency: Float) {
+        if (this.frequency == frequency) return
         this.frequency = sanitizeFrequencyValue(frequency)
     }
 }

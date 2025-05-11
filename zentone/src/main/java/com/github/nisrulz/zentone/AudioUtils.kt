@@ -54,6 +54,11 @@ fun AudioTrack.stopAndRelease() {
     }
 }
 
+/**
+ * Set volume level for audio track
+ *
+ * @param level 0-100
+ */
 fun AudioTrack.setVolumeLevel(level: Int) {
     // Sanity Check for max volume, set after write method to handle issue in Android 4.0.3
     var tempVolume = level.convertIntRangeToFloatRange()
