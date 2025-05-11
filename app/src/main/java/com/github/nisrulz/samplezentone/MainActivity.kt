@@ -53,6 +53,17 @@ class MainActivity : ComponentActivity() {
                     color = darkColorScheme().background,
                 ) {
                     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
+                    val snackBarHostState: SnackbarHostState = remember { SnackbarHostState() }
+                    val scope = rememberCoroutineScope()
+
+                    LaunchedEffect(Unit) {
+                        viewModel.event.collectLatest {
+                            when (it) {
+                                is Event.Error -> scope.showSnackBar(snackBarHostState, it.message)
+                            }
+
+                        }
+                    }
 
                     MainScreen(
                         viewState = viewState,

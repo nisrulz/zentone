@@ -2,8 +2,10 @@ package com.github.nisrulz.samplezentone.ui.screen.main
 
 import androidx.lifecycle.ViewModel
 import com.github.nisrulz.zentone.ZenTone
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 
 class MainScreenViewModel : ViewModel() {
@@ -16,13 +18,25 @@ class MainScreenViewModel : ViewModel() {
     private val _viewState = MutableStateFlow(ViewState(loading = true))
     val viewState = _viewState.asStateFlow()
 
+    private val _event = Channel<Event>(Channel.CONFLATED)
+    val event = _event.receiveAsFlow()
+
 
     init {
         setSuccess(freq, volume)
     }
 
-
     fun onPlayStop() {
+        if (freq == 0f) {
+            _event.trySend(Event.Error("Frequency is not set or is 0"))
+            return
+        }
+
+        if (volume == 0f) {
+            _event.trySend(Event.Error("Volume is not set or is 0"))
+            return
+        }
+
         if (zenTone.isPlaying) {
             zenTone.stop()
         } else {
@@ -71,5 +85,10 @@ data class ViewState(
     val loading: Boolean = false,
     val freq: Float = 0f,
     val volume: Float = 0f,
-    val isPlaying: Boolean = false
+    val isPlaying: Boolean = false,
+    val error: String? = null
 )
+
+sealed class Event {
+    data class Error(val message: String) : Event()
+}
