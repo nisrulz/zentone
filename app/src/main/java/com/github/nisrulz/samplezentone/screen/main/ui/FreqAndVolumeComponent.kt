@@ -1,4 +1,4 @@
-package com.github.nisrulz.samplezentone.ui.screen.main
+package com.github.nisrulz.samplezentone.screen.main.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -28,6 +28,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.github.nisrulz.samplezentone.R
+import com.github.nisrulz.samplezentone.screen.main.ViewState
 
 @Composable
 internal fun FreqAndVolumeComponent(

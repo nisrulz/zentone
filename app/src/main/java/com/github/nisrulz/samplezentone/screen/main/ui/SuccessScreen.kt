@@ -1,4 +1,4 @@
-package com.github.nisrulz.samplezentone.ui.screen.main
+package com.github.nisrulz.samplezentone.screen.main.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.github.nisrulz.samplezentone.screen.main.ViewState
 import com.github.nisrulz.samplezentone.ui.theme.AppTheme
 
 @Composable

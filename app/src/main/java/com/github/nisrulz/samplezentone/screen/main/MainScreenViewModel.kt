@@ -1,4 +1,4 @@
-package com.github.nisrulz.samplezentone.ui.screen.main
+package com.github.nisrulz.samplezentone.screen.main
 
 import androidx.lifecycle.ViewModel
 import com.github.nisrulz.zentone.ZenTone
@@ -28,12 +28,12 @@ class MainScreenViewModel : ViewModel() {
 
     fun onPlayStop() {
         if (freq == 0f) {
-            _event.trySend(Event.Error("Frequency is not set or is 0"))
+            sendErrorEvent("Frequency is not set or is 0")
             return
         }
 
         if (volume == 0f) {
-            _event.trySend(Event.Error("Volume is not set or is 0"))
+            sendErrorEvent("Volume is not set or is 0")
             return
         }
 
@@ -44,6 +44,10 @@ class MainScreenViewModel : ViewModel() {
         }
 
         setSuccess(freq, volume)
+    }
+
+    private fun sendErrorEvent(message: String) {
+        _event.trySend(Event.Error(message))
     }
 
     fun rePlayWithChangedValues() {

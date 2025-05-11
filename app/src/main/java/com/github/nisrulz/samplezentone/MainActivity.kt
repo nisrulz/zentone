@@ -30,9 +30,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.nisrulz.samplezentone.ui.screen.main.Event
-import com.github.nisrulz.samplezentone.ui.screen.main.MainScreen
-import com.github.nisrulz.samplezentone.ui.screen.main.MainScreenViewModel
+import com.github.nisrulz.samplezentone.screen.main.Event
+import com.github.nisrulz.samplezentone.screen.main.MainScreen
+import com.github.nisrulz.samplezentone.screen.main.MainScreenViewModel
 import com.github.nisrulz.samplezentone.ui.theme.AppTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
