@@ -24,9 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import kotlin.coroutines.CoroutineContext
+import java.util.concurrent.atomic.AtomicBoolean
 
 class ZenTone(
     sampleRate: Int = DEFAULT_SAMPLE_RATE,
@@ -34,11 +32,7 @@ class ZenTone(
     channelMask: Int = DEFAULT_CHANNEL_MASK
 ) : CoroutineScope {
 
-    private val mutex = Mutex()
-
-    private val job = SupervisorJob()
-    override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Default
+    override val coroutineContext = Dispatchers.Default.limitedParallelism(1) + SupervisorJob()
 
     init {
         setThreadPriority()
@@ -46,11 +40,13 @@ class ZenTone(
 
     private val audioTrack by lazy { initAudioTrack(sampleRate, encoding, channelMask) }
 
-    /** Boolean flag to check if ZenTone is playing tone */
-    var isPlaying = false
-
-    /** Current frequency in use by ZenTone.*/
     private var frequency: Float = 0.0F
+
+    private val isPlayingAtomic = AtomicBoolean(false)
+
+    /** Flag to track playback state */
+    val isPlaying
+        get() = isPlayingAtomic.get()
 
     /**
      * Start playing the tone as per passed config
@@ -73,38 +69,35 @@ class ZenTone(
                 setVolumeLevel(volume)
 
                 play()
-                isPlaying = true
+                isPlayingAtomic.compareAndSet(false, true)
 
                 launch {
-                    mutex.withLock {
-                        while (isPlaying) {
-                            val audioData = waveByteArrayGenerator.generate(this@ZenTone.frequency)
-                            write(audioData, 0, audioData.size)
-                        }
-
-                        stop()
-                        cancel()
-                        waveByteArrayGenerator.reset()
+                    while (isPlaying) {
+                        val audioData = waveByteArrayGenerator.generate(this@ZenTone.frequency)
+                        write(audioData, 0, audioData.size)
                     }
+
+                    stop()
+                    cancel()
+                    waveByteArrayGenerator.reset()
                 }
+
             }
         }
     }
 
-    private fun setFrequency(frequency: Float) {
-        this.frequency = sanitizeFrequencyValue(frequency)
-    }
-
-    /** Stop playing the tone */
+    /** Stop playing */
     fun stop() {
-        if (isPlaying) {
-            isPlaying = false
-        }
+        isPlayingAtomic.compareAndSet(true, false)
     }
 
-    /** Release and free up resources held by ZenTone */
+    /** Release and free up held resources */
     fun release() {
         stop()
         audioTrack.stopAndRelease()
+    }
+
+    private fun setFrequency(frequency: Float) {
+        this.frequency = sanitizeFrequencyValue(frequency)
     }
 }
