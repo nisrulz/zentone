@@ -2,7 +2,7 @@
 
 #region ---- Kotlin version dependent
 # https://github.com/JetBrains/kotlin/releases
-kotlin = "2.1.20"
+kotlin = "2.1.21"
 # https://github.com/google/ksp/releases
 ksp = "2.1.20-1.0.32"
 coroutinesCore = "1.9.0"
@@ -10,14 +10,14 @@ coroutinesCore = "1.9.0"
 
 #region ---- Android Core
 agp = "8.10.0"
-androidTools = "31.9.2"
+androidTools = "31.10.0"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.7"
+lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
-composeBom = "2025.04.01"
+composeBom = "2025.05.00"
 appcompat = "1.7.0"
 lottie = "6.6.6"
 material = "1.12.0"
@@ -25,7 +25,7 @@ cardview = "1.0.0"
 #endregion
 
 #region ---- Library/API
-mavenPublish = "0.30.0"
+mavenPublish = "0.32.0"
 dokka = "1.9.20"
 binaryCompatValidator = "0.16.3"
 #endregion
@@ -62,7 +62,7 @@ androidx-cardview = { group = "androidx.cardview", name = "cardview", version.re
 
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 
-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutinesCore"}
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutinesCore" }
 # Dokka Plugins
 dokka-android = { group = "org.jetbrains.dokka", name = "android-documentation-plugin", version.ref = "dokka" }
 dokka-versioning = { group = "org.jetbrains.dokka", name = "versioning-plugin", version.ref = "dokka" }

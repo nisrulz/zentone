@@ -12,9 +12,9 @@ Easily generate audio tone of a specific frequency and volume in Android.
 
 </center>
 
-## Screenshot of Sample App
+## Integration
 
-<img src=img/sc_1.png height=480 />
+[Checkout the integration docs](docs/integration.md)
 
 ## Use
 
@@ -23,6 +23,10 @@ Easily generate audio tone of a specific frequency and volume in Android.
 ## Development
 
 [Checkout the dev docs](/dev-docs.md)
+
+## Screenshot of Sample App
+
+<img src=img/sc_1.png height=480 />
 
 ## License
 

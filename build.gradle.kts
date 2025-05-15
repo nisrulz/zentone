@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -35,7 +35,7 @@ plugins {
 tasks.register("releaseToMavenLocal") {
     val moduleName = "zentone"
     doLast {
-        exec {
+        project.extensions.getByType(ExecOperations::class.java).exec {
             commandLine =
                 listOf(
                     "./gradlew",
@@ -50,7 +50,7 @@ tasks.register("releaseToMavenLocal") {
 tasks.register("releaseToMavenCentral") {
     val moduleName = "zentone"
     doLast {
-        exec {
+        project.extensions.getByType(ExecOperations::class.java).exec {
             commandLine =
                 listOf(
                     "./gradlew",
@@ -67,7 +67,7 @@ tasks.register("releaseToMavenCentral") {
 tasks.register("assembleDocs") {
     val moduleName = "zentone"
     doLast {
-        exec {
+        project.extensions.getByType(ExecOperations::class.java).exec {
             commandLine =
                 listOf(
                     "./gradlew",
