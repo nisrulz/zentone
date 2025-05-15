@@ -49,6 +49,11 @@ class ZenTone(
     val isPlaying
         get() = isPlayingAtomic.get()
 
+    private fun setFrequency(frequency: Float) {
+        if (this.frequency == frequency) return
+        this.frequency = sanitizeFrequencyValue(frequency)
+    }
+
     /**
      * Start playing the tone as per passed config
      *
@@ -87,8 +92,8 @@ class ZenTone(
     /** Stop playing */
     fun stop() {
         if (isPlayingAtomic.compareAndSet(true, false)) {
-            audioTrack.pause()  // Pause instantly instead of stopping abruptly
-            audioTrack.flush()  // Clear remaining audio data
+            audioTrack.pause() // Pause instantly instead of stopping abruptly
+            audioTrack.flush() // Clear remaining audio data
         }
     }
 
@@ -99,8 +104,11 @@ class ZenTone(
         coroutineContext.cancel()
     }
 
-    private fun setFrequency(frequency: Float) {
-        if (this.frequency == frequency) return
-        this.frequency = sanitizeFrequencyValue(frequency)
+    fun togglePlayback(frequency: Float, volume: Int) {
+        if (isPlaying) {
+            stop()
+        } else {
+            play(frequency, volume)
+        }
     }
 }
