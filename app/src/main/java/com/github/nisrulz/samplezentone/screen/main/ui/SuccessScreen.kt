@@ -3,6 +3,7 @@ package com.github.nisrulz.samplezentone.screen.main.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -23,15 +24,17 @@ internal fun SuccessScreen(
     onValueChangeFinished: () -> Unit = {}
 ) {
     Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.Center,
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Spacer(modifier = Modifier.height(48.dp))
+
         FreqAndVolumeComponent(
             viewState = viewState,
             onFreqChange = onFreqChange,
             onVolumeChange = onVolumeChange,
-            onValueChangeFinished = onValueChangeFinished,
+            onValueChangeFinished = onValueChangeFinished
         )
 
         Spacer(
@@ -42,10 +45,9 @@ internal fun SuccessScreen(
 
         PlayStopButton(
             isPlaying = viewState.isPlaying,
-            onClick = onFabClick,
+            onClick = onFabClick
         )
     }
-
 }
 
 @PreviewLightDark

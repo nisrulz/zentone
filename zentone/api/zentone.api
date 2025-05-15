@@ -24,6 +24,7 @@ public final class com/github/nisrulz/zentone/ZenTone : kotlinx/coroutines/Corou
 	public static synthetic fun play$default (Lcom/github/nisrulz/zentone/ZenTone;FILcom/github/nisrulz/zentone/wavegenerators/WaveByteArrayGenerator;ILjava/lang/Object;)V
 	public final fun release ()V
 	public final fun stop ()V
+	public final fun togglePlayback (FI)V
 }
 
 public final class com/github/nisrulz/zentone/wavegenerators/SineWaveGenerator : com/github/nisrulz/zentone/wavegenerators/WaveByteArrayGenerator {

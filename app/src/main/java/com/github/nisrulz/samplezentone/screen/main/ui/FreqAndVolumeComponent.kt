@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.github.nisrulz.samplezentone.R
 import com.github.nisrulz.samplezentone.screen.main.ViewState
@@ -33,12 +34,13 @@ import com.github.nisrulz.samplezentone.screen.main.ViewState
 @Composable
 internal fun FreqAndVolumeComponent(
     viewState: ViewState,
+    modifier: Modifier = Modifier,
     onFreqChange: (Float) -> Unit,
     onVolumeChange: (Float) -> Unit,
     onValueChangeFinished: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth()
     ) {
         Image(
             modifier = Modifier
@@ -77,7 +79,6 @@ internal fun FreqAndVolumeComponent(
     }
 }
 
-
 @Composable
 private fun FreqCard(
     value: Float,
@@ -85,7 +86,7 @@ private fun FreqCard(
     onValueChangeFinished: () -> Unit
 ) {
     Card(
-        modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
+        modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             TitleComponent("Frequency (Hz) [0-21000]")
@@ -102,7 +103,7 @@ private fun VolumeCard(
     onValueChangeFinished: () -> Unit
 ) {
     Card(
-        modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
+        modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             TitleComponent("Volume [0-100]")
@@ -118,7 +119,7 @@ private fun TitleComponent(title: String, fontSize: TextUnit = 24.sp) {
         modifier = Modifier.fillMaxWidth(),
         text = title,
         fontSize = fontSize,
-        color = Color.Gray,
+        color = Color.Gray
     )
 }
 
@@ -135,16 +136,26 @@ private fun ValueText(value: String) {
 }
 
 @Composable
-private fun WaveAnimation(isPlaying: Boolean) {
+private fun WaveAnimation(isPlaying: Boolean, modifier: Modifier = Modifier) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.waveform_anim))
 
-    LottieAnimation(
-        isPlaying = isPlaying,
+    val progress by animateLottieCompositionAsState(
         composition = composition,
-        modifier = Modifier
-            .fillMaxWidth(),
+        isPlaying = isPlaying,
         iterations = LottieConstants.IterateForever
     )
+
+    FadeInLottieAnimation(
+        composition = composition,
+        modifier = modifier,
+        placeholderHeight = 90.dp
+    ) {
+        LottieAnimation(
+            progress = { progress },
+            composition = composition,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
 }
 
 @Composable
