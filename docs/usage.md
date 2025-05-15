@@ -61,3 +61,14 @@ override fun onDestroy() {
 ```kt
 val isPlaying = zenTone.isPlaying
 ```
+
+## Toggle playback
+
+```kt
+zenTone.togglePlayback(frequency = 440f, volume = 10)
+```
+
+`togglePlayback()` accepts 3 arguments:
+
+1. `frequency`: Float
+2. `volume`: Int. It ranges from 0 to 100, where 0 is no audio and 100 is full volume.
