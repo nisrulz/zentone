@@ -15,113 +15,89 @@
  */
 package com.github.nisrulz.samplezentone
 
-import android.os.Build
 import android.os.Bundle
-import android.widget.SeekBar
-import android.widget.SeekBar.OnSeekBarChangeListener
-import androidx.appcompat.app.AppCompatActivity
-import com.github.nisrulz.samplezentone.databinding.ActivityMainBinding
-import com.github.nisrulz.zentone.MIN_FREQUENCY
-import com.github.nisrulz.zentone.ZenTone
-import com.github.nisrulz.zentone.wave_generators.SineWaveGenerator
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.github.nisrulz.samplezentone.screen.main.Event
+import com.github.nisrulz.samplezentone.screen.main.MainScreen
+import com.github.nisrulz.samplezentone.screen.main.MainScreenViewModel
+import com.github.nisrulz.samplezentone.ui.theme.AppTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
-
-    private val zenTone = ZenTone()
-
-    private lateinit var binding: ActivityMainBinding
+class MainActivity : ComponentActivity() {
+    private val viewModel by viewModels<MainScreenViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        binding.apply {
-            setContentView(root)
 
-            myFAB.setOnClickListener {
-                handlePlayPauseState(binding)
+        enableEdgeToEdge()
+
+        setContent {
+            AppTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = darkColorScheme().background,
+                ) {
+                    val viewState by viewModel.viewState.collectAsStateWithLifecycle()
+                    val snackBarHostState: SnackbarHostState = remember { SnackbarHostState() }
+                    val scope = rememberCoroutineScope()
+
+                    LaunchedEffect(Unit) {
+                        viewModel.event.collectLatest {
+                            when (it) {
+                                is Event.Error -> scope.showSnackBar(snackBarHostState, it.message)
+                            }
+
+                        }
+                    }
+
+                    MainScreen(
+                        viewState = viewState,
+                        onFabClick = {
+                            viewModel.onPlayStop()
+                        },
+                        onVolumeChange = {
+                            viewModel.setVolume(it)
+                        },
+                        onFreqChange = {
+                            viewModel.setFreq(it)
+                        },
+                        onValueChangeFinished = {
+                            viewModel.rePlayWithChangedValues()
+                        },
+                        snackBarHostState = snackBarHostState,
+                    )
+                }
             }
-            setupFreqSeekbar(this)
-            setupVolumeSeekbar(this)
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        zenTone.release()
+        viewModel.release()
     }
 
-    private fun setupFreqSeekbar(binding: ActivityMainBinding) {
-        binding.apply {
-            seekBarFreq.max = 22000
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                seekBarFreq.min = MIN_FREQUENCY.toInt()
-            }
-
-            seekBarFreq.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    editTextFreq.setText(progress.toString())
-                }
-
-                override fun onStartTrackingTouch(seekBar: SeekBar) {
-                    stopPlayingAudio(binding)
-                }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    handlePlayPauseState(binding)
-                }
-            })
-        }
-    }
-
-    private fun setupVolumeSeekbar(binding: ActivityMainBinding) {
-        binding.apply {
-            seekBarVolume.max = 100
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                seekBarVolume.min = 0
-            }
-
-            seekBarVolume.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    editTextVolume.setText(progress.toString())
-                }
-
-                override fun onStartTrackingTouch(seekBar: SeekBar) {
-                    stopPlayingAudio(binding)
-                }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    handlePlayPauseState(binding)
-                }
-            })
-        }
-    }
-
-    private fun stopPlayingAudio(binding: ActivityMainBinding) {
-        binding.apply {
-            zenTone.stop()
-            myFAB.setImageResource(R.drawable.play)
-        }
-    }
-
-    private fun handlePlayPauseState(binding: ActivityMainBinding) {
-        binding.apply {
-            when {
-                zenTone.isPlaying -> {
-                    stopPlayingAudio(this)
-                }
-                else -> {
-                    val freq = editTextFreq.text.toString().toFloat()
-                    val volume = editTextVolume.text.toString().toInt()
-                    zenTone.play(
-                        frequency = freq,
-                        volume = volume,
-                        waveByteArrayGenerator = SineWaveGenerator
-                    )
-                    myFAB.setImageResource(R.drawable.stop)
-                }
-            }
+    private fun CoroutineScope.showSnackBar(snackBarHostState: SnackbarHostState, text: String) {
+        this.launch {
+            snackBarHostState.showSnackbar(text)
         }
     }
 }
+
+
+
+

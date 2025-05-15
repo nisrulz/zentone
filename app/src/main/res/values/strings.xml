@@ -15,5 +15,5 @@
   -->
 
 <resources>
-  <string name="app_name">Zentone</string>
+    <string name="app_name">Zentone</string>
 </resources>

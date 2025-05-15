@@ -9,9 +9,22 @@ import android.os.Process
 import com.github.nisrulz.zentone.internal.convertIntRangeToFloatRange
 import com.github.nisrulz.zentone.internal.minBufferSize
 
-
+/**
+ * Set the thread priority to the highest possible value for AudioTrack.
+ * This method should be called before creating the AudioTrack object.
+ *
+ * @return true if the priority was set successfully, false otherwise.
+ */
 fun setThreadPriority() = Process.setThreadPriority(Process.THREAD_PRIORITY_AUDIO)
 
+/**
+ * Initialize the AudioTrack object with the specified parameters.
+ *
+ * @param sampleRate The sample rate of the audio track.
+ * @param encoding The encoding of the audio track.
+ * @param channelMask The channel mask of the audio track.
+ * @return The initialized AudioTrack object.
+ */
 @Suppress("DEPRECATION")
 fun initAudioTrack(sampleRate: Int, encoding: Int, channelMask: Int): AudioTrack {
     val bufferSize = minBufferSize(sampleRate)
@@ -54,10 +67,13 @@ fun AudioTrack.stopAndRelease() {
     }
 }
 
-@Suppress("DEPRECATION")
+/**
+ * Set volume level for audio track
+ *
+ * @param level 0-100
+ */
 fun AudioTrack.setVolumeLevel(level: Int) {
-    /* Sanity Check for max volume, set after write method
-    to handle issue in Android 4.0.3 */
+    // Sanity Check for max volume, set after write method to handle issue in Android 4.0.3
     var tempVolume = level.convertIntRangeToFloatRange()
     val maxVolume = AudioTrack.getMaxVolume()
     if (tempVolume > maxVolume) {
@@ -65,11 +81,5 @@ fun AudioTrack.setVolumeLevel(level: Int) {
     } else if (tempVolume < 0) {
         tempVolume = 0f
     }
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        // For API >= 21
-        setVolume(tempVolume)
-    } else {
-        // For API < 21
-        setStereoVolume(tempVolume, tempVolume)
-    }
+    setVolume(tempVolume)
 }

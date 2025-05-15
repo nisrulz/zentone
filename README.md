@@ -8,29 +8,32 @@
 
 Easily generate audio tone of a specific frequency and volume in Android.
 
+[Changelog](docs/changelog.md)
+
 </center>
 
-- 📕 [Documentation](https://nisrulz.com/zentone/)
-- [Changelog](docs/changelog.md)
-- Screenshot of Sample App
+## Integration
 
-    <img src=img/sc_1.png height=480 />
+[Checkout the integration docs](docs/integration.md)
 
-- Pull Requests
+## Use
 
-    Here are some basic rules to follow to ensure timely addition of your request:
+[Checkout the usage docs](docs/usage.md)
 
-    - If its a feature, bugfix, or anything please only change code to what you specify.
-    - Please keep PR titles easy to read and descriptive of changes, this will make them easier to merge :smile:
-    - Pull requests _must_ be made against `develop` branch. Any other branch (unless specified by the maintainers) will get rejected.
-    - Check for existing [issues](https://github.com/nisrulz/zentone/issues) first, before filing an issue.
+## Development
 
-- License
+[Checkout the dev docs](/dev-docs.md)
 
-    Copyright 2016 Nishant Srivastava
+## Screenshot of Sample App
 
-    Licensed under the Apache License, Version 2.0, [click here for the full license](/LICENSE).
+<img src=img/sc_1.png height=480 />
 
-- Logo
+## License
 
-    Credit: <a href="https://www.flaticon.com/free-icons/audio" title="audio icons">Audio icons created by Freepik - Flaticon</a>
+Copyright 2024 Nishant Srivastava
+
+[Licensed under the Apache License, Version 2.0](/LICENSE).
+
+## Logo
+
+Credit: <a href="https://www.flaticon.com/free-icons/audio" title="audio icons">Audio icons created by Freepik - Flaticon</a>
