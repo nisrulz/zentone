@@ -21,7 +21,6 @@ class MainScreenViewModel : ViewModel() {
     private val _event = Channel<Event>(Channel.CONFLATED)
     val event = _event.receiveAsFlow()
 
-
     init {
         setSuccess(freq, volume)
     }
@@ -37,11 +36,7 @@ class MainScreenViewModel : ViewModel() {
             return
         }
 
-        if (zenTone.isPlaying) {
-            zenTone.stop()
-        } else {
-            zenTone.play(freq, volume.toInt())
-        }
+        zenTone.togglePlayback(freq, volume.toInt())
 
         setSuccess(freq, volume)
     }
@@ -67,7 +62,6 @@ class MainScreenViewModel : ViewModel() {
         this.volume = volume
         setSuccess(freq, volume)
     }
-
 
     fun release() {
         zenTone.release()
