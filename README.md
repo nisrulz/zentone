@@ -8,12 +8,13 @@
 
 Easily generate audio tone of a specific frequency and volume in Android.
 
+[Changelog](docs/changelog.md)
+
 </center>
 
-- [Changelog](docs/changelog.md)
-- Screenshot of Sample App
+## Screenshot of Sample App
 
-    <img src=img/sc_1.png height=480 />
+<img src=img/sc_1.png height=480 />
 
 ## Use
 

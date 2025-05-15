@@ -2,23 +2,21 @@ package com.github.nisrulz.samplezentone.screen.main.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import com.github.nisrulz.samplezentone.screen.main.ViewState
 import com.github.nisrulz.samplezentone.ui.theme.AppTheme
+import com.github.nisrulz.samplezentone.ui.theme.AppTheme.dimension
 
 @Composable
 internal fun SuccessScreen(
     viewState: ViewState,
     modifier: Modifier = Modifier,
-    onFabClick: () -> Unit = {},
     onFreqChange: (Float) -> Unit = {},
     onVolumeChange: (Float) -> Unit = {},
     onValueChangeFinished: () -> Unit = {}
@@ -28,29 +26,35 @@ internal fun SuccessScreen(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(48.dp))
+        LogoComponent(Modifier.padding(top = dimension.dimen64))
 
-        FreqAndVolumeComponent(
-            viewState = viewState,
-            onFreqChange = onFreqChange,
-            onVolumeChange = onVolumeChange,
+        FreqSeekbarComponent(
+            modifier = Modifier.padding(dimension.dimen16),
+            value = viewState.freq,
+            onValueChange = {
+                onFreqChange(it)
+            },
             onValueChangeFinished = onValueChangeFinished
         )
 
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(32.dp)
+        VolumeSeekbarComponent(
+            modifier = Modifier.padding(horizontal = dimension.dimen16),
+            value = viewState.volume,
+            onValueChange = {
+                onVolumeChange(it)
+            },
+            onValueChangeFinished = onValueChangeFinished
         )
 
-        PlayStopButton(
-            isPlaying = viewState.isPlaying,
-            onClick = onFabClick
+        WaveAnimation(
+            modifier = Modifier.padding(top = dimension.dimen32),
+            isPlaying = viewState.isPlaying
         )
     }
 }
 
 @PreviewLightDark
+@PreviewScreenSizes
 @Composable
 private fun Preview() {
     AppTheme {
