@@ -16,7 +16,6 @@ import com.github.nisrulz.samplezentone.screen.main.ui.LoadingScreen
 import com.github.nisrulz.samplezentone.screen.main.ui.SuccessScreen
 import com.github.nisrulz.samplezentone.ui.theme.AppTheme
 
-
 @Composable
 internal fun MainScreen(
     viewState: ViewState,
@@ -25,11 +24,11 @@ internal fun MainScreen(
     onFabClick: () -> Unit,
     onFreqChange: (Float) -> Unit,
     onVolumeChange: (Float) -> Unit,
-    onValueChangeFinished: () -> Unit,
+    onValueChangeFinished: () -> Unit
 ) {
     Scaffold(
         modifier = modifier,
-        snackbarHost = { SnackbarHost(snackBarHostState) },
+        snackbarHost = { SnackbarHost(snackBarHostState) }
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -51,10 +50,7 @@ internal fun MainScreen(
             }
         }
     }
-
-
 }
-
 
 @PreviewLightDark
 @Composable
@@ -67,7 +63,7 @@ private fun Preview() {
             onFabClick = {},
             onVolumeChange = {},
             onFreqChange = {},
-            onValueChangeFinished = {})
+            onValueChangeFinished = {}
+        )
     }
 }
-
