@@ -27,7 +27,7 @@ cardview = "1.0.0"
 #region ---- Library/API
 mavenPublish = "0.32.0"
 dokka = "1.9.20"
-binaryCompatValidator = "0.16.3"
+binaryCompatValidator = "0.17.0"
 #endregion
 
 [libraries]
