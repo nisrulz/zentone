@@ -1,7 +1,7 @@
 package com.github.nisrulz.zentoneproject.info
 
 object LibraryInfo {
-    const val POM_VERSION = "2.2.0"
+    const val POM_VERSION = "2.3.0"
     const val POM_ARTIFACT_ID = "zentone"
     const val POM_NAME = "ZenTone"
     const val POM_DESCRIPTION =
