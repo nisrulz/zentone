@@ -1,0 +1,44 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators////PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/index.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/SineWaveGenerator///PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-sine-wave-generator/index.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/SineWaveGenerator/angle/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-sine-wave-generator/angle.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/SineWaveGenerator/angleStep/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-sine-wave-generator/angle-step.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/SineWaveGenerator/calculateData/#kotlin.Double#kotlin.Int/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-sine-wave-generator/calculate-data.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/SquareWaveGenerator///PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-square-wave-generator/index.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/SquareWaveGenerator/angle/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-square-wave-generator/angle.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/SquareWaveGenerator/angleStep/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-square-wave-generator/angle-step.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/SquareWaveGenerator/calculateData/#kotlin.Double#kotlin.Int/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-square-wave-generator/calculate-data.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/TriangleWaveGenerator///PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-triangle-wave-generator/index.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/TriangleWaveGenerator/angle/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-triangle-wave-generator/angle.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/TriangleWaveGenerator/angleStep/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-triangle-wave-generator/angle-step.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/TriangleWaveGenerator/calculateData/#kotlin.Double#kotlin.Int/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-triangle-wave-generator/calculate-data.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/WaveByteArrayGenerator///PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-wave-byte-array-generator/index.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/WaveByteArrayGenerator/angle/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-wave-byte-array-generator/angle.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/WaveByteArrayGenerator/angleStep/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-wave-byte-array-generator/angle-step.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/WaveByteArrayGenerator/calculateData/#kotlin.Double#kotlin.Int/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-wave-byte-array-generator/calculate-data.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/WaveByteArrayGenerator/generate/#kotlin.Float#kotlin.Int/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-wave-byte-array-generator/generate.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/WaveByteArrayGenerator/reset/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-wave-byte-array-generator/reset.html
+$dokka.location:com.github.nisrulz.zentone.wavegenerators/WaveByteArrayGenerator/setup/#kotlin.Float#kotlin.Int/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone.wavegenerators/-wave-byte-array-generator/setup.html
+$dokka.location:com.github.nisrulz.zentone////PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/index.html
+$dokka.location:com.github.nisrulz.zentone//DEFAULT_AMPLITUDE/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/-d-e-f-a-u-l-t_-a-m-p-l-i-t-u-d-e.html
+$dokka.location:com.github.nisrulz.zentone//DEFAULT_CHANNEL_MASK/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/-d-e-f-a-u-l-t_-c-h-a-n-n-e-l_-m-a-s-k.html
+$dokka.location:com.github.nisrulz.zentone//DEFAULT_ENCODING/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/-d-e-f-a-u-l-t_-e-n-c-o-d-i-n-g.html
+$dokka.location:com.github.nisrulz.zentone//DEFAULT_FREQUENCY_HZ/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/-d-e-f-a-u-l-t_-f-r-e-q-u-e-n-c-y_-h-z.html
+$dokka.location:com.github.nisrulz.zentone//DEFAULT_SAMPLE_RATE/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/-d-e-f-a-u-l-t_-s-a-m-p-l-e_-r-a-t-e.html
+$dokka.location:com.github.nisrulz.zentone//MIN_FREQUENCY/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/-m-i-n_-f-r-e-q-u-e-n-c-y.html
+$dokka.location:com.github.nisrulz.zentone//initAudioTrack/#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/init-audio-track.html
+$dokka.location:com.github.nisrulz.zentone//setThreadPriority/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/set-thread-priority.html
+$dokka.location:com.github.nisrulz.zentone//setVolumeLevel/android.media.AudioTrack#kotlin.Int/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/set-volume-level.html
+$dokka.location:com.github.nisrulz.zentone//stopAndRelease/android.media.AudioTrack#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/stop-and-release.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone///PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/-zen-tone/index.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone/ZenTone/#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/-zen-tone/-zen-tone.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone/coroutineContext/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/-zen-tone/coroutine-context.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone/isPlaying/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/-zen-tone/is-playing.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone/play/#kotlin.Float#kotlin.Int#com.github.nisrulz.zentone.wavegenerators.WaveByteArrayGenerator/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/-zen-tone/play.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone/release/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/-zen-tone/release.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone/stop/#/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/-zen-tone/stop.html
+$dokka.location:com.github.nisrulz.zentone/ZenTone/togglePlayback/#kotlin.Float#kotlin.Int/PointingToDeclaration/-zen-tone/com.github.nisrulz.zentone/-zen-tone/toggle-playback.html
+com.github.nisrulz.zentone
+com.github.nisrulz.zentone.wavegenerators
+

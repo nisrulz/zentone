@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.3.0 [16 May 2025]
+## 2.3.0 [15 May 2025]
 
 - 🐞 Removed tick sound when playing.
 - 🧹 Updated the sample app
