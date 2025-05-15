@@ -54,6 +54,9 @@ class ZenTone(
         this.frequency = sanitizeFrequencyValue(frequency)
     }
 
+    private fun isValidFrequencyVolume(frequency: Float, volume: Int): Boolean =
+        frequency > 0.0f && volume > 0
+
     /**
      * Start playing the tone as per passed config
      *
@@ -66,7 +69,9 @@ class ZenTone(
         volume: Int,
         waveByteArrayGenerator: WaveByteArrayGenerator = SineWaveGenerator
     ) {
-        if (isPlayingAtomic.compareAndSet(false, true) && volume > 0 && frequency > 0.0f) {
+        if (!isValidFrequencyVolume(frequency, volume)) return
+
+        if (isPlayingAtomic.compareAndSet(false, true)) {
             setFrequency(frequency)
 
             audioTrack.apply {
@@ -76,15 +81,16 @@ class ZenTone(
                 play()
 
                 launch {
-                    while (isPlaying) {
-                        val audioData = waveByteArrayGenerator.generate(this@ZenTone.frequency)
-                        writeOptimizedAudioData(audioData)
+                    try {
+                        while (isPlaying) {
+                            val audioData = waveByteArrayGenerator.generate(this@ZenTone.frequency)
+                            writeOptimizedAudioData(audioData)
+                        }
+                    } finally {
+                        waveByteArrayGenerator.reset()
+                        stop()
                     }
-                    waveByteArrayGenerator.reset()
-                    stop()
-
                 }
-
             }
         }
     }
