@@ -70,9 +70,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Modules
-    implementation(project(":zentone"))
+    implementation(projects.zentone)
 
     // Maven
-    // val zentoneVer = "1.0.1"
+    // val zentoneVer = "2.3.0"
     // implementation("com.github.nisrulz:zonetone:$zentoneVer")
 }
