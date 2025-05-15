@@ -102,7 +102,7 @@ val isOldVersion = false
 val versionOrdering = listOf(currentVersion)
 
 // Dokka output directory
-var dokkaOutputDir = "$rootDir/docs"
+var dokkaOutputDir = "$rootDir/docs/api"
 val previousVersionsDirectory =
     project.rootProject.projectDir
         .resolve("docs")
