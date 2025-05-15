@@ -97,9 +97,13 @@ class ZenTone(
 
     /** Stop playing */
     fun stop() {
-        if (isPlayingAtomic.compareAndSet(true, false)) {
-            audioTrack.pause() // Pause instantly instead of stopping abruptly
-            audioTrack.flush() // Clear remaining audio data
+        with(audioTrack) {
+            if (state != AudioTrack.STATE_INITIALIZED) return
+
+            if (isPlayingAtomic.compareAndSet(true, false)) {
+                pause() // Pause instantly instead of stopping abruptly
+                flush() // Clear remaining audio data
+            }
         }
     }
 
