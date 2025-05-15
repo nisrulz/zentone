@@ -12,9 +12,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import com.github.nisrulz.samplezentone.screen.main.ui.LoadingScreen
+import com.github.nisrulz.samplezentone.screen.main.ui.PlayStopButton
 import com.github.nisrulz.samplezentone.screen.main.ui.SuccessScreen
 import com.github.nisrulz.samplezentone.ui.theme.AppTheme
+import com.github.nisrulz.samplezentone.ui.theme.AppTheme.dimension
 
 @Composable
 internal fun MainScreen(
@@ -28,7 +31,14 @@ internal fun MainScreen(
 ) {
     Scaffold(
         modifier = modifier,
-        snackbarHost = { SnackbarHost(snackBarHostState) }
+        snackbarHost = { SnackbarHost(snackBarHostState) },
+        floatingActionButton = {
+            PlayStopButton(
+                modifier = Modifier.padding(dimension.dimen16),
+                isPlaying = viewState.isPlaying,
+                onClick = onFabClick
+            )
+        }
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -42,7 +52,6 @@ internal fun MainScreen(
             } else {
                 SuccessScreen(
                     viewState = viewState,
-                    onFabClick = onFabClick,
                     onVolumeChange = onVolumeChange,
                     onFreqChange = onFreqChange,
                     onValueChangeFinished = onValueChangeFinished
@@ -53,6 +62,7 @@ internal fun MainScreen(
 }
 
 @PreviewLightDark
+@PreviewScreenSizes
 @Composable
 private fun Preview() {
     AppTheme {
