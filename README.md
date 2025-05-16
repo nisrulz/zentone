@@ -21,7 +21,7 @@ Easily generate audio tone of a specific frequency and volume in Android.
 
 Licensed under the [Apache License, Version 2.0](/LICENSE).
 
-Copyright 2024 Nishant Srivastava
+Copyright 2016 Nishant Srivastava
 
 ## Logo
 
