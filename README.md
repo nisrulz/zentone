@@ -17,6 +17,10 @@ Easily generate audio tone of a specific frequency and volume in Android.
 
 ![Sample App](img/sc_1.png)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=nisrulz/zentone&type=Timeline)](https://www.star-history.com/#nisrulz/zentone&Timeline)
+
 ## License
 
 Licensed under the [Apache License, Version 2.0](/LICENSE).
