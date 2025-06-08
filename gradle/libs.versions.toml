@@ -30,6 +30,8 @@ dokka = "1.9.20"
 binaryCompatValidator = "0.17.0"
 #endregion
 
+zentone = "2.3.0"
+
 [libraries]
 
 # build-logic
@@ -66,6 +68,8 @@ coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-
 # Dokka Plugins
 dokka-android = { group = "org.jetbrains.dokka", name = "android-documentation-plugin", version.ref = "dokka" }
 dokka-versioning = { group = "org.jetbrains.dokka", name = "versioning-plugin", version.ref = "dokka" }
+
+zentone = { group = "com.github.nisrulz", name = "zentone", version.ref = "zentone" }
 
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
