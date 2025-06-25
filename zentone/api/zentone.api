@@ -65,13 +65,14 @@ public final class com/github/nisrulz/zentone/wavegenerators/TriangleWaveGenerat
 
 public abstract interface class com/github/nisrulz/zentone/wavegenerators/WaveByteArrayGenerator {
 	public abstract fun calculateData (DI)B
-	public abstract fun generate (FI)[B
+	public fun generate (FI)[B
+	public static synthetic fun generate$default (Lcom/github/nisrulz/zentone/wavegenerators/WaveByteArrayGenerator;FIILjava/lang/Object;)[B
 	public abstract fun getAngle ()D
 	public abstract fun getAngleStep ()D
-	public abstract fun reset ()V
+	public fun reset ()V
 	public abstract fun setAngle (D)V
 	public abstract fun setAngleStep (D)V
-	public abstract fun setup (FI)V
+	public fun setup (FI)V
 }
 
 public final class com/github/nisrulz/zentone/wavegenerators/WaveByteArrayGenerator$DefaultImpls {
