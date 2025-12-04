@@ -1,7 +1,5 @@
 package com.github.nisrulz.samplezentone.screen.main.ui
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -29,7 +27,11 @@ internal fun PlayStopButton(
                 tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
         } else {
-            Icon(Icons.Filled.PlayArrow, "Play")
+            Icon(
+                painterResource(R.drawable.play),
+                "Play",
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
+            )
         }
     }
 }
