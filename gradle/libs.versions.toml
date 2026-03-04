@@ -9,7 +9,7 @@ coroutinesCore = "1.10.2"
 #endregion
 
 #region ---- Android Core
-agp = "8.13.2"
+agp = "9.1.0"
 androidTools = "32.1.0"
 coreKtx = "1.17.0"
 junit = "4.13.2"
