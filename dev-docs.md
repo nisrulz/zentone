@@ -21,5 +21,6 @@
   ./gradlew assembleDocs
   ```
 
-  > [API Docs](http://nisrulz.com/zentone/) are automatically published from the Github
-  > repo, via GH Pages building from `docs` dir from `master` branch.
+  > API docs are generated into `docs/api` and published to
+  > [https://nisrulz.com/zentone/](https://nisrulz.com/zentone/) from the repository's `main`
+  > branch via GitHub Pages.
