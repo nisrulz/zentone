@@ -1,13 +1,5 @@
 # Dev Documentation
 
-## API Check
-
-- To check if the API compatibility is maintained i.e API surface is not changed:
-
-  ```sh
-  ./gradlew apiCheck
-  ```
-
 ## Publishing
 
 - To release library to MavenLocal(~/.m2/):
