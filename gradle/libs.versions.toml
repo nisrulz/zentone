@@ -26,7 +26,7 @@ cardview = "1.0.0"
 
 #region ---- Library/API
 mavenPublish = "0.36.0"
-dokka = "1.9.20"
+dokka = "2.1.0"
 #endregion
 
 zentone = "2.3.0"

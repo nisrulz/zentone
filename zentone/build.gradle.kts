@@ -15,8 +15,7 @@
  */
 
 import com.github.nisrulz.zentoneproject.info.LibraryInfo
-import org.jetbrains.dokka.DokkaConfiguration
-import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.dokka.gradle.engine.parameters.VisibilityModifier
 
 plugins {
     alias(libs.plugins.zentoneproject.android.library)
@@ -105,42 +104,22 @@ val previousVersionsDirectory =
     project.rootProject.projectDir
         .resolve("docs")
         .invariantSeparatorsPath
-val versioningConfiguration = """
-    {
-      "version": "$currentVersion",
-      "versionsOrdering": ${versionOrdering.map { "\"$it\"" }.toTypedArray().contentToString()},
-      "olderVersionsDir": "$previousVersionsDirectory",
-      "renderVersionsNavigationOnAllPages": true
-    }
-    """
 
 if (isOldVersion) {
     dokkaOutputDir = "$rootDir/docs/$currentVersion"
 }
 
-// Configure all single-project Dokka tasks at the same time,
-// such as dokkaHtml, dokkaJavadoc and dokkaGfm.
-tasks.withType<DokkaTask>().configureEach {
-    // Set module name displayed in the final output
+dokka {
     moduleName.set(LibraryInfo.POM_NAME)
-
-    // Suppress obvious functions like default toString or equals. Defaults to true
-    suppressObviousFunctions.set(false)
-
-    // Suppress all inherited members that were not overridden in a given class.
-    suppressInheritedMembers.set(true)
-
-    dokkaSourceSets.configureEach {
+    dokkaPublications.html {
         // Output directory
         outputDirectory.set(file(dokkaOutputDir))
+        suppressObviousFunctions.set(false)
+        suppressInheritedMembers.set(true)
+    }
 
+    dokkaSourceSets.configureEach {
         // Versioning Plugin
-        pluginsMapConfiguration.set(
-            mapOf(
-                "org.jetbrains.dokka.versioning.VersioningPlugin" to versioningConfiguration,
-            ),
-        )
-
         // Do not create index pages for empty packages
         skipEmptyPackages.set(true)
 
@@ -150,8 +129,8 @@ tasks.withType<DokkaTask>().configureEach {
         // Only include public and protected members of the package
         documentedVisibilities.set(
             setOf(
-                DokkaConfiguration.Visibility.PUBLIC,
-                DokkaConfiguration.Visibility.PROTECTED,
+                VisibilityModifier.Public,
+                VisibilityModifier.Protected,
             ),
         )
 
@@ -159,6 +138,15 @@ tasks.withType<DokkaTask>().configureEach {
         perPackageOption {
             matchingRegex.set(".*internal.*")
             suppress.set(true)
+        }
+    }
+
+    pluginsConfiguration {
+        versioning {
+            version.set(currentVersion)
+            olderVersionsDir.set(file(previousVersionsDirectory))
+            versionsOrdering.set(versionOrdering)
+            renderVersionsNavigationOnAllPages.set(true)
         }
     }
 }
