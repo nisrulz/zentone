@@ -77,7 +77,8 @@ val currentVersion = LibraryInfo.POM_VERSION
      was i.e 1.0.0
     - Set isOldVersion = true
     - Generate the docs by running ./gradlew assembleDocs
-    - You will find the docs generated at the rootDir/docs/version i.e rootDir/docs/1.0.0
+    - You will find the docs generated at rootDir/docs/versions/<version>
+      i.e. rootDir/docs/versions/1.0.0
     - Now change the current version to 1.0.1
     - Set isOldVersion = false
     - Generate the docs by running ./gradlew assembleDocs
@@ -102,11 +103,11 @@ val versionOrdering = listOf(currentVersion)
 var dokkaOutputDir = "$rootDir/docs/api"
 val previousVersionsDirectory =
     project.rootProject.projectDir
-        .resolve("docs")
+        .resolve("docs/versions")
         .invariantSeparatorsPath
 
 if (isOldVersion) {
-    dokkaOutputDir = "$rootDir/docs/$currentVersion"
+    dokkaOutputDir = "$rootDir/docs/versions/$currentVersion"
 }
 
 dokka {
@@ -119,7 +120,6 @@ dokka {
     }
 
     dokkaSourceSets.configureEach {
-        // Versioning Plugin
         // Do not create index pages for empty packages
         skipEmptyPackages.set(true)
 
