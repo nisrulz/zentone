@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
-
 plugins {
     alias(libs.plugins.zentoneproject.android.application)
 
@@ -31,11 +29,6 @@ android {
 
     composeCompiler {
         includeSourceInformation.set(true)
-        featureFlags.set(
-            setOf(
-                ComposeFeatureFlag.OptimizeNonSkippingGroups,
-            ),
-        )
     }
 }
 
