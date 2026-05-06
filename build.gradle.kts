@@ -62,6 +62,6 @@ tasks.register<GradleExecTask>("releaseToMavenCentral") {
 //region Docs
 tasks.register<GradleExecTask>("assembleDocs") {
     moduleName = "zentone"
-    gradleTask = "dokkaHtml"
+    gradleTask = "dokkaGeneratePublicationHtml"
 }
 //endregion
