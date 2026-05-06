@@ -26,6 +26,12 @@ class MainScreenViewModel : ViewModel() {
     }
 
     fun onPlayStop() {
+        if (zenTone.isPlaying) {
+            zenTone.stop()
+            setSuccess(freq, volume)
+            return
+        }
+
         if (freq == 0f) {
             sendErrorEvent("Frequency is not set or is 0")
             return

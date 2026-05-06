@@ -4,7 +4,7 @@
 rm -rf docs/api
 
 # Build the docs.
-./gradlew dokkaHtml
+./gradlew dokkaGeneratePublicationHtml
 
 echo ""
 echo "==========================================="
