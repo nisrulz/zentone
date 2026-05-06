@@ -31,6 +31,7 @@ android {
 
 dependencies {
     compileOnly(libs.coroutines.core)
+    testImplementation(libs.junit)
 }
 
 //region Maven Publishing
