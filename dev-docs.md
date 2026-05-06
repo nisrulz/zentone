@@ -22,5 +22,5 @@
   ```
 
   > API docs are generated into `docs/api` and published to
-  > [https://nisrulz.com/zentone/](https://nisrulz.com/zentone/) from the repository's `main`
+  > [https://nisrulz.com/zentone/](https://nisrulz.com/zentone/) from the repository's `master`
   > branch via GitHub Pages.
