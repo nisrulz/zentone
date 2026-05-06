@@ -20,61 +20,48 @@ plugins {
 
     alias(libs.plugins.android.library) apply false
 
-    alias(libs.plugins.kotlin.android) apply false
-
     alias(libs.plugins.maven.publish) apply false
 
     alias(libs.plugins.dokka) apply false
 
     alias(libs.plugins.compose.compiler) apply false
+}
 
-    alias(libs.plugins.binary.compatibility.validator) apply false
+abstract class GradleExecTask
+    @javax.inject.Inject
+    constructor(
+        private val execOps: ExecOperations,
+    ) : DefaultTask() {
+    lateinit var moduleName: String
+    lateinit var gradleTask: String
+
+    @TaskAction
+    fun run() {
+        execOps.exec {
+            commandLine(
+                "./gradlew",
+                ":$moduleName:$gradleTask",
+                "--no-configuration-cache",
+            )
+        }
+    }
 }
 
 //region Publishing Tasks
-tasks.register("releaseToMavenLocal") {
-    val moduleName = "zentone"
-    doLast {
-        project.extensions.getByType(ExecOperations::class.java).exec {
-            commandLine =
-                listOf(
-                    "./gradlew",
-                    ":$moduleName:assembleRelease",
-                    ":$moduleName:publishToMavenLocal",
-                    "--no-configuration-cache",
-                )
-        }
-    }
+tasks.register<GradleExecTask>("releaseToMavenLocal") {
+    moduleName = "zentone"
+    gradleTask = "publishToMavenLocal"
 }
 
-tasks.register("releaseToMavenCentral") {
-    val moduleName = "zentone"
-    doLast {
-        project.extensions.getByType(ExecOperations::class.java).exec {
-            commandLine =
-                listOf(
-                    "./gradlew",
-                    ":$moduleName:assembleRelease",
-                    ":$moduleName:publishToMavenCentral",
-                    "--no-configuration-cache",
-                )
-        }
-    }
+tasks.register<GradleExecTask>("releaseToMavenCentral") {
+    moduleName = "zentone"
+    gradleTask = "publishToMavenCentral"
 }
 //endregion
 
 //region Docs
-tasks.register("assembleDocs") {
-    val moduleName = "zentone"
-    doLast {
-        project.extensions.getByType(ExecOperations::class.java).exec {
-            commandLine =
-                listOf(
-                    "./gradlew",
-                    ":$moduleName:dokkaHtml",
-                    "--no-configuration-cache",
-                )
-        }
-    }
+tasks.register<GradleExecTask>("assembleDocs") {
+    moduleName = "zentone"
+    gradleTask = "dokkaHtml"
 }
 //endregion
