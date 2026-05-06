@@ -10,34 +10,36 @@ import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 
 /**
- * Set JVM toolchain
+ * Configure Kotlin toolchain for all Android modules.
  */
-private fun Project.configureKotlin(commonExtension: CommonExtension<*, *, *, *, *, *>) =
-    commonExtension.apply {
-        // https://kotlinlang.org/docs/gradle-configure-project.html#gradle-java-toolchains-support
-        // Note: Setting a toolchain via the kotlin extension updates the toolchain for Java compile
-        // tasks as well.
+private fun Project.configureKotlin(ext: CommonExtension) =
+    ext.apply {
         kotlinExtension.jvmToolchain(BuildSdkInfo.JVM_TARGET)
     }
 
 /**
- * Common configuration for Android modules
+ * Shared Android configuration for both Application and Library modules.
  */
-private fun Project.configureAndroid(commonExtension: CommonExtension<*, *, *, *, *, *>) =
-    commonExtension.apply {
-        compileSdk = BuildSdkInfo.COMPILE_SDK_VERSION
+private fun Project.configureAndroid(ext: CommonExtension) {
+    when (ext) {
+        is ApplicationExtension,
+        is LibraryExtension,
+        -> {
+            ext.apply {
+                compileSdk = BuildSdkInfo.COMPILE_SDK_VERSION
 
-        defaultConfig {
-            minSdk = BuildSdkInfo.MIN_SDK_VERSION
-
-            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                defaultConfig.minSdk = BuildSdkInfo.MIN_SDK_VERSION
+                defaultConfig.testInstrumentationRunner =
+                    "androidx.test.runner.AndroidJUnitRunner"
+            }
         }
-
-        configureKotlin(this)
     }
 
+    configureKotlin(ext)
+}
+
 /**
- *  Configuration for Android Application
+ * Android Application configuration.
  */
 internal fun Project.configureAndroidApp() =
     configure<ApplicationExtension> {
@@ -45,7 +47,7 @@ internal fun Project.configureAndroidApp() =
 
         namespace = ApplicationInfo.BASE_NAMESPACE
 
-        defaultConfig {
+        defaultConfig.apply {
             targetSdk = BuildSdkInfo.TARGET_SDK_VERSION
 
             versionCode = ApplicationInfo.VERSION_CODE
@@ -54,24 +56,16 @@ internal fun Project.configureAndroidApp() =
             vectorDrawables.useSupportLibrary = true
         }
 
-        packaging {
-            resources {
-                excludes += "/META-INF/{AL2.0,LGPL2.1}"
-            }
-        }
+        packaging.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
 
-        buildFeatures {
-            buildConfig = true
-        }
+        buildFeatures.buildConfig = true
 
-        buildTypes {
-            release {
-                isMinifyEnabled = false
-                proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro",
-                )
-            }
+        buildTypes.getByName("release").apply {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+            )
         }
     }
 
@@ -79,17 +73,13 @@ internal fun Project.configureAndroidLibrary() =
     configure<LibraryExtension> {
         configureAndroid(this)
 
-        defaultConfig {
-            consumerProguardFiles("consumer-rules.pro")
-        }
+        defaultConfig.consumerProguardFiles("consumer-proguard-rules.pro")
 
-        buildTypes {
-            release {
-                isMinifyEnabled = false
-                proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro",
-                )
-            }
+        buildTypes.getByName("release").apply {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+            )
         }
     }

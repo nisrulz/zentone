@@ -1,13 +1,5 @@
 # Dev Documentation
 
-## API Check
-
-- To check if the API compatibility is maintained i.e API surface is not changed:
-
-  ```sh
-  ./gradlew apiCheck
-  ```
-
 ## Publishing
 
 - To release library to MavenLocal(~/.m2/):
@@ -29,5 +21,6 @@
   ./gradlew assembleDocs
   ```
 
-  > [API Docs](http://nisrulz.com/zentone/) are automatically published from the Github
-  > repo, via GH Pages building from `docs` dir from `master` branch.
+  > API docs are generated into `docs/api` and published to
+  > [https://nisrulz.com/zentone/](https://nisrulz.com/zentone/) from the repository's `master`
+  > branch via GitHub Pages.
