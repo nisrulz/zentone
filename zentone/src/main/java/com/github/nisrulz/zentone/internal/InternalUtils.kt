@@ -43,6 +43,9 @@ internal fun minBufferSize(
         channelMask,
         encoding
     )
+    require(value > 0) {
+        "Could not determine a valid AudioTrack buffer size for sampleRate=$sampleRate, channelMask=$channelMask, encoding=$encoding. getMinBufferSize() returned $value."
+    }
     return value * factor
 }
 
@@ -92,7 +95,10 @@ internal fun AudioTrack.writeOptimizedAudioData(audioData: ByteArray) {
     var index = 0
     while (index < audioData.size) {
         val size = minOf(chunkSize, audioData.size - index)
-        write(audioData, index, size)
-        index += size
+        val bytesWritten = write(audioData, index, size)
+        if (bytesWritten <= 0) {
+            error("AudioTrack.write() failed with code $bytesWritten.")
+        }
+        index += bytesWritten
     }
 }
