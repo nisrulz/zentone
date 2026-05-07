@@ -9,24 +9,24 @@ import kotlin.math.PI
 class WaveByteArrayGeneratorTest {
 
     @Test
-    fun `setup uses full cycle angle step`() {
-        SineWaveGenerator.reset()
+    fun `generateFrameData advances angle with a full cycle step`() {
+        val generator = sineGenerator()
 
-        SineWaveGenerator.setup(freqOfTone = 200f, sampleRate = 44100)
+        val generatedFrame = generator.generateFrameData(
+            freqOfTone = 200f,
+            sampleRate = 44100,
+            frameCount = 1
+        )
 
-        assertEquals((2 * PI * 200.0) / 44100.0, SineWaveGenerator.angleStep, 1e-12)
+        assertEquals((2 * PI * 200.0) / 44100.0, generatedFrame.finalAngle, 1e-12)
     }
 
     @Test
     fun `generateFrameData emits little endian pcm16 samples`() {
-        SineWaveGenerator.reset()
-
-        val audioData = SineWaveGenerator.generateFrameData(
-            freqOfTone = 200f,
-            sampleRate = 44100,
+        val audioData = generateSineFrames(
             encoding = AudioFormat.ENCODING_PCM_16BIT,
             frameCount = 3
-        )
+        ).audioData
 
         assertArrayEquals(
             byteArrayOf(0x00, 0x00, -0x5a, 0x03, 0x4a, 0x07),
@@ -36,15 +36,11 @@ class WaveByteArrayGeneratorTest {
 
     @Test
     fun `generateFrameData duplicates pcm16 samples across stereo channels`() {
-        SineWaveGenerator.reset()
-
-        val audioData = SineWaveGenerator.generateFrameData(
-            freqOfTone = 200f,
-            sampleRate = 44100,
+        val audioData = generateSineFrames(
             encoding = AudioFormat.ENCODING_PCM_16BIT,
             frameCount = 2,
             channelCount = 2
-        )
+        ).audioData
 
         assertArrayEquals(
             byteArrayOf(0x00, 0x00, 0x00, 0x00, -0x5a, 0x03, -0x5a, 0x03),
@@ -54,14 +50,7 @@ class WaveByteArrayGeneratorTest {
 
     @Test
     fun `generateFrameData emits unsigned pcm8 samples`() {
-        SineWaveGenerator.reset()
-
-        val audioData = SineWaveGenerator.generateFrameData(
-            freqOfTone = 200f,
-            sampleRate = 44100,
-            encoding = AudioFormat.ENCODING_PCM_8BIT,
-            frameCount = 4
-        )
+        val audioData = generateSineFrames(encoding = AudioFormat.ENCODING_PCM_8BIT, frameCount = 4).audioData
 
         assertArrayEquals(
             byteArrayOf(-0x80, -0x7d, -0x79, -0x76),
@@ -71,22 +60,16 @@ class WaveByteArrayGeneratorTest {
 
     @Test
     fun `generateFrameData matches requested tone frequency`() {
-        SineWaveGenerator.reset()
-
         val sampleRate = 44100
         val targetFrequency = 200f
-        val audioData = SineWaveGenerator.generateFrameData(
+        val audioData = sineGenerator().generateFrameData(
             freqOfTone = targetFrequency,
             sampleRate = sampleRate,
             encoding = AudioFormat.ENCODING_PCM_16BIT,
             frameCount = sampleRate
-        )
+        ).audioData
 
-        val samples = ShortArray(audioData.size / 2) { index ->
-            val byteIndex = index * 2
-            ((audioData[byteIndex].toInt() and 0xFF) or
-                (audioData[byteIndex + 1].toInt() shl 8)).toShort()
-        }
+        val samples = audioData.toPcm16Samples()
 
         val risingZeroCrossings = mutableListOf<Int>()
         for (index in 1 until samples.size) {
@@ -105,4 +88,26 @@ class WaveByteArrayGeneratorTest {
 
         assertEquals(targetFrequency.toDouble(), measuredFrequency, 0.5)
     }
+
+    private fun sineGenerator() = SineWaveGenerator()
+
+    private fun generateSineFrames(
+        encoding: Int,
+        frameCount: Int,
+        channelCount: Int = 1
+    ): GeneratedAudioFrame =
+        sineGenerator().generateFrameData(
+            freqOfTone = 200f,
+            sampleRate = 44100,
+            encoding = encoding,
+            frameCount = frameCount,
+            channelCount = channelCount
+        )
+
+    private fun ByteArray.toPcm16Samples(): ShortArray =
+        ShortArray(size / 2) { index ->
+            val byteIndex = index * 2
+            ((this[byteIndex].toInt() and 0xFF) or
+                (this[byteIndex + 1].toInt() shl 8)).toShort()
+        }
 }

@@ -17,8 +17,8 @@ package com.github.nisrulz.zentone
 
 import android.media.AudioTrack
 import com.github.nisrulz.zentone.internal.bytesPerSample
-import com.github.nisrulz.zentone.internal.limitedParallelism
 import com.github.nisrulz.zentone.internal.channelCount
+import com.github.nisrulz.zentone.internal.limitedParallelism
 import com.github.nisrulz.zentone.internal.minBufferSize
 import com.github.nisrulz.zentone.internal.sanitizeFrequencyValue
 import com.github.nisrulz.zentone.internal.writeOptimizedAudioData
@@ -58,6 +58,7 @@ class ZenTone private constructor(
     private val audioTrack by lazy { initAudioTrack(sampleRate, encoding, channelMask) }
 
     private var frequency: Float = 0.0F
+    private var phaseAngle: Double = 0.0
 
     private val isPlayingAtomic = AtomicBoolean(false)
 
@@ -83,7 +84,7 @@ class ZenTone private constructor(
     fun play(
         frequency: Float,
         volume: Int,
-        waveByteArrayGenerator: WaveByteArrayGenerator = SineWaveGenerator
+        waveByteArrayGenerator: WaveByteArrayGenerator = SineWaveGenerator()
     ) {
         if (!isValidFrequencyVolume(frequency, volume)) return
 
@@ -99,18 +100,20 @@ class ZenTone private constructor(
                 launch {
                     try {
                         while (isPlaying) {
-                            val audioData =
+                            val generatedFrame =
                                 waveByteArrayGenerator.generate(
                                     freqOfTone = this@ZenTone.frequency,
                                     sampleRate = sampleRate,
                                     encoding = encoding,
                                     bufferSizeInBytes = bufferSizeInBytes,
-                                    channelCount = channelCount(channelMask)
+                                    channelCount = channelCount(channelMask),
+                                    initialAngle = phaseAngle
                                 )
-                            writeOptimizedAudioData(audioData)
+                            phaseAngle = generatedFrame.finalAngle
+                            writeOptimizedAudioData(generatedFrame.audioData)
                         }
                     } finally {
-                        waveByteArrayGenerator.reset()
+                        phaseAngle = 0.0
                         stop()
                     }
                 }
@@ -133,6 +136,7 @@ class ZenTone private constructor(
     /** Release and free up held resources */
     fun release() {
         stop()
+        phaseAngle = 0.0
         audioTrack.stopAndRelease()
         coroutineContext.cancel()
     }

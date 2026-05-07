@@ -10,10 +10,12 @@ import com.github.nisrulz.zentone.internal.minBufferSize
 import kotlin.math.PI
 import kotlin.math.roundToInt
 
-interface WaveByteArrayGenerator {
+data class GeneratedAudioFrame(
+    val audioData: ByteArray,
+    val finalAngle: Double
+)
 
-    var angle: Double
-    var angleStep: Double
+interface WaveByteArrayGenerator {
 
     /**
      * Generate byte data for tone
@@ -27,15 +29,17 @@ interface WaveByteArrayGenerator {
         sampleRate: Int = DEFAULT_SAMPLE_RATE,
         encoding: Int = DEFAULT_ENCODING,
         bufferSizeInBytes: Int = minBufferSize(sampleRate),
-        channelCount: Int = 1
-    ): ByteArray {
+        channelCount: Int = 1,
+        initialAngle: Double = 0.0
+    ): GeneratedAudioFrame {
         val bytesPerSample = bytesPerSample(encoding)
         return generateFrameData(
             freqOfTone = freqOfTone,
             sampleRate = sampleRate,
             encoding = encoding,
             frameCount = bufferSizeInBytes / (bytesPerSample * channelCount),
-            channelCount = channelCount
+            channelCount = channelCount,
+            initialAngle = initialAngle
         )
     }
 
@@ -44,14 +48,16 @@ interface WaveByteArrayGenerator {
         sampleRate: Int = DEFAULT_SAMPLE_RATE,
         encoding: Int = DEFAULT_ENCODING,
         frameCount: Int,
-        channelCount: Int = 1
-    ): ByteArray {
-        setup(freqOfTone, sampleRate)
+        channelCount: Int = 1,
+        initialAngle: Double = 0.0
+    ): GeneratedAudioFrame {
+        val angleStep = (2 * PI * freqOfTone) / sampleRate
         val bytesPerSample = bytesPerSample(encoding)
         val generatedSnd = ByteArray(frameCount * bytesPerSample * channelCount)
+        var angle = initialAngle
 
         repeat(frameCount) { frameIndex ->
-            val sample = calculateData(DEFAULT_AMPLITUDE)
+            val sample = calculateData(angle, DEFAULT_AMPLITUDE)
             repeat(channelCount) { channelIndex ->
                 val byteIndex =
                     (frameIndex * channelCount * bytesPerSample) +
@@ -63,40 +69,19 @@ interface WaveByteArrayGenerator {
                     encoding = encoding
                 )
             }
+            angle = incrementAngle(angle, angleStep)
         }
 
-        return generatedSnd
+        return GeneratedAudioFrame(audioData = generatedSnd, finalAngle = angle)
     }
 
     fun calculateData(angle: Double, amplitude: Int): Double
-
-
-    /**
-     * Setup required before generating a frame.
-     * Must be called at least once before calculateData.
-     */
-    fun setup(freqOfTone: Float, sampleRate: Int) {
-        angleStep = (2 * PI * freqOfTone) / sampleRate
-    }
-
-    /**
-     * Reset the generator to be able to start over from the start again.
-     */
-    fun reset() {
-        angle = 0.0
-    }
 
     private fun incrementAngle(
         angle: Double,
         angleStep: Double
     ): Double {
         return (angle + angleStep) % (2 * Math.PI)
-    }
-
-    private fun calculateData(amplitude: Int): Double {
-        val sample = calculateData(angle, amplitude)
-        angle = incrementAngle(angle, angleStep)
-        return sample
     }
 
     private fun writeSample(
