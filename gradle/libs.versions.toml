@@ -6,6 +6,7 @@ kotlin = "2.3.21"
 # https://github.com/google/ksp/releases
 ksp = "2.3.7"
 coroutinesCore = "1.10.2"
+mockk = "1.13.12"
 #endregion
 
 #region ---- Android Core
@@ -64,6 +65,8 @@ androidx-cardview = { group = "androidx.cardview", name = "cardview", version.re
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutinesCore" }
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesCore" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 # Dokka Plugins
 dokka-android = { group = "org.jetbrains.dokka", name = "android-documentation-plugin", version.ref = "dokka" }
 dokka-versioning = { group = "org.jetbrains.dokka", name = "versioning-plugin", version.ref = "dokka" }

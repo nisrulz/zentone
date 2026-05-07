@@ -31,7 +31,11 @@ android {
 
 dependencies {
     compileOnly(libs.coroutines.core)
+
+    testImplementation(libs.coroutines.core)
+    testImplementation(libs.coroutines.test)
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
 }
 
 //region Maven Publishing
@@ -91,7 +95,7 @@ val isOldVersion = false
 
 /*
  * Update this with older versions as new one is ready to be released. This maintains the order of
- * versions in the drop down. The first item is the one highlighted and selected on opening the
+ * versions in the drop-down. The first item is the one highlighted and selected on opening the
  * home page.
  *
  * Example:
