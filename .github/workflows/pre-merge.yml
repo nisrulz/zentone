@@ -18,34 +18,33 @@ on:
   # Allows to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
 
       - name: Set Up JDK
         uses: actions/setup-java@v5
         with:
           distribution: "temurin"
           java-version: 17
-          cache: "gradle"
 
       - name: Setup Gradle # Will automatically perform wrapper validation on each execution.
         uses: gradle/actions/setup-gradle@v6
-
-      - name: Cache dependencies
-        uses: actions/cache@v5
         with:
-          path: |
-            ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-m2
+          cache-read-only: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop' }}
 
-      - name: Run lint checks
-        run: ./gradlew lintRelease
-
-      - name: Run unit tests
-        run: ./gradlew testDebugUnitTest
+      - name: Run lint checks and unit tests
+        run: ./gradlew lintRelease testDebugUnitTest --parallel --build-cache
