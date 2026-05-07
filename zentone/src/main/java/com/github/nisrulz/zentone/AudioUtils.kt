@@ -61,6 +61,9 @@ fun initAudioTrack(sampleRate: Int, encoding: Int, channelMask: Int): AudioTrack
     }
 }
 
+internal fun initAudioSink(sampleRate: Int, encoding: Int, channelMask: Int): AudioSink =
+    AudioTrackSink(initAudioTrack(sampleRate, encoding, channelMask))
+
 fun AudioTrack.stopAndRelease() {
     try {
         stop()

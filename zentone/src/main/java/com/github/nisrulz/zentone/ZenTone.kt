@@ -27,16 +27,23 @@ import com.github.nisrulz.zentone.wavegenerators.WaveByteArrayGenerator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
+import kotlin.coroutines.CoroutineContext
 
-class ZenTone private constructor(
+class ZenTone internal constructor(
     private val sampleRate: Int = DEFAULT_SAMPLE_RATE,
     private val encoding: Int = DEFAULT_ENCODING,
-    private val channelMask: Int = DEFAULT_CHANNEL_MASK
+    private val channelMask: Int = DEFAULT_CHANNEL_MASK,
+    private val audioSinkFactory: (Int, Int, Int) -> AudioSink = ::initAudioSink,
+    private val threadPrioritySetter: () -> Unit = ::setThreadPriority,
+    private val bufferSizeInBytesOverride: Int? = null,
+    coroutineContext: CoroutineContext = limitedParallelism() + SupervisorJob()
 ) : CoroutineScope {
 
     constructor(
@@ -48,17 +55,18 @@ class ZenTone private constructor(
         channelMask = channelMask
     )
 
-    override val coroutineContext = limitedParallelism() + SupervisorJob()
+    override val coroutineContext = coroutineContext
 
     init {
-        setThreadPriority()
+        threadPrioritySetter()
         bytesPerSample(encoding)
         channelCount(channelMask)
     }
 
-    private val bufferSizeInBytes = minBufferSize(sampleRate, channelMask, encoding)
+    private val bufferSizeInBytes =
+        bufferSizeInBytesOverride ?: minBufferSize(sampleRate, channelMask, encoding)
 
-    private val audioTrack by lazy { initAudioTrack(sampleRate, encoding, channelMask) }
+    private val audioSink by lazy { audioSinkFactory(sampleRate, encoding, channelMask) }
 
     private var frequency: Float = 0.0F
     private var activePlaybackJob: Job? = null
@@ -92,7 +100,7 @@ class ZenTone private constructor(
     ) {
         if (!isValidFrequencyVolume(frequency, volume)) return
 
-        if (audioTrack.state != AudioTrack.STATE_INITIALIZED) return
+        if (audioSink.state != AudioTrack.STATE_INITIALIZED) return
 
         if (isPlayingAtomic.compareAndSet(false, true)) {
             setFrequency(frequency)
@@ -100,7 +108,7 @@ class ZenTone private constructor(
             val playbackChannelCount = channelCount(channelMask)
             val frameCount = bufferSizeInBytes / (bytesPerSample(encoding) * playbackChannelCount)
 
-            audioTrack.apply {
+            audioSink.apply {
                 setVolumeLevel(volume)
                 play()
 
@@ -138,12 +146,14 @@ class ZenTone private constructor(
 
     /** Stop playing */
     fun stop() {
-        with(audioTrack) {
+        with(audioSink) {
             if (state != AudioTrack.STATE_INITIALIZED) return
 
             if (isPlayingAtomic.compareAndSet(true, false)) {
                 playbackSessionId.incrementAndGet()
-                activePlaybackJob?.cancel()
+                runBlocking {
+                    activePlaybackJob?.cancelAndJoin()
+                }
                 activePlaybackJob = null
                 pause() // Pause instantly instead of stopping abruptly
                 flush() // Clear remaining audio data
@@ -154,7 +164,7 @@ class ZenTone private constructor(
     /** Release and free up held resources */
     fun release() {
         stop()
-        audioTrack.stopAndRelease()
+        audioSink.stopAndRelease()
         coroutineContext.cancel()
     }
 

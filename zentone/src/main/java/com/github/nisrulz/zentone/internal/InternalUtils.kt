@@ -2,6 +2,7 @@ package com.github.nisrulz.zentone.internal
 
 import android.media.AudioFormat
 import android.media.AudioTrack
+import com.github.nisrulz.zentone.AudioSink
 import com.github.nisrulz.zentone.BYTES_PER_PCM_8_SAMPLE
 import com.github.nisrulz.zentone.BYTES_PER_PCM_16_SAMPLE
 import com.github.nisrulz.zentone.DEFAULT_CHANNEL_MASK
@@ -90,7 +91,7 @@ internal fun limitedParallelism(n: Int = 1): CoroutineContext =
     Dispatchers.Default.limitedParallelism(n)
 
 
-internal fun AudioTrack.writeOptimizedAudioData(audioData: ByteArray) {
+internal fun AudioSink.writeOptimizedAudioData(audioData: ByteArray) {
     val chunkSize = maxOf(4096, audioData.size / 4)
     var index = 0
     while (index < audioData.size) {
