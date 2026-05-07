@@ -86,19 +86,24 @@ class ZenTone internal constructor(
     private fun isValidFrequencyVolume(frequency: Float, volume: Int): Boolean =
         frequency > 0.0f && volume > 0
 
+    private fun isValidPlaybackCount(playbackCount: Int): Boolean = playbackCount >= 0
+
     /**
      * Start playing the tone as per passed config
      *
      * @param frequency
      * @param volume
+     * @param playbackCount Number of times to write the generated signal. `0` keeps playing
+     * indefinitely.
      * @param waveByteArrayGenerator
      */
     fun play(
         frequency: Float,
         volume: Int,
+        playbackCount: Int = UNLIMITED_PLAYBACK_COUNT,
         waveByteArrayGenerator: WaveByteArrayGenerator = SineWaveGenerator()
     ) {
-        if (!isValidFrequencyVolume(frequency, volume)) return
+        if (!isValidFrequencyVolume(frequency, volume) || !isValidPlaybackCount(playbackCount)) return
 
         if (audioSink.state != AudioTrack.STATE_INITIALIZED) return
 
@@ -114,6 +119,7 @@ class ZenTone internal constructor(
 
                 activePlaybackJob = launch {
                     var phaseAngle = 0.0
+                    var remainingPlaybackCount = playbackCount
                     try {
                         while (isActive && isPlayingAtomic.get() && playbackSessionId.get() == playbackId) {
                             val audioData =
@@ -133,6 +139,15 @@ class ZenTone internal constructor(
                                     initialAngle = phaseAngle
                                 )
                             writeOptimizedAudioData(audioData)
+                            if (remainingPlaybackCount != UNLIMITED_PLAYBACK_COUNT) {
+                                remainingPlaybackCount -= 1
+                                if (remainingPlaybackCount == 0) {
+                                    isPlayingAtomic.set(false)
+                                    pause()
+                                    flush()
+                                    break
+                                }
+                            }
                         }
                     } finally {
                         if (playbackSessionId.get() == playbackId) {
@@ -168,15 +183,21 @@ class ZenTone internal constructor(
         coroutineContext.cancel()
     }
 
-    fun togglePlayback(frequency: Float, volume: Int) {
+    fun togglePlayback(
+        frequency: Float,
+        volume: Int,
+        playbackCount: Int = UNLIMITED_PLAYBACK_COUNT
+    ) {
         if (isPlaying) {
             stop()
         } else {
-            play(frequency, volume)
+            play(frequency, volume, playbackCount)
         }
     }
 
     companion object {
+        const val UNLIMITED_PLAYBACK_COUNT = 0
+
         fun advanced(
             sampleRate: SampleRate = DEFAULT_SAMPLE_RATE_OPTION,
             encoding: Int = DEFAULT_ENCODING,

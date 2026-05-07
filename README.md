@@ -16,6 +16,9 @@ val zenTone = ZenTone()
 zenTone.play(frequency = 440f, volume = 10)
 ```
 
+Use `playbackCount = 0` for unlimited playback, or pass a positive number such as `1` or `2`
+to stop automatically after that many generated signal writes.
+
 `ZenTone` accepts the following audio configuration parameters:
 
 - `sampleRate`: defaults to `SampleRate.Hz44100`; supported sample rates are exposed through the `SampleRate` enum

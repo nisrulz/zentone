@@ -24,11 +24,11 @@ internal class ZenToneConcurrencyTest {
         val audioSink = createBlockingAudioSink(playbackSync)
         val zenTone = createZenToneForTest(audioSink, coroutineContext = playbackCoroutineContext())
 
-        zenTone.play(TEST_FREQUENCY_HZ, TEST_VOLUME, SineWaveGenerator())
+        zenTone.play(TEST_FREQUENCY_HZ, TEST_VOLUME, waveByteArrayGenerator = SineWaveGenerator())
         playbackSync.firstWriteStarted.awaitOrFail()
         val stopThread = stopPlaybackAsync(zenTone)
         waitUntilOrFail { !zenTone.isPlaying }
-        zenTone.play(TEST_FREQUENCY_HZ, TEST_VOLUME, SineWaveGenerator())
+        zenTone.play(TEST_FREQUENCY_HZ, TEST_VOLUME, waveByteArrayGenerator = SineWaveGenerator())
         playbackSync.releaseWrites.countDown()
         playbackSync.secondWriteStarted.awaitOrFail()
         stopThread.join(DEFAULT_TIMEOUT_MILLIS)
@@ -59,11 +59,11 @@ internal class ZenToneConcurrencyTest {
 
         val zenTone = createZenToneForTest(audioSink, coroutineContext = playbackCoroutineContext())
 
-        zenTone.play(TEST_FREQUENCY_HZ, TEST_VOLUME, recordingGenerator)
+        zenTone.play(TEST_FREQUENCY_HZ, TEST_VOLUME, waveByteArrayGenerator = recordingGenerator)
         playbackSync.firstWriteStarted.awaitOrFail()
         val stopThread = stopPlaybackAsync(zenTone)
         waitUntilOrFail { !zenTone.isPlaying }
-        zenTone.play(TEST_FREQUENCY_HZ, TEST_VOLUME, recordingGenerator)
+        zenTone.play(TEST_FREQUENCY_HZ, TEST_VOLUME, waveByteArrayGenerator = recordingGenerator)
         playbackSync.releaseWrites.countDown()
         playbackSync.secondWriteStarted.awaitOrFail()
         stopThread.join(DEFAULT_TIMEOUT_MILLIS)

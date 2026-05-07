@@ -43,17 +43,19 @@ Currently, ZenTone supports `AudioFormat.ENCODING_PCM_8BIT` and `AudioFormat.ENC
 zenTone.play(frequency = 400f, volume = 2)
 ```
 
-`play()` accepts 3 arguments:
+`play()` accepts 4 arguments:
 
 1. `frequency`: Float
 2. `volume`: Int. It ranges from 0 to 100, where 0 is no audio and 100 is full volume.
-3. `waveByteArrayGenerator`: `WaveByteArrayGenerator = SineWaveGenerator()`, here `SineWaveGenerator()` is a sensible default.
+3. `playbackCount`: Int = `0`. Use `0` for unlimited playback, `1` to play the generated signal once, `2` to play it twice, and so on.
+4. `waveByteArrayGenerator`: `WaveByteArrayGenerator = SineWaveGenerator()`, here `SineWaveGenerator()` is a sensible default.
    - Possible options are `SineWaveGenerator()`, `SquareWaveGenerator()`, `TriangleWaveGenerator()`, `SawtoothWaveGenerator()` and `PulseWaveGenerator()`
 
 based on your requirement, you can pass a different value when calling `play()` i.e
 
 ```kt
 zenTone.play(frequency = 440f,
+            playbackCount = 1,
             volume = 10,
             waveByteArrayGenerator = SquareWaveGenerator())
 ```
@@ -99,3 +101,4 @@ zenTone.togglePlayback(frequency = 440f, volume = 10)
 
 1. `frequency`: Float
 2. `volume`: Int. It ranges from 0 to 100, where 0 is no audio and 100 is full volume.
+3. `playbackCount`: Int = `0`. Use `0` for unlimited playback or a positive number to stop automatically after that many signal writes.
