@@ -28,9 +28,9 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicBoolean
 
 class ZenTone(
-    sampleRate: Int = DEFAULT_SAMPLE_RATE,
-    encoding: Int = DEFAULT_ENCODING,
-    channelMask: Int = DEFAULT_CHANNEL_MASK
+    private val sampleRate: Int = DEFAULT_SAMPLE_RATE,
+    private val encoding: Int = DEFAULT_ENCODING,
+    private val channelMask: Int = DEFAULT_CHANNEL_MASK
 ) : CoroutineScope {
 
     override val coroutineContext = limitedParallelism() + SupervisorJob()
@@ -51,7 +51,7 @@ class ZenTone(
 
     private fun setFrequency(frequency: Float) {
         if (this.frequency == frequency) return
-        this.frequency = sanitizeFrequencyValue(frequency)
+        this.frequency = sanitizeFrequencyValue(frequency, sampleRate)
     }
 
     private fun isValidFrequencyVolume(frequency: Float, volume: Int): Boolean =
@@ -83,7 +83,11 @@ class ZenTone(
                 launch {
                     try {
                         while (isPlaying) {
-                            val audioData = waveByteArrayGenerator.generate(this@ZenTone.frequency)
+                            val audioData =
+                                waveByteArrayGenerator.generate(
+                                    freqOfTone = this@ZenTone.frequency,
+                                    sampleRate = sampleRate
+                                )
                             writeOptimizedAudioData(audioData)
                         }
                     } finally {
