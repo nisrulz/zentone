@@ -44,7 +44,7 @@ val zenTone = ZenTone.advanced(
 
 Waveform generation honors the configured sample rate, PCM encoding, and channel layout.
 
-Built-in wave generators are instantiated per playback, for example `SineWaveGenerator()` and `SquareWaveGenerator()`.
+Built-in wave generators are instantiated per playback, for example `SineWaveGenerator()`, `SquareWaveGenerator()`, `TriangleWaveGenerator()`, `SawtoothWaveGenerator()` and `PulseWaveGenerator()`.
 
 ## Checkout
 

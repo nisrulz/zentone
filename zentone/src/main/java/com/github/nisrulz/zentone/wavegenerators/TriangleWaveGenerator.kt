@@ -1,6 +1,7 @@
 package com.github.nisrulz.zentone.wavegenerators
 
 import kotlin.math.asin
+import kotlin.math.PI
 import kotlin.math.sin
 
 /**
@@ -13,6 +14,11 @@ import kotlin.math.sin
  */
 class TriangleWaveGenerator : WaveByteArrayGenerator {
     override fun calculateData(angle: Double, amplitude: Int): Double {
-        return amplitude * asin(sin(angle))
+        val sineValue = sin(angle)
+        // asin(sin(x)) produces the triangle shape; normalize it back to [-1, 1].
+        val normalizedTriangleValue = (2.0 / PI) * asin(sineValue)
+        val amplitudeScale = amplitude.toDouble()
+
+        return amplitudeScale * normalizedTriangleValue
     }
 }

@@ -12,6 +12,9 @@ import kotlin.math.sin
  */
 class SineWaveGenerator : WaveByteArrayGenerator {
     override fun calculateData(angle: Double, amplitude: Int): Double {
-        return amplitude * sin(angle)
+        val sineValue = sin(angle)
+        val amplitudeScale = amplitude.toDouble()
+
+        return amplitudeScale * sineValue
     }
 }

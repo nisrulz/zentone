@@ -48,7 +48,7 @@ zenTone.play(frequency = 400f, volume = 2)
 1. `frequency`: Float
 2. `volume`: Int. It ranges from 0 to 100, where 0 is no audio and 100 is full volume.
 3. `waveByteArrayGenerator`: `WaveByteArrayGenerator = SineWaveGenerator()`, here `SineWaveGenerator()` is a sensible default.
-   - Possible options are `SineWaveGenerator()`, `SquareWaveGenerator()` and `TriangleWaveGenerator()`
+   - Possible options are `SineWaveGenerator()`, `SquareWaveGenerator()`, `TriangleWaveGenerator()`, `SawtoothWaveGenerator()` and `PulseWaveGenerator()`
 
 based on your requirement, you can pass a different value when calling `play()` i.e
 
@@ -56,6 +56,14 @@ based on your requirement, you can pass a different value when calling `play()` 
 zenTone.play(frequency = 440f,
             volume = 10,
             waveByteArrayGenerator = SquareWaveGenerator())
+```
+
+You can also configure the pulse width explicitly:
+
+```kt
+zenTone.play(frequency = 440f,
+            volume = 10,
+            waveByteArrayGenerator = PulseWaveGenerator(dutyCycle = 0.25))
 ```
 
 ## Stop playing audio:
