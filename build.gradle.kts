@@ -46,22 +46,3 @@ abstract class GradleExecTask
         }
     }
 }
-
-//region Publishing Tasks
-tasks.register<GradleExecTask>("releaseToMavenLocal") {
-    moduleName = "zentone"
-    gradleTask = "publishToMavenLocal"
-}
-
-tasks.register<GradleExecTask>("releaseToMavenCentral") {
-    moduleName = "zentone"
-    gradleTask = "publishToMavenCentral"
-}
-//endregion
-
-//region Docs
-tasks.register<GradleExecTask>("assembleDocs") {
-    moduleName = "zentone"
-    gradleTask = "dokkaGeneratePublicationHtml"
-}
-//endregion

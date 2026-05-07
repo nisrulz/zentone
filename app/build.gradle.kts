@@ -65,6 +65,6 @@ dependencies {
     implementation(projects.zentone)
 
     // Maven
-    // val zentoneVer = "2.3.0"
-    // implementation("com.github.nisrulz:zonetone:$zentoneVer")
+    // val zentoneVer = "2.4.0"
+    // implementation("com.github.nisrulz:zentone:$zentoneVer")
 }

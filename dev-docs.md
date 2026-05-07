@@ -5,20 +5,20 @@
 - To release library to MavenLocal(~/.m2/):
 
   ```sh
-  ./gradlew releaseToMavenLocal
+  ./publish_local.sh
   ```
 
 - To release library
   to [MavenCentral](https://search.maven.org/artifact/com.github.nisrulz/zentone):
 
   ```sh
-  ./gradlew releaseToMavenCentral
+  ./publish_release.sh
   ```
 
 - To generate documentation:
 
   ```sh
-  ./gradlew assembleDocs
+  ./assemble_docs.sh
   ```
 
   > API docs are generated into `docs/api` and published to

@@ -74,19 +74,19 @@ val currentVersion = LibraryInfo.POM_VERSION
  How to Use
  __________
  When generating for the very first version i.e 1.0.0, set isOldVersion = false
-   - Generate the docs by running ./gradlew assembleDocs
+   - Generate the docs by running ./assemble_docs.sh
    - You will find the docs generated at the rootDir/docs
 
  When generating for the subsequent versions i.e 1.0.1, 1.1.0, 2.0.0, etc
     - First you need to preserve the old version docs, so keep the current version at what it
      was i.e 1.0.0
     - Set isOldVersion = true
-    - Generate the docs by running ./gradlew assembleDocs
+    - Generate the docs by running ./assemble_docs.sh
     - You will find the docs generated at rootDir/docs/versions/<version>
       i.e. rootDir/docs/versions/1.0.0
     - Now change the current version to 1.0.1
     - Set isOldVersion = false
-    - Generate the docs by running ./gradlew assembleDocs
+    - Generate the docs by running ./assemble_docs.sh
     - You will find the docs generated overwrite the last version with the new version 1.0.1
        at the rootDir/docs with navigation for the older version 1.0.0 (picked from 1.0.0 dir
        automatically while maintaining the order as specified in versionOrdering below)
