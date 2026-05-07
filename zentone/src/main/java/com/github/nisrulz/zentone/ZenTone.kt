@@ -87,12 +87,12 @@ class ZenTone private constructor(
     ) {
         if (!isValidFrequencyVolume(frequency, volume)) return
 
+        if (audioTrack.state != AudioTrack.STATE_INITIALIZED) return
+
         if (isPlayingAtomic.compareAndSet(false, true)) {
             setFrequency(frequency)
 
             audioTrack.apply {
-                if (state != AudioTrack.STATE_INITIALIZED) return
-
                 setVolumeLevel(volume)
                 play()
 
