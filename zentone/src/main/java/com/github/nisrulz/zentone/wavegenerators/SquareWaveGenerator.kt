@@ -16,8 +16,8 @@ object SquareWaveGenerator : WaveByteArrayGenerator {
     override var angle: Double = 0.0
     override var angleStep: Double = 0.0
 
-    override fun calculateData(angle: Double, amplitude: Int): Short {
-        return (amplitude * waveFunction(angle) * Short.MAX_VALUE).toInt().toShort()
+    override fun calculateData(angle: Double, amplitude: Int): Double {
+        return amplitude * waveFunction(angle)
     }
 
     private fun waveFunction(angle: Double): Double = sign(sin(angle))

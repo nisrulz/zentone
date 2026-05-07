@@ -6,6 +6,8 @@ import android.media.AudioManager
 import android.media.AudioTrack
 import android.os.Build
 import android.os.Process
+import com.github.nisrulz.zentone.internal.bytesPerSample
+import com.github.nisrulz.zentone.internal.channelCount
 import com.github.nisrulz.zentone.internal.convertIntRangeToFloatRange
 import com.github.nisrulz.zentone.internal.minBufferSize
 
@@ -27,7 +29,9 @@ fun setThreadPriority() = Process.setThreadPriority(Process.THREAD_PRIORITY_AUDI
  */
 @Suppress("DEPRECATION")
 fun initAudioTrack(sampleRate: Int, encoding: Int, channelMask: Int): AudioTrack {
-    val bufferSize = minBufferSize(sampleRate)
+    bytesPerSample(encoding)
+    channelCount(channelMask)
+    val bufferSize = minBufferSize(sampleRate, channelMask, encoding)
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         AudioTrack.Builder()
             .setAudioAttributes(

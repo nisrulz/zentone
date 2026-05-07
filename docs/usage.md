@@ -18,6 +18,8 @@ based on your requirement, you can pass a different value when instantiating `Ze
 val zenTone = ZenTone(channelMask = AudioFormat.CHANNEL_OUT_STEREO)
 ```
 
+Currently, ZenTone supports `AudioFormat.ENCODING_PCM_8BIT` and `AudioFormat.ENCODING_PCM_16BIT` output, with mono or stereo channel masks.
+
 ## Start playing audio with a frequency and volume:
 
 ```kt

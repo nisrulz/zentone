@@ -1,6 +1,9 @@
 package com.github.nisrulz.zentone.internal
 
+import android.media.AudioFormat
 import android.media.AudioTrack
+import com.github.nisrulz.zentone.BYTES_PER_PCM_8_SAMPLE
+import com.github.nisrulz.zentone.BYTES_PER_PCM_16_SAMPLE
 import com.github.nisrulz.zentone.DEFAULT_CHANNEL_MASK
 import com.github.nisrulz.zentone.DEFAULT_ENCODING
 import com.github.nisrulz.zentone.DEFAULT_SAMPLE_RATE
@@ -21,13 +24,41 @@ import kotlin.coroutines.CoroutineContext
  * @return The calculated minimum buffer size.
  */
 internal fun minBufferSize(sampleRate: Int = DEFAULT_SAMPLE_RATE, factor: Int = 1): Int {
+    return minBufferSize(
+        sampleRate = sampleRate,
+        channelMask = DEFAULT_CHANNEL_MASK,
+        encoding = DEFAULT_ENCODING,
+        factor = factor
+    )
+}
+
+internal fun minBufferSize(
+    sampleRate: Int = DEFAULT_SAMPLE_RATE,
+    channelMask: Int = DEFAULT_CHANNEL_MASK,
+    encoding: Int = DEFAULT_ENCODING,
+    factor: Int = 1
+): Int {
     val value = AudioTrack.getMinBufferSize(
         sampleRate,
-        DEFAULT_CHANNEL_MASK,
-        DEFAULT_ENCODING
+        channelMask,
+        encoding
     )
     return value * factor
 }
+
+internal fun channelCount(channelMask: Int): Int =
+    when (channelMask) {
+        AudioFormat.CHANNEL_OUT_MONO -> 1
+        AudioFormat.CHANNEL_OUT_STEREO -> 2
+        else -> error("Unsupported channel mask: $channelMask. Only mono and stereo are supported.")
+    }
+
+internal fun bytesPerSample(encoding: Int): Int =
+    when (encoding) {
+        AudioFormat.ENCODING_PCM_8BIT -> BYTES_PER_PCM_8_SAMPLE
+        AudioFormat.ENCODING_PCM_16BIT -> Short.SIZE_BYTES
+        else -> error("Unsupported encoding: $encoding. Only PCM 8-bit and PCM 16-bit are supported.")
+    }
 
 internal fun getMaxFrequency(sampleRate: Int) = sampleRate / 2.0f
 

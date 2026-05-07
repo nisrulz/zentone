@@ -1,5 +1,6 @@
 package com.github.nisrulz.zentone.wavegenerators
 
+import android.media.AudioFormat
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -23,11 +24,47 @@ class WaveByteArrayGeneratorTest {
         val audioData = SineWaveGenerator.generateFrameData(
             freqOfTone = 200f,
             sampleRate = 44100,
+            encoding = AudioFormat.ENCODING_PCM_16BIT,
             frameCount = 3
         )
 
         assertArrayEquals(
-            byteArrayOf(0x00, 0x00, -0x5b, 0x03, 0x4a, 0x07),
+            byteArrayOf(0x00, 0x00, -0x5a, 0x03, 0x4a, 0x07),
+            audioData
+        )
+    }
+
+    @Test
+    fun `generateFrameData duplicates pcm16 samples across stereo channels`() {
+        SineWaveGenerator.reset()
+
+        val audioData = SineWaveGenerator.generateFrameData(
+            freqOfTone = 200f,
+            sampleRate = 44100,
+            encoding = AudioFormat.ENCODING_PCM_16BIT,
+            frameCount = 2,
+            channelCount = 2
+        )
+
+        assertArrayEquals(
+            byteArrayOf(0x00, 0x00, 0x00, 0x00, -0x5a, 0x03, -0x5a, 0x03),
+            audioData
+        )
+    }
+
+    @Test
+    fun `generateFrameData emits unsigned pcm8 samples`() {
+        SineWaveGenerator.reset()
+
+        val audioData = SineWaveGenerator.generateFrameData(
+            freqOfTone = 200f,
+            sampleRate = 44100,
+            encoding = AudioFormat.ENCODING_PCM_8BIT,
+            frameCount = 4
+        )
+
+        assertArrayEquals(
+            byteArrayOf(-0x80, -0x7d, -0x79, -0x76),
             audioData
         )
     }
@@ -41,6 +78,7 @@ class WaveByteArrayGeneratorTest {
         val audioData = SineWaveGenerator.generateFrameData(
             freqOfTone = targetFrequency,
             sampleRate = sampleRate,
+            encoding = AudioFormat.ENCODING_PCM_16BIT,
             frameCount = sampleRate
         )
 

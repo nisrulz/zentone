@@ -16,7 +16,10 @@
 package com.github.nisrulz.zentone
 
 import android.media.AudioTrack
+import com.github.nisrulz.zentone.internal.bytesPerSample
 import com.github.nisrulz.zentone.internal.limitedParallelism
+import com.github.nisrulz.zentone.internal.channelCount
+import com.github.nisrulz.zentone.internal.minBufferSize
 import com.github.nisrulz.zentone.internal.sanitizeFrequencyValue
 import com.github.nisrulz.zentone.internal.writeOptimizedAudioData
 import com.github.nisrulz.zentone.wavegenerators.SineWaveGenerator
@@ -37,7 +40,11 @@ class ZenTone(
 
     init {
         setThreadPriority()
+        bytesPerSample(encoding)
+        channelCount(channelMask)
     }
+
+    private val bufferSizeInBytes = minBufferSize(sampleRate, channelMask, encoding)
 
     private val audioTrack by lazy { initAudioTrack(sampleRate, encoding, channelMask) }
 
@@ -86,7 +93,10 @@ class ZenTone(
                             val audioData =
                                 waveByteArrayGenerator.generate(
                                     freqOfTone = this@ZenTone.frequency,
-                                    sampleRate = sampleRate
+                                    sampleRate = sampleRate,
+                                    encoding = encoding,
+                                    bufferSizeInBytes = bufferSizeInBytes,
+                                    channelCount = channelCount(channelMask)
                                 )
                             writeOptimizedAudioData(audioData)
                         }
