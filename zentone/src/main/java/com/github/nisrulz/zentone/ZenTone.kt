@@ -16,34 +16,63 @@
 package com.github.nisrulz.zentone
 
 import android.media.AudioTrack
+import com.github.nisrulz.zentone.internal.bytesPerSample
+import com.github.nisrulz.zentone.internal.channelCount
 import com.github.nisrulz.zentone.internal.limitedParallelism
+import com.github.nisrulz.zentone.internal.minBufferSize
 import com.github.nisrulz.zentone.internal.sanitizeFrequencyValue
 import com.github.nisrulz.zentone.internal.writeOptimizedAudioData
 import com.github.nisrulz.zentone.wavegenerators.SineWaveGenerator
 import com.github.nisrulz.zentone.wavegenerators.WaveByteArrayGenerator
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicLong
+import kotlin.coroutines.CoroutineContext
 
-class ZenTone(
-    sampleRate: Int = DEFAULT_SAMPLE_RATE,
-    encoding: Int = DEFAULT_ENCODING,
-    channelMask: Int = DEFAULT_CHANNEL_MASK
+class ZenTone internal constructor(
+    private val sampleRate: Int = DEFAULT_SAMPLE_RATE,
+    private val encoding: Int = DEFAULT_ENCODING,
+    private val channelMask: Int = DEFAULT_CHANNEL_MASK,
+    private val audioSinkFactory: (Int, Int, Int) -> AudioSink = ::initAudioSink,
+    private val threadPrioritySetter: () -> Unit = ::setThreadPriority,
+    private val bufferSizeInBytesOverride: Int? = null,
+    coroutineContext: CoroutineContext = limitedParallelism() + SupervisorJob()
 ) : CoroutineScope {
 
-    override val coroutineContext = limitedParallelism() + SupervisorJob()
+    constructor(
+        sampleRate: SampleRate = DEFAULT_SAMPLE_RATE_OPTION,
+        channelMask: Int = DEFAULT_CHANNEL_MASK
+    ) : this(
+        sampleRate = sampleRate.hz,
+        encoding = DEFAULT_ENCODING,
+        channelMask = channelMask
+    )
+
+    override val coroutineContext = coroutineContext
 
     init {
-        setThreadPriority()
+        threadPrioritySetter()
+        bytesPerSample(encoding)
+        channelCount(channelMask)
     }
 
-    private val audioTrack by lazy { initAudioTrack(sampleRate, encoding, channelMask) }
+    private val bufferSizeInBytes =
+        bufferSizeInBytesOverride ?: minBufferSize(sampleRate, channelMask, encoding)
+
+    private val audioSink by lazy { audioSinkFactory(sampleRate, encoding, channelMask) }
 
     private var frequency: Float = 0.0F
+    private var activePlaybackJob: Job? = null
 
     private val isPlayingAtomic = AtomicBoolean(false)
+    private val playbackSessionId = AtomicLong(0)
 
     /** Flag to track playback state */
     val isPlaying
@@ -51,44 +80,79 @@ class ZenTone(
 
     private fun setFrequency(frequency: Float) {
         if (this.frequency == frequency) return
-        this.frequency = sanitizeFrequencyValue(frequency)
+        this.frequency = sanitizeFrequencyValue(frequency, sampleRate)
     }
 
     private fun isValidFrequencyVolume(frequency: Float, volume: Int): Boolean =
         frequency > 0.0f && volume > 0
+
+    private fun isValidPlaybackCount(playbackCount: Int): Boolean = playbackCount >= 0
 
     /**
      * Start playing the tone as per passed config
      *
      * @param frequency
      * @param volume
+     * @param playbackCount Number of times to write the generated signal. `0` keeps playing
+     * indefinitely.
      * @param waveByteArrayGenerator
      */
     fun play(
         frequency: Float,
         volume: Int,
-        waveByteArrayGenerator: WaveByteArrayGenerator = SineWaveGenerator
+        playbackCount: Int = UNLIMITED_PLAYBACK_COUNT,
+        waveByteArrayGenerator: WaveByteArrayGenerator = SineWaveGenerator()
     ) {
-        if (!isValidFrequencyVolume(frequency, volume)) return
+        if (!isValidFrequencyVolume(frequency, volume) || !isValidPlaybackCount(playbackCount)) return
+
+        if (audioSink.state != AudioTrack.STATE_INITIALIZED) return
 
         if (isPlayingAtomic.compareAndSet(false, true)) {
             setFrequency(frequency)
+            val playbackId = playbackSessionId.incrementAndGet()
+            val playbackChannelCount = channelCount(channelMask)
+            val frameCount = bufferSizeInBytes / (bytesPerSample(encoding) * playbackChannelCount)
 
-            audioTrack.apply {
-                if (state != AudioTrack.STATE_INITIALIZED) return
-
+            audioSink.apply {
                 setVolumeLevel(volume)
                 play()
 
-                launch {
+                activePlaybackJob = launch {
+                    var phaseAngle = 0.0
+                    var remainingPlaybackCount = playbackCount
                     try {
-                        while (isPlaying) {
-                            val audioData = waveByteArrayGenerator.generate(this@ZenTone.frequency)
+                        while (isActive && isPlayingAtomic.get() && playbackSessionId.get() == playbackId) {
+                            val audioData =
+                                waveByteArrayGenerator.generate(
+                                    freqOfTone = this@ZenTone.frequency,
+                                    sampleRate = sampleRate,
+                                    encoding = encoding,
+                                    bufferSizeInBytes = bufferSizeInBytes,
+                                    channelCount = playbackChannelCount,
+                                    initialAngle = phaseAngle
+                                )
+                            phaseAngle =
+                                waveByteArrayGenerator.nextAngle(
+                                    freqOfTone = this@ZenTone.frequency,
+                                    sampleRate = sampleRate,
+                                    frameCount = frameCount,
+                                    initialAngle = phaseAngle
+                                )
                             writeOptimizedAudioData(audioData)
+                            if (remainingPlaybackCount != UNLIMITED_PLAYBACK_COUNT) {
+                                remainingPlaybackCount -= 1
+                                if (remainingPlaybackCount == 0) {
+                                    isPlayingAtomic.set(false)
+                                    pause()
+                                    flush()
+                                    break
+                                }
+                            }
                         }
                     } finally {
-                        waveByteArrayGenerator.reset()
-                        stop()
+                        if (playbackSessionId.get() == playbackId) {
+                            activePlaybackJob = null
+                        }
                     }
                 }
             }
@@ -97,10 +161,15 @@ class ZenTone(
 
     /** Stop playing */
     fun stop() {
-        with(audioTrack) {
+        with(audioSink) {
             if (state != AudioTrack.STATE_INITIALIZED) return
 
             if (isPlayingAtomic.compareAndSet(true, false)) {
+                playbackSessionId.incrementAndGet()
+                runBlocking {
+                    activePlaybackJob?.cancelAndJoin()
+                }
+                activePlaybackJob = null
                 pause() // Pause instantly instead of stopping abruptly
                 flush() // Clear remaining audio data
             }
@@ -110,15 +179,34 @@ class ZenTone(
     /** Release and free up held resources */
     fun release() {
         stop()
-        audioTrack.stopAndRelease()
+        audioSink.stopAndRelease()
         coroutineContext.cancel()
     }
 
-    fun togglePlayback(frequency: Float, volume: Int) {
+    fun togglePlayback(
+        frequency: Float,
+        volume: Int,
+        playbackCount: Int = UNLIMITED_PLAYBACK_COUNT
+    ) {
         if (isPlaying) {
             stop()
         } else {
-            play(frequency, volume)
+            play(frequency, volume, playbackCount)
         }
+    }
+
+    companion object {
+        const val UNLIMITED_PLAYBACK_COUNT = 0
+
+        fun advanced(
+            sampleRate: SampleRate = DEFAULT_SAMPLE_RATE_OPTION,
+            encoding: Int = DEFAULT_ENCODING,
+            channelMask: Int = DEFAULT_CHANNEL_MASK
+        ): ZenTone =
+            ZenTone(
+                sampleRate = sampleRate.hz,
+                encoding = encoding,
+                channelMask = channelMask
+            )
     }
 }

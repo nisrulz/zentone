@@ -6,11 +6,10 @@
 val zenTone = ZenTone()
 ```
 
-`ZenTone` accepts 3 arguments, each having a sensible default:
+`ZenTone` accepts 2 commonly-used arguments, each having a sensible default:
 
-1. `sampleRate`: Int = 44100
-2. `encoding`: Int = AudioFormat.ENCODING_PCM_16BIT
-3. `channelMask`: Int = AudioFormat.CHANNEL_OUT_MONO
+1. `sampleRate`: `SampleRate` = `SampleRate.Hz44100`
+2. `channelMask`: Int = AudioFormat.CHANNEL_OUT_MONO
 
 based on your requirement, you can pass a different value when instantiating `ZenTone` i.e
 
@@ -18,25 +17,55 @@ based on your requirement, you can pass a different value when instantiating `Ze
 val zenTone = ZenTone(channelMask = AudioFormat.CHANNEL_OUT_STEREO)
 ```
 
+To choose a different supported sample rate:
+
+```kt
+val zenTone = ZenTone(sampleRate = SampleRate.Hz48000)
+```
+
+ZenTone uses `AudioFormat.ENCODING_PCM_16BIT` by default.
+
+If you need to override the encoding, use the advanced factory:
+
+```kt
+val zenTone = ZenTone.advanced(
+    sampleRate = SampleRate.Hz44100,
+    encoding = AudioFormat.ENCODING_PCM_8BIT,
+    channelMask = AudioFormat.CHANNEL_OUT_MONO
+)
+```
+
+Currently, ZenTone supports `AudioFormat.ENCODING_PCM_8BIT` and `AudioFormat.ENCODING_PCM_16BIT` output, with mono or stereo channel masks.
+
 ## Start playing audio with a frequency and volume:
 
 ```kt
 zenTone.play(frequency = 400f, volume = 2)
 ```
 
-`play()` accepts 3 arguments:
+`play()` accepts 4 arguments:
 
 1. `frequency`: Float
 2. `volume`: Int. It ranges from 0 to 100, where 0 is no audio and 100 is full volume.
-3. `waveByteArrayGenerator`: WaveByteArrayGenerator = SineWaveGenerator, here `SineWaveGenerator` is a sensible default.
-   - POssible options are `SineWaveGenerator`, `SquareWaveGenerator` and `TriangleWaveGenerator`
+3. `playbackCount`: Int = `0`. Use `0` for unlimited playback, `1` to play the generated signal once, `2` to play it twice, and so on.
+4. `waveByteArrayGenerator`: `WaveByteArrayGenerator = SineWaveGenerator()`, here `SineWaveGenerator()` is a sensible default.
+   - Possible options are `SineWaveGenerator()`, `SquareWaveGenerator()`, `TriangleWaveGenerator()`, `SawtoothWaveGenerator()` and `PulseWaveGenerator()`
 
 based on your requirement, you can pass a different value when calling `play()` i.e
 
 ```kt
 zenTone.play(frequency = 440f,
+            playbackCount = 1,
             volume = 10,
-            waveByteArrayGenerator = SquareWaveGenerator)
+            waveByteArrayGenerator = SquareWaveGenerator())
+```
+
+You can also configure the pulse width explicitly:
+
+```kt
+zenTone.play(frequency = 440f,
+            volume = 10,
+            waveByteArrayGenerator = PulseWaveGenerator(dutyCycle = 0.25))
 ```
 
 ## Stop playing audio:
@@ -72,3 +101,4 @@ zenTone.togglePlayback(frequency = 440f, volume = 10)
 
 1. `frequency`: Float
 2. `volume`: Int. It ranges from 0 to 100, where 0 is no audio and 100 is full volume.
+3. `playbackCount`: Int = `0`. Use `0` for unlimited playback or a positive number to stop automatically after that many signal writes.

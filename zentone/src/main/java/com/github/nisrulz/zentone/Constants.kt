@@ -3,8 +3,11 @@ package com.github.nisrulz.zentone
 import android.media.AudioFormat
 
 const val DEFAULT_SAMPLE_RATE = 44100
+val DEFAULT_SAMPLE_RATE_OPTION = SampleRate.Hz44100
 const val DEFAULT_CHANNEL_MASK = AudioFormat.CHANNEL_OUT_MONO
 const val DEFAULT_ENCODING = AudioFormat.ENCODING_PCM_16BIT
 const val MIN_FREQUENCY = 1.0f
 const val DEFAULT_FREQUENCY_HZ = 100.0f
 const val DEFAULT_AMPLITUDE = 1
+const val BYTES_PER_PCM_8_SAMPLE = 1
+const val BYTES_PER_PCM_16_SAMPLE = 2

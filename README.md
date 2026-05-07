@@ -8,6 +8,47 @@
 
 Easily generate audio tone of a specific frequency and volume in Android.
 
+## Quick Start
+
+```kt
+val zenTone = ZenTone()
+
+zenTone.play(frequency = 440f, volume = 10)
+```
+
+Use `playbackCount = 0` for unlimited playback, or pass a positive number such as `1` or `2`
+to stop automatically after that many generated signal writes.
+
+`ZenTone` accepts the following audio configuration parameters:
+
+- `sampleRate`: defaults to `SampleRate.Hz44100`; supported sample rates are exposed through the `SampleRate` enum
+- `channelMask`: defaults to `AudioFormat.CHANNEL_OUT_MONO`; supports `AudioFormat.CHANNEL_OUT_MONO` and `AudioFormat.CHANNEL_OUT_STEREO`
+
+Example:
+
+```kt
+val zenTone = ZenTone(
+    sampleRate = SampleRate.Hz48000,
+    channelMask = AudioFormat.CHANNEL_OUT_STEREO
+)
+```
+
+If you need to override the PCM encoding, use the advanced factory:
+
+```kt
+val zenTone = ZenTone.advanced(
+    sampleRate = SampleRate.Hz44100,
+    encoding = AudioFormat.ENCODING_PCM_8BIT,
+    channelMask = AudioFormat.CHANNEL_OUT_MONO
+)
+```
+
+> `encoding` defaults to `AudioFormat.ENCODING_PCM_16BIT`; supported values are `AudioFormat.ENCODING_PCM_8BIT` and `AudioFormat.ENCODING_PCM_16BIT`.
+
+Waveform generation honors the configured sample rate, PCM encoding, and channel layout.
+
+Built-in wave generators are instantiated per playback, for example `SineWaveGenerator()`, `SquareWaveGenerator()`, `TriangleWaveGenerator()`, `SawtoothWaveGenerator()` and `PulseWaveGenerator()`.
+
 ## Checkout
 
 - 📜 [Changelog](docs/changelog.md)

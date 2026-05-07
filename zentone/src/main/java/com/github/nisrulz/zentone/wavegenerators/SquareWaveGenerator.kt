@@ -1,6 +1,5 @@
 package com.github.nisrulz.zentone.wavegenerators
 
-import kotlin.math.sign
 import kotlin.math.sin
 
 /**
@@ -11,14 +10,13 @@ import kotlin.math.sin
  *
  * @see <a href="https://en.wikipedia.org/wiki/Square_wave">Wikipedia</a>
  */
-object SquareWaveGenerator : WaveByteArrayGenerator {
+class SquareWaveGenerator : WaveByteArrayGenerator {
+    override fun calculateData(angle: Double, amplitude: Int): Double {
+        val sineValue = sin(angle)
+        // A square wave snaps every sample to the positive or negative rail.
+        val squarePolarity = if (sineValue >= 0.0) 1.0 else -1.0
+        val amplitudeScale = amplitude.toDouble()
 
-    override var angle: Double = 0.0
-    override var angleStep: Double = 0.0
-
-    override fun calculateData(angle: Double, amplitude: Int): Byte {
-        return (amplitude * waveFunction(angle) * Byte.MAX_VALUE).toInt().toByte()
+        return amplitudeScale * squarePolarity
     }
-
-    private fun waveFunction(angle: Double): Double = sign(sin(angle))
 }
