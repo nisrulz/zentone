@@ -37,10 +37,10 @@ class ZenTone private constructor(
 ) : CoroutineScope {
 
     constructor(
-        sampleRate: Int = DEFAULT_SAMPLE_RATE,
+        sampleRate: SampleRate = DEFAULT_SAMPLE_RATE_OPTION,
         channelMask: Int = DEFAULT_CHANNEL_MASK
     ) : this(
-        sampleRate = sampleRate,
+        sampleRate = sampleRate.hz,
         encoding = DEFAULT_ENCODING,
         channelMask = channelMask
     )
@@ -147,12 +147,12 @@ class ZenTone private constructor(
 
     companion object {
         fun advanced(
-            sampleRate: Int = DEFAULT_SAMPLE_RATE,
+            sampleRate: SampleRate = DEFAULT_SAMPLE_RATE_OPTION,
             encoding: Int = DEFAULT_ENCODING,
             channelMask: Int = DEFAULT_CHANNEL_MASK
         ): ZenTone =
             ZenTone(
-                sampleRate = sampleRate,
+                sampleRate = sampleRate.hz,
                 encoding = encoding,
                 channelMask = channelMask
             )

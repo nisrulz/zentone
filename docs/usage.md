@@ -8,7 +8,7 @@ val zenTone = ZenTone()
 
 `ZenTone` accepts 2 commonly-used arguments, each having a sensible default:
 
-1. `sampleRate`: Int = 44100
+1. `sampleRate`: `SampleRate` = `SampleRate.Hz44100`
 2. `channelMask`: Int = AudioFormat.CHANNEL_OUT_MONO
 
 based on your requirement, you can pass a different value when instantiating `ZenTone` i.e
@@ -17,13 +17,19 @@ based on your requirement, you can pass a different value when instantiating `Ze
 val zenTone = ZenTone(channelMask = AudioFormat.CHANNEL_OUT_STEREO)
 ```
 
+To choose a different supported sample rate:
+
+```kt
+val zenTone = ZenTone(sampleRate = SampleRate.Hz48000)
+```
+
 ZenTone uses `AudioFormat.ENCODING_PCM_16BIT` by default.
 
 If you need to override the encoding, use the advanced factory:
 
 ```kt
 val zenTone = ZenTone.advanced(
-    sampleRate = 44100,
+    sampleRate = SampleRate.Hz44100,
     encoding = AudioFormat.ENCODING_PCM_8BIT,
     channelMask = AudioFormat.CHANNEL_OUT_MONO
 )
