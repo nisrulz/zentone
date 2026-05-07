@@ -18,8 +18,7 @@ zenTone.play(frequency = 440f, volume = 10)
 
 `ZenTone` accepts the following audio configuration parameters:
 
-- `sampleRate`: defaults to `44100`
-- `sampleRate`: defaults to `SampleRate.Hz44100`
+- `sampleRate`: defaults to `SampleRate.Hz44100`; supported sample rates are exposed through the `SampleRate` enum
 - `channelMask`: defaults to `AudioFormat.CHANNEL_OUT_MONO`; supports `AudioFormat.CHANNEL_OUT_MONO` and `AudioFormat.CHANNEL_OUT_STEREO`
 
 Example:
@@ -42,8 +41,6 @@ val zenTone = ZenTone.advanced(
 ```
 
 > `encoding` defaults to `AudioFormat.ENCODING_PCM_16BIT`; supported values are `AudioFormat.ENCODING_PCM_8BIT` and `AudioFormat.ENCODING_PCM_16BIT`.
-
-Supported sample rates are exposed through the `SampleRate` enum.
 
 Waveform generation honors the configured sample rate, PCM encoding, and channel layout.
 
