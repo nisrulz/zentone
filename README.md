@@ -8,6 +8,32 @@
 
 Easily generate audio tone of a specific frequency and volume in Android.
 
+## Quick Start
+
+```kt
+val zenTone = ZenTone()
+
+zenTone.play(frequency = 440f, volume = 10)
+```
+
+`ZenTone` accepts the following audio configuration parameters:
+
+- `sampleRate`: defaults to `44100`
+- `encoding`: supports `AudioFormat.ENCODING_PCM_8BIT` and `AudioFormat.ENCODING_PCM_16BIT`
+- `channelMask`: supports `AudioFormat.CHANNEL_OUT_MONO` and `AudioFormat.CHANNEL_OUT_STEREO`
+
+Example:
+
+```kt
+val zenTone = ZenTone(
+    sampleRate = 48000,
+    encoding = AudioFormat.ENCODING_PCM_16BIT,
+    channelMask = AudioFormat.CHANNEL_OUT_STEREO
+)
+```
+
+Waveform generation honors the configured sample rate, PCM encoding, and channel layout.
+
 ## Checkout
 
 - 📜 [Changelog](docs/changelog.md)
