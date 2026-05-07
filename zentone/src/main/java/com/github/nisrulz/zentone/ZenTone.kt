@@ -30,11 +30,20 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicBoolean
 
-class ZenTone(
+class ZenTone private constructor(
     private val sampleRate: Int = DEFAULT_SAMPLE_RATE,
     private val encoding: Int = DEFAULT_ENCODING,
     private val channelMask: Int = DEFAULT_CHANNEL_MASK
 ) : CoroutineScope {
+
+    constructor(
+        sampleRate: Int = DEFAULT_SAMPLE_RATE,
+        channelMask: Int = DEFAULT_CHANNEL_MASK
+    ) : this(
+        sampleRate = sampleRate,
+        encoding = DEFAULT_ENCODING,
+        channelMask = channelMask
+    )
 
     override val coroutineContext = limitedParallelism() + SupervisorJob()
 
@@ -134,5 +143,18 @@ class ZenTone(
         } else {
             play(frequency, volume)
         }
+    }
+
+    companion object {
+        fun advanced(
+            sampleRate: Int = DEFAULT_SAMPLE_RATE,
+            encoding: Int = DEFAULT_ENCODING,
+            channelMask: Int = DEFAULT_CHANNEL_MASK
+        ): ZenTone =
+            ZenTone(
+                sampleRate = sampleRate,
+                encoding = encoding,
+                channelMask = channelMask
+            )
     }
 }
