@@ -9,16 +9,17 @@ import kotlin.math.PI
 class WaveByteArrayGeneratorTest {
 
     @Test
-    fun `generateFrameData advances angle with a full cycle step`() {
+    fun `nextAngle advances with a full cycle step`() {
         val generator = sineGenerator()
 
-        val generatedFrame = generator.generateFrameData(
+        val nextAngle = generator.nextAngle(
             freqOfTone = 200f,
             sampleRate = 44100,
-            frameCount = 1
+            frameCount = 1,
+            initialAngle = 0.0
         )
 
-        assertEquals((2 * PI * 200.0) / 44100.0, generatedFrame.finalAngle, 1e-12)
+        assertEquals((2 * PI * 200.0) / 44100.0, nextAngle, 1e-12)
     }
 
     @Test
@@ -26,7 +27,7 @@ class WaveByteArrayGeneratorTest {
         val audioData = generateSineFrames(
             encoding = AudioFormat.ENCODING_PCM_16BIT,
             frameCount = 3
-        ).audioData
+        )
 
         assertArrayEquals(
             byteArrayOf(0x00, 0x00, -0x5a, 0x03, 0x4a, 0x07),
@@ -40,7 +41,7 @@ class WaveByteArrayGeneratorTest {
             encoding = AudioFormat.ENCODING_PCM_16BIT,
             frameCount = 2,
             channelCount = 2
-        ).audioData
+        )
 
         assertArrayEquals(
             byteArrayOf(0x00, 0x00, 0x00, 0x00, -0x5a, 0x03, -0x5a, 0x03),
@@ -50,7 +51,7 @@ class WaveByteArrayGeneratorTest {
 
     @Test
     fun `generateFrameData emits unsigned pcm8 samples`() {
-        val audioData = generateSineFrames(encoding = AudioFormat.ENCODING_PCM_8BIT, frameCount = 4).audioData
+        val audioData = generateSineFrames(encoding = AudioFormat.ENCODING_PCM_8BIT, frameCount = 4)
 
         assertArrayEquals(
             byteArrayOf(-0x80, -0x7d, -0x79, -0x76),
@@ -67,7 +68,7 @@ class WaveByteArrayGeneratorTest {
             sampleRate = sampleRate,
             encoding = AudioFormat.ENCODING_PCM_16BIT,
             frameCount = sampleRate
-        ).audioData
+        )
 
         val samples = audioData.toPcm16Samples()
 
@@ -95,7 +96,7 @@ class WaveByteArrayGeneratorTest {
         encoding: Int,
         frameCount: Int,
         channelCount: Int = 1
-    ): GeneratedAudioFrame =
+    ): ByteArray =
         sineGenerator().generateFrameData(
             freqOfTone = 200f,
             sampleRate = 44100,

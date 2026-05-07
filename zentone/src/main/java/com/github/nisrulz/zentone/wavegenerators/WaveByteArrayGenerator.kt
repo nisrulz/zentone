@@ -10,11 +10,6 @@ import com.github.nisrulz.zentone.internal.minBufferSize
 import kotlin.math.PI
 import kotlin.math.roundToInt
 
-data class GeneratedAudioFrame(
-    val audioData: ByteArray,
-    val finalAngle: Double
-)
-
 interface WaveByteArrayGenerator {
 
     /**
@@ -31,7 +26,7 @@ interface WaveByteArrayGenerator {
         bufferSizeInBytes: Int = minBufferSize(sampleRate),
         channelCount: Int = 1,
         initialAngle: Double = 0.0
-    ): GeneratedAudioFrame {
+    ): ByteArray {
         val bytesPerSample = bytesPerSample(encoding)
         return generateFrameData(
             freqOfTone = freqOfTone,
@@ -50,7 +45,7 @@ interface WaveByteArrayGenerator {
         frameCount: Int,
         channelCount: Int = 1,
         initialAngle: Double = 0.0
-    ): GeneratedAudioFrame {
+    ): ByteArray {
         val angleStep = (2 * PI * freqOfTone) / sampleRate
         val bytesPerSample = bytesPerSample(encoding)
         val generatedSnd = ByteArray(frameCount * bytesPerSample * channelCount)
@@ -72,10 +67,20 @@ interface WaveByteArrayGenerator {
             angle = incrementAngle(angle, angleStep)
         }
 
-        return GeneratedAudioFrame(audioData = generatedSnd, finalAngle = angle)
+        return generatedSnd
     }
 
     fun calculateData(angle: Double, amplitude: Int): Double
+
+    fun nextAngle(
+        freqOfTone: Float,
+        sampleRate: Int,
+        frameCount: Int,
+        initialAngle: Double
+    ): Double {
+        val angleStep = (2 * PI * freqOfTone) / sampleRate
+        return (initialAngle + (frameCount * angleStep)) % (2 * PI)
+    }
 
     private fun incrementAngle(
         angle: Double,

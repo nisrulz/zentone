@@ -25,10 +25,13 @@ import com.github.nisrulz.zentone.internal.writeOptimizedAudioData
 import com.github.nisrulz.zentone.wavegenerators.SineWaveGenerator
 import com.github.nisrulz.zentone.wavegenerators.WaveByteArrayGenerator
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicLong
 
 class ZenTone private constructor(
     private val sampleRate: Int = DEFAULT_SAMPLE_RATE,
@@ -58,9 +61,10 @@ class ZenTone private constructor(
     private val audioTrack by lazy { initAudioTrack(sampleRate, encoding, channelMask) }
 
     private var frequency: Float = 0.0F
-    private var phaseAngle: Double = 0.0
+    private var activePlaybackJob: Job? = null
 
     private val isPlayingAtomic = AtomicBoolean(false)
+    private val playbackSessionId = AtomicLong(0)
 
     /** Flag to track playback state */
     val isPlaying
@@ -92,29 +96,40 @@ class ZenTone private constructor(
 
         if (isPlayingAtomic.compareAndSet(false, true)) {
             setFrequency(frequency)
+            val playbackId = playbackSessionId.incrementAndGet()
+            val playbackChannelCount = channelCount(channelMask)
+            val frameCount = bufferSizeInBytes / (bytesPerSample(encoding) * playbackChannelCount)
 
             audioTrack.apply {
                 setVolumeLevel(volume)
                 play()
 
-                launch {
+                activePlaybackJob = launch {
+                    var phaseAngle = 0.0
                     try {
-                        while (isPlaying) {
-                            val generatedFrame =
+                        while (isActive && isPlayingAtomic.get() && playbackSessionId.get() == playbackId) {
+                            val audioData =
                                 waveByteArrayGenerator.generate(
                                     freqOfTone = this@ZenTone.frequency,
                                     sampleRate = sampleRate,
                                     encoding = encoding,
                                     bufferSizeInBytes = bufferSizeInBytes,
-                                    channelCount = channelCount(channelMask),
+                                    channelCount = playbackChannelCount,
                                     initialAngle = phaseAngle
                                 )
-                            phaseAngle = generatedFrame.finalAngle
-                            writeOptimizedAudioData(generatedFrame.audioData)
+                            phaseAngle =
+                                waveByteArrayGenerator.nextAngle(
+                                    freqOfTone = this@ZenTone.frequency,
+                                    sampleRate = sampleRate,
+                                    frameCount = frameCount,
+                                    initialAngle = phaseAngle
+                                )
+                            writeOptimizedAudioData(audioData)
                         }
                     } finally {
-                        phaseAngle = 0.0
-                        stop()
+                        if (playbackSessionId.get() == playbackId) {
+                            activePlaybackJob = null
+                        }
                     }
                 }
             }
@@ -127,6 +142,9 @@ class ZenTone private constructor(
             if (state != AudioTrack.STATE_INITIALIZED) return
 
             if (isPlayingAtomic.compareAndSet(true, false)) {
+                playbackSessionId.incrementAndGet()
+                activePlaybackJob?.cancel()
+                activePlaybackJob = null
                 pause() // Pause instantly instead of stopping abruptly
                 flush() // Clear remaining audio data
             }
@@ -136,7 +154,6 @@ class ZenTone private constructor(
     /** Release and free up held resources */
     fun release() {
         stop()
-        phaseAngle = 0.0
         audioTrack.stopAndRelease()
         coroutineContext.cancel()
     }
