@@ -30,7 +30,7 @@ mavenPublish = "0.36.0"
 dokka = "2.2.0"
 #endregion
 
-zentone = "2.3.0"
+zentone = "2.4.0"
 
 [libraries]
 
