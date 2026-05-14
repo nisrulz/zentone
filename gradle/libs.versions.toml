@@ -21,7 +21,7 @@ activityCompose = "1.13.0"
 composeBom = "2026.05.00"
 appcompat = "1.7.1"
 lottie = "6.7.1"
-material = "1.13.0"
+material = "1.14.0"
 cardview = "1.0.0"
 #endregion
 
