@@ -4,7 +4,7 @@
 # https://github.com/JetBrains/kotlin/releases
 kotlin = "2.3.21"
 # https://github.com/google/ksp/releases
-ksp = "2.3.8"
+ksp = "2.3.9"
 coroutinesCore = "1.11.0"
 mockk = "1.14.9"
 #endregion
