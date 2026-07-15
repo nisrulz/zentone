@@ -10,7 +10,7 @@ mockk = "1.14.11"
 #endregion
 
 #region ---- Android Core
-agp = "9.2.1"
+agp = "9.3.0"
 androidTools = "32.3.0"
 coreKtx = "1.19.0"
 junit = "4.13.2"
