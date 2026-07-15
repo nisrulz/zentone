@@ -2,7 +2,7 @@
 
 #region ---- Kotlin version dependent
 # https://github.com/JetBrains/kotlin/releases
-kotlin = "2.4.0"
+kotlin = "2.4.10"
 # https://github.com/google/ksp/releases
 ksp = "2.3.10"
 coroutinesCore = "1.11.0"
