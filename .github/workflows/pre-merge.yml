@@ -42,7 +42,7 @@ jobs:
           java-version: 17
 
       - name: Setup Gradle # Will automatically perform wrapper validation on each execution.
-        uses: gradle/actions/setup-gradle@v6
+        uses: gradle/actions/setup-gradle@v6.2.0
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop' }}
 
