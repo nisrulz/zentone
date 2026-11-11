@@ -6,7 +6,7 @@ kotlin = "2.4.21"
 # https://github.com/google/ksp/releases
 ksp = "2.3.13"
 coroutinesCore = "1.11.0"
-mockk = "1.14.11"
+mockk = "1.14.12"
 #endregion
 
 #region ---- Android Core
